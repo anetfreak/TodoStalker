@@ -61,9 +61,10 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 			intentService = new Intent(this, LocationService.class);
 			pendingIntent = PendingIntent.getService(this, 1, intentService, 0);
 			locationRequest = LocationRequest.create();
-			locationRequest.setInterval(5000);
+			locationRequest.setInterval(3000);
 			locationClient.requestLocationUpdates(locationRequest, pendingIntent);
 			serviceCreated = true;
+			startService(intentService);
 		}
 	}
 	
