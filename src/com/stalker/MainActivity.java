@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,10 +62,9 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 			intentService = new Intent(this, LocationService.class);
 			pendingIntent = PendingIntent.getService(this, 1, intentService, 0);
 			locationRequest = LocationRequest.create();
-			locationRequest.setInterval(3000);
+			locationRequest.setInterval(5000);
 			locationClient.requestLocationUpdates(locationRequest, pendingIntent);
 			serviceCreated = true;
-			startService(intentService);
 		}
 	}
 	
@@ -133,5 +133,10 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 				return "Address not found";
 			}
 		}
+	}
+	
+	public void addClick(View v){
+		Intent i = new Intent(MainActivity.this, AddToDoActivity.class);
+		startActivity(i);
 	}
 }
