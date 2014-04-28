@@ -9,9 +9,9 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     
-    <string name="actn1">Action 1</string>
-    <string name="actn2">Action 2</string>
-    <string name="actn3">Action 3</string>
-    <string name="actn4">Action 4</string>
+    <string name="actn1">Start Service</string>
+    <string name="actn2">Add TODO</string>
+    <string name="actn3">View Map</string>
+    <string name="actn4">List TODOs</string>
 
 </resources>

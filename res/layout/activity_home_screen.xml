@@ -62,13 +62,13 @@
                     android:layout_height="match_parent"
                     android:layout_margin="0dp"
                     android:layout_weight="1"
-                    android:background="#FDFCFC"
+                    android:background="#FDFDFD"
+                    android:minWidth="48dp"
                     android:text="@string/actn1"
                     android:textColor="#000000" />
 
         <Button
             android:id="@+id/Button01"
-            style="@style/ButtonBarButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="0dp"
