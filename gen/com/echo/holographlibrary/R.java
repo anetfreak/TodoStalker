@@ -8,34 +8,34 @@ package com.echo.holographlibrary;
 
 public final class R {
 	public static final class attr {
-		public static final int barAxisColor = 0x7f010007;
-		public static final int innerCircleRatio = 0x7f010000;
-		public static final int lineAxisColor = 0x7f010003;
-		public static final int orientation = 0x7f010008;
-		public static final int slicePadding = 0x7f010001;
-		public static final int strokeColor = 0x7f010002;
-		public static final int strokeSpacing = 0x7f010005;
-		public static final int strokeWidth = 0x7f010004;
-		public static final int useDip = 0x7f010006;
+		public static final int barAxisColor = 0x7f01002a;
+		public static final int innerCircleRatio = 0x7f010023;
+		public static final int lineAxisColor = 0x7f010026;
+		public static final int orientation = 0x7f01002b;
+		public static final int slicePadding = 0x7f010024;
+		public static final int strokeColor = 0x7f010025;
+		public static final int strokeSpacing = 0x7f010028;
+		public static final int strokeWidth = 0x7f010027;
+		public static final int useDip = 0x7f010029;
 	}
 	public static final class drawable {
-		public static final int popup_black = 0x7f020080;
+		public static final int popup_black = 0x7f0200d8;
 	}
 	public static final class id {
-		public static final int horizontal = 0x7f040000;
-		public static final int vertical = 0x7f040001;
+		public static final int horizontal = 0x7f090005;
+		public static final int vertical = 0x7f090006;
 	}
 	public static final class styleable {
-		public static final int[] BarGraph = { 0x7f010007, 0x7f010008 };
+		public static final int[] BarGraph = { 0x7f01002a, 0x7f01002b };
 		public static final int BarGraph_barAxisColor = 0;
 		public static final int BarGraph_orientation = 1;
-		public static final int[] LineGraph = { 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006 };
+		public static final int[] LineGraph = { 0x7f010025, 0x7f010026, 0x7f010027, 0x7f010028, 0x7f010029 };
 		public static final int LineGraph_lineAxisColor = 1;
 		public static final int LineGraph_strokeColor = 0;
 		public static final int LineGraph_strokeSpacing = 3;
 		public static final int LineGraph_strokeWidth = 2;
 		public static final int LineGraph_useDip = 4;
-		public static final int[] PieGraph = { 0x7f010000, 0x7f010001 };
+		public static final int[] PieGraph = { 0x7f010023, 0x7f010024 };
 		public static final int PieGraph_innerCircleRatio = 0;
 		public static final int PieGraph_slicePadding = 1;
 	}
