@@ -18,13 +18,14 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	//DB Name
 	private static final String DATABASE_NAME = "todosDB.db";
 	
+	private SQLiteDatabase db;
 	//Tables name
 	private static final String TABLE_PRIORITY = "priority";
 	private static final String TABLE_CATEGORY = "category";
 	private static final String TABLE_TODO = "todoList";
 	
 	private static final String KEY_ID = "id";
-	
+	public static final String ROW_ID = "rowid _id";
 	//Priority Table
 	private static final String KEY_PRIORITYNAME = "priority_name";
 	private static final String KEY_PRIORITYNUM = "priority_num";
@@ -36,11 +37,11 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			"Bank/ATM","Fuel","Study","Work","Other"};
 	
 	//ToDo List Table
-	private static final String KEY_NOTE = "note";
-	private static final String KEY_CATEGORYID = "category_id";
-	private static final String KEY_PRIORITYID = "category_id";
-	private static final String KEY_DUE = "due_date";
-	private static final String KEY_STATUS = "status";
+	public static final String KEY_NOTE = "note";
+	public static final String KEY_CATEGORYID = "category_id";
+	public static final String KEY_PRIORITYID = "category_id";
+	public static final String KEY_DUE = "due_date";
+	public static final String KEY_STATUS = "status";
 	
 	/*//Priority table CREATE statements
 	private static final String CREATE_TABLE_PRIORITY = "CREATE TABLE " + 
@@ -51,6 +52,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	private static final String CREATE_TABLE_CATEGORY = "CREATE TABLE " + 
 			TABLE_CATEGORY + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			KEY_CATEGORYNAME + " TEXT" + ")";
+	
+	public static final String[] ALL_KEYS = new String[] {ROW_ID, KEY_NOTE, KEY_CATEGORYID, KEY_PRIORITYID, KEY_DUE, KEY_STATUS};
+
 		
 	/*//ToDo table CREATE statements
 	private static final String CREATE_TABLE_TODO = "CREATE TABLE " + 
@@ -135,6 +139,29 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		db.execSQL(INSERT_CATEGORY_9);
 		db.execSQL(INSERT_CATEGORY_10);*/
 	}
+	
+	// Open the database connection.
+			public DatabaseHandler open() {
+				db = getWritableDatabase();
+				return this;
+			}
+			
+			
+			// Return all data in the database.
+			public Cursor getAllRows() {
+				String where = null;
+				Cursor c = 	db.query(true, TABLE_TODO, ALL_KEYS, 
+									where, null, null, null, null, null);
+			
+				if (c != null) {
+					Log.i("getrows", new Integer(c.getCount()).toString());
+					c.moveToFirst();
+				} else {
+					Log.i("getrows", "cursor null");
+				}
+				
+				return c;
+			}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
