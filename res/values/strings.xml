@@ -8,10 +8,10 @@
     <string name="title_activity_home_screen">HomeScreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    
     <string name="actn1">Start Service</string>
     <string name="actn2">Add TODO</string>
     <string name="actn3">View Map</string>
     <string name="actn4">List TODOs</string>
+    <string name="title_activity_map_all_todos">MapAllTODOs</string>
 
 </resources>
