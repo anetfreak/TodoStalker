@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.stalker.DBHelper.DatabaseHandler;
 
-import android.R;
+import com.stalker.R;
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
