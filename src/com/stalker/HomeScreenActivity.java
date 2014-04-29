@@ -125,7 +125,7 @@ public class HomeScreenActivity extends Activity {
 		
 		final Intent mapIntent = new Intent(getApplicationContext(), MapAllTODOs.class);
 		final Intent addIntent = new Intent(getApplicationContext(), AddToDoActivity.class);
-		final Intent listIntent = new Intent(getApplicationContext(), AddToDoActivity.class);
+		final Intent listIntent = new Intent(getApplicationContext(), ListTodoActivity.class);
 		final Intent servIntent = new Intent(getApplicationContext(), MainActivity.class);
 		
 		btnAdd = (Button) findViewById(R.id.Button01);
