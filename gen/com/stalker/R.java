@@ -665,38 +665,39 @@ containing a value of this type.
         public static final int Button01=0x7f04000e;
         public static final int Button02=0x7f040010;
         public static final int TableRow01=0x7f04000c;
-        public static final int action_settings=0x7f040023;
+        public static final int action_settings=0x7f040024;
         public static final int addressLabel=0x7f040014;
         public static final int button1=0x7f040011;
         public static final int button2=0x7f04000d;
         public static final int categorySpinner=0x7f040008;
-        public static final int container=0x7f04001a;
+        public static final int container=0x7f04001b;
         public static final int currentLocationLabel=0x7f040013;
-        public static final int dimensionsLabel=0x7f04001c;
+        public static final int dimensionsLabel=0x7f04001d;
         public static final int fullscreen_content_controls=0x7f04000b;
         public static final int graph=0x7f04000a;
         public static final int horizontal=0x7f040000;
         public static final int hybrid=0x7f040006;
-        public static final int image=0x7f04001d;
-        public static final int layout=0x7f040015;
-        public static final int lblColA=0x7f040021;
-        public static final int lblColB=0x7f040022;
-        public static final int lblLeft=0x7f040016;
-        public static final int lblMiddle=0x7f040017;
-        public static final int lblRight=0x7f040018;
-        public static final int lblSubTitle=0x7f040020;
-        public static final int lblText=0x7f04001e;
-        public static final int lblTitle=0x7f04001f;
+        public static final int image=0x7f04001e;
+        public static final int layout=0x7f040016;
+        public static final int lblColA=0x7f040022;
+        public static final int lblColB=0x7f040023;
+        public static final int lblLeft=0x7f040017;
+        public static final int lblMiddle=0x7f040018;
+        public static final int lblRight=0x7f040019;
+        public static final int lblSubTitle=0x7f040021;
+        public static final int lblText=0x7f04001f;
+        public static final int lblTitle=0x7f040020;
+        public static final int mapTodo=0x7f040015;
         public static final int none=0x7f040002;
         public static final int normal=0x7f040003;
         public static final int notesTxtBox=0x7f040009;
-        public static final int placeholder=0x7f04001b;
+        public static final int placeholder=0x7f04001c;
         public static final int preferredLocationSpinner=0x7f040007;
         public static final int satellite=0x7f040004;
         public static final int tableRow1=0x7f04000f;
         public static final int terrain=0x7f040005;
         public static final int textView1=0x7f040012;
-        public static final int txtText=0x7f040019;
+        public static final int txtText=0x7f04001a;
         public static final int vertical=0x7f040001;
     }
     public static final class integer {
@@ -706,27 +707,28 @@ containing a value of this type.
         public static final int activity_add_to_do=0x7f030000;
         public static final int activity_home_screen=0x7f030001;
         public static final int activity_main=0x7f030002;
-        public static final int bootstrap_button=0x7f030003;
-        public static final int bootstrap_button_fill=0x7f030004;
-        public static final int bootstrap_edit_text=0x7f030005;
-        public static final int bootstrap_thumbnail=0x7f030006;
-        public static final int bootstrap_thumbnail_circle=0x7f030007;
-        public static final int font_awesome_text=0x7f030008;
-        public static final int row_title=0x7f030009;
-        public static final int row_title_and_subtitle=0x7f03000a;
-        public static final int row_two_columns=0x7f03000b;
+        public static final int activity_map_all_todos=0x7f030003;
+        public static final int bootstrap_button=0x7f030004;
+        public static final int bootstrap_button_fill=0x7f030005;
+        public static final int bootstrap_edit_text=0x7f030006;
+        public static final int bootstrap_thumbnail=0x7f030007;
+        public static final int bootstrap_thumbnail_circle=0x7f030008;
+        public static final int font_awesome_text=0x7f030009;
+        public static final int row_title=0x7f03000a;
+        public static final int row_title_and_subtitle=0x7f03000b;
+        public static final int row_two_columns=0x7f03000c;
     }
     public static final class menu {
         public static final int add_to_do=0x7f0a0000;
         public static final int main=0x7f0a0001;
     }
     public static final class string {
-        public static final int action_settings=0x7f06001b;
-        public static final int actn1=0x7f060022;
-        public static final int actn2=0x7f060023;
-        public static final int actn3=0x7f060024;
-        public static final int actn4=0x7f060025;
-        public static final int app_name=0x7f06001a;
+        public static final int action_settings=0x7f06001c;
+        public static final int actn1=0x7f060023;
+        public static final int actn2=0x7f060024;
+        public static final int actn3=0x7f060025;
+        public static final int actn4=0x7f060026;
+        public static final int app_name=0x7f06001b;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -821,12 +823,16 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060013;
-        public static final int dummy_button=0x7f060020;
-        public static final int dummy_content=0x7f060021;
-        public static final int hello_world=0x7f06001c;
-        public static final int noteText=0x7f06001e;
-        public static final int title_activity_add_to_do=0x7f06001d;
-        public static final int title_activity_home_screen=0x7f06001f;
+        public static final int dummy_button=0x7f060021;
+        public static final int dummy_content=0x7f060022;
+        public static final int hello_world=0x7f06001d;
+        /**  Location client code resources (prefix with location_client) 
+         */
+        public static final int location_client_powered_by_google=0x7f06001a;
+        public static final int noteText=0x7f06001f;
+        public static final int title_activity_add_to_do=0x7f06001e;
+        public static final int title_activity_home_screen=0x7f060020;
+        public static final int title_activity_map_all_todos=0x7f060027;
     }
     public static final class style {
         /** 
