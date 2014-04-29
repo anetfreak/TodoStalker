@@ -15,14 +15,15 @@
         android:layout_alignLeft="@+id/categorySpinner"
         android:layout_below="@+id/categorySpinner"
         android:layout_marginTop="29dp" />
-
+    
     <Spinner
         android:id="@+id/categorySpinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="24dp"
+        android:prompt="@string/categSpinnerPromptTxt" />
 
     <EditText
         android:id="@+id/notesTxtBox"
@@ -37,5 +38,28 @@
 
         <requestFocus />
     </EditText>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/notesTxtBox"
+        android:layout_below="@+id/notesTxtBox"
+        android:layout_marginTop="42dp"
+        android:onClick="saveTodo"
+        android:paddingLeft="45dp"
+        android:paddingRight="45dp"
+        android:text="@string/saveBtn" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/saveButton"
+        android:layout_alignBottom="@+id/saveButton"
+        android:layout_alignRight="@+id/notesTxtBox"
+        android:paddingLeft="45dp"
+        android:paddingRight="45dp"
+        android:text="@string/cancelBtnText" />
 
 </RelativeLayout>

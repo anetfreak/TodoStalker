@@ -13,5 +13,8 @@
     <string name="actn2">Action 2</string>
     <string name="actn3">Action 3</string>
     <string name="actn4">Action 4</string>
+    <string name="saveBtn">Save</string>
+    <string name="cancelBtnText">Cancel</string>
+    <string name="categSpinnerPromptTxt">Select a category</string>
 
 </resources>
