@@ -64,6 +64,8 @@ public class HomeScreenActivity extends Activity {
 
 
 	public static PlacesList nearMe;
+	public static double currentLatitude;
+	public static double currentLongitude;
 
 
 	@Override
