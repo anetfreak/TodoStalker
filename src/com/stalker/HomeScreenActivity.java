@@ -156,6 +156,14 @@ public class HomeScreenActivity extends Activity {
 				startActivity(servIntent);
 			}
 		});
+		
+		btnList.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(listIntent);
+			}
+		});
 
 		PieGraph pg = (PieGraph)findViewById(R.id.graph);
         PieSlice slice = new PieSlice();

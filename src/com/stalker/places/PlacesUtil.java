@@ -22,7 +22,7 @@ import com.google.gson.Gson;
 
 public class PlacesUtil {
 	
-	public static String types = "food";
+	public static String types = "atm|bar";
 	
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	
