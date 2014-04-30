@@ -1,10 +1,9 @@
 package com.stalker;
 
-import java.util.Currency;
-
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -46,19 +45,23 @@ public class LocationService extends IntentService {
 			HomeScreenActivity.currentLatitude = location.getLatitude();
 			HomeScreenActivity.currentLongitude = location.getLongitude();
 			
-//			System.out.println("Generating Notification..");
-//			String notificationText = String.valueOf((int)(100)) + " %";
-//			myNotification = new NotificationCompat.Builder(getApplicationContext())
-//			.setContentTitle("Progress")
-//			.setContentText(notificationText)
-//			.setTicker("Notification!")
-//			.setWhen(System.currentTimeMillis())
-//			.setDefaults(Notification.DEFAULT_SOUND)
-//			.setAutoCancel(true)
-//			.setSmallIcon(R.drawable.ic_launcher)
-//			.build();
-//
-//			notificationManager.notify(NOTIFICATION_ID, myNotification);
+			Intent intentNotify = new Intent(this, HomeScreenActivity.class);
+			PendingIntent notifyPendingIntent = PendingIntent.getActivity(this, 1, intentNotify, 0);
+			
+			System.out.println("Generating Notification..");
+			String notificationText = String.valueOf((int)(100)) + " %";
+			myNotification = new NotificationCompat.Builder(getApplicationContext())
+			.setContentTitle("Progress")
+			.setContentText(notificationText)
+			.setTicker("Notification!")
+			.setWhen(System.currentTimeMillis())
+			.setDefaults(Notification.DEFAULT_SOUND)
+			.setAutoCancel(true)
+			.setSmallIcon(R.drawable.ic_launcher)
+			.setContentIntent(notifyPendingIntent)
+			.build();
+
+			notificationManager.notify(NOTIFICATION_ID, myNotification);
 			
 		}
 	}

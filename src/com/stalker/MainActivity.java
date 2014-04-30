@@ -63,11 +63,16 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 			intentService = new Intent(this, LocationService.class);
 			pendingIntent = PendingIntent.getService(this, 1, intentService, 0);
 			locationRequest = LocationRequest.create();
-			//Setting a fastest and normal interval to 5min and 30min
-			locationRequest.setInterval(1800000);
-			locationRequest.setFastestInterval(300000);
-			//Setting the distance after which the service should check the location updates to 500meters.
-			locationRequest.setSmallestDisplacement(500);
+			
+//			//Setting a fastest and normal interval to 5min and 30min
+//			locationRequest.setInterval(1800000);
+//			locationRequest.setFastestInterval(300000);
+//			//Setting the distance after which the service should check the location updates to 500meters.
+//			locationRequest.setSmallestDisplacement(500);
+			
+			//Testing
+			locationRequest.setInterval(5000);
+			
 			locationClient.requestLocationUpdates(locationRequest, pendingIntent);
 			serviceCreated = true;
 			startService(intentService);
