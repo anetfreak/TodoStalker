@@ -46,19 +46,19 @@ public class LocationService extends IntentService {
 			HomeScreenActivity.currentLatitude = location.getLatitude();
 			HomeScreenActivity.currentLongitude = location.getLongitude();
 			
-			System.out.println("Generating Notification..");
-			String notificationText = String.valueOf((int)(100)) + " %";
-			myNotification = new NotificationCompat.Builder(getApplicationContext())
-			.setContentTitle("Progress")
-			.setContentText(notificationText)
-			.setTicker("Notification!")
-			.setWhen(System.currentTimeMillis())
-			.setDefaults(Notification.DEFAULT_SOUND)
-			.setAutoCancel(true)
-			.setSmallIcon(R.drawable.ic_launcher)
-			.build();
-
-			notificationManager.notify(NOTIFICATION_ID, myNotification);
+//			System.out.println("Generating Notification..");
+//			String notificationText = String.valueOf((int)(100)) + " %";
+//			myNotification = new NotificationCompat.Builder(getApplicationContext())
+//			.setContentTitle("Progress")
+//			.setContentText(notificationText)
+//			.setTicker("Notification!")
+//			.setWhen(System.currentTimeMillis())
+//			.setDefaults(Notification.DEFAULT_SOUND)
+//			.setAutoCancel(true)
+//			.setSmallIcon(R.drawable.ic_launcher)
+//			.build();
+//
+//			notificationManager.notify(NOTIFICATION_ID, myNotification);
 			
 		}
 	}
