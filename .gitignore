@@ -1,3 +1,17 @@
 *.class
 bin
 bin/classes
+
+.classpath
+
+bin/classes.dex
+
+*.dex
+
+*.cache
+
+*.txt
+
+*.ap_
+
+*.apk

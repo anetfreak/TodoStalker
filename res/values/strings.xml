@@ -10,6 +10,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     
     <string name="saveBtn">Save</string>
+    <string name="pick_date">Pick a Date</string>
     <string name="cancelBtnText">Cancel</string>
     <string name="categSpinnerPromptTxt">Select a category</string>
     <string name="actn1">Start Service</string>
