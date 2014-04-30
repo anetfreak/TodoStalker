@@ -8,15 +8,15 @@
     <string name="title_activity_home_screen">HomeScreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    
+    <string name="saveBtn">Save</string>
+    <string name="cancelBtnText">Cancel</string>
+    <string name="categSpinnerPromptTxt">Select a category</string>
     <string name="actn1">Start Service</string>
     <string name="actn2">Add TODO</string>
     <string name="actn3">View Map</string>
     <string name="actn4">List TODOs</string>
-<<<<<<< HEAD
     <string name="title_activity_list_todo">ListTodoActivity</string>
     <string name="hello_world">Hello world!</string>
-=======
     <string name="title_activity_map_all_todos">MapAllTODOs</string>
->>>>>>> FETCH_HEAD
-
 </resources>

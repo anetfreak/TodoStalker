@@ -20,24 +20,44 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	
 	private SQLiteDatabase db;
 	//Tables name
-	private static final String TABLE_PRIORITY = "priority";
-	private static final String TABLE_CATEGORY = "category";
-	private static final String TABLE_TODO = "todoList";
-	
-	private static final String KEY_ID = "id";
+	//private static final String TABLE_PRIORITY = "Priority";
+	public static final String TABLE_CATEGORY = "Category";
+	//private static final String TABLE_STORES = "Stores";
+	//private static final String TABLE_PREFERREDLOCATION = "PreferredLocation";
+	public static final String TABLE_TODO = "TodoList";
+	public static final String KEY_ID = "id";
 	public static final String ROW_ID = "rowid _id";
 	//Priority Table
-	private static final String KEY_PRIORITYNAME = "priority_name";
-	private static final String KEY_PRIORITYNUM = "priority_num";
+	/*private static final String KEY_PRIORITYNAME = "priority_name";
+	private static final String KEY_PRIORITYNUM = "priority_num";*/
 	
 	//Category Table
-	private static final String KEY_CATEGORYNAME = "category_name";
+	public static final String KEY_CATEGORYNAME = "category_name";
 	private final String [] categories = new String[] 
 			{"Shopping","Food & Drink","Travel","Home","Health & Medicine",
 			"Bank/ATM","Fuel","Study","Work","Other"};
 	
+	//Stores Table
+	/*private static final String KEY_STORENAME = "store_name";
+	private final String [] stores = new String [] 
+			{"Safeway","Walmart","Target","CVS","Walgreens","Lucky","Smart & Final",
+			"Costco","99 Ranch","KOHL","Ross", "Lowes","Home Depot", "IKEA",
+			"Bank of America","Chase","Well''s Fargo","Citibank","US Bank",
+			"Bank of West","Bank of Fremont","Starbucks","Jamba Juice",
+			"Peet''s Coffee & Tea", "Applebee''s","iHop", "Denny''s","McDonald''s", 
+			"Jack in the Box", "KFC", "Sushi", "Papa John''s","Pizza Hut",
+			"Domino''s Pizza", "Shell", "Chevron", "Valero", "ARCO", "76"};*/
+	
+	//Preferred Location Table
+	//private static final String KEY_STORESID = "store_id";
+	
 	//ToDo List Table
 	public static final String KEY_NOTE = "note";
+	public static final String KEY_CATEGORY = "category";
+	public static final String KEY_PREFLOC = "pref_location";
+	//private static final String KEY_PRIORITYID = "category_id";
+	public static final String KEY_STARTDATE = "start_date";
+	public static final String KEY_ENDDATE = "end_date";
 	public static final String KEY_CATEGORYID = "category_id";
 	public static final String KEY_PRIORITYID = "category_id";
 	public static final String KEY_DUE = "due_date";
@@ -52,15 +72,24 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	private static final String CREATE_TABLE_CATEGORY = "CREATE TABLE " + 
 			TABLE_CATEGORY + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			KEY_CATEGORYNAME + " TEXT" + ")";
+	// Stores table CREATE statements
+	/*private static final String CREATE_TABLE_STORES = "CREATE TABLE " + 
+			TABLE_STORES + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+			KEY_STORENAME + " TEXT" + ")";*/
 	
+	// Preferred Location table CREATE statements
+	/*private static final String CREATE_TABLE_PREFLOC = "CREATE TABLE " +
+			TABLE_PREFERREDLOCATION + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+			KEY_CATEGORYID + " INTEGER, " + KEY_STORESID + " INTEGER" + ")";*/
 	public static final String[] ALL_KEYS = new String[] {ROW_ID, KEY_NOTE, KEY_CATEGORYID, KEY_PRIORITYID, KEY_DUE, KEY_STATUS};
 
 		
-	/*//ToDo table CREATE statements
+	//ToDo table CREATE statements
 	private static final String CREATE_TABLE_TODO = "CREATE TABLE " + 
 			TABLE_TODO + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-			KEY_NOTE + " TEXT, " + KEY_CATEGORYID + " INTEGER, " + KEY_PRIORITYID + 
-			" INTEGER, " + KEY_DUE + " DATETIME, " + KEY_STATUS + " INTEGER" +")";*/
+			KEY_NOTE + " TEXT, " + KEY_CATEGORY + " TEXT, " + KEY_PREFLOC + 
+			" TEXT, " + KEY_STARTDATE + " DATETIME, " + KEY_ENDDATE + " DATETIME, " + 
+			KEY_STATUS + " INTEGER NOT NULL" +")";
 	
 	/*//Priority table INSERT statements
 	private static final String INSERT_PRIORITY_LOW = "INSERT INTO " + 
@@ -75,36 +104,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			TABLE_PRIORITY + " (" + KEY_PRIORITYNAME + ", " + KEY_PRIORITYNUM + ") " +
 			"VALUES (High, 3)";*/
 	
-	/*//Category table INSERT statements
-	private static final String INSERT_CATEGORY_1 = "INSERT INTO " + 
-			TABLE_CATEGORY + " (" + KEY_CATEGORYNAME + ") " + "VALUES ('Shopping')";
-		
-	private static final String INSERT_CATEGORY_2 = "INSERT INTO " + 
-			TABLE_CATEGORY + " (" + KEY_CATEGORYNAME + ") " + "VALUES ('Food & Drink')";
-		
-	private static final String INSERT_CATEGORY_3 = "INSERT INTO " + 
-			TABLE_CATEGORY + " (" + KEY_CATEGORYNAME + ") " + "VALUES ('Travel')";
-	
-	private static final String INSERT_CATEGORY_4 = "INSERT INTO " + 
-			TABLE_CATEGORY + " (" + KEY_CATEGORYNAME + ") " + "VALUES ('Home')";
-		
-	private static final String INSERT_CATEGORY_5 = "INSERT INTO " + 
-			TABLE_CATEGORY + " (" + KEY_CATEGORYNAME + ") " + "VALUES ('Health & Medicine')";
-		
-	private static final String INSERT_CATEGORY_6 = "INSERT INTO " + 
-			TABLE_CATEGORY + " (" + KEY_CATEGORYNAME + ") " + "VALUES ('Bank/ATM')";
-	
-	private static final String INSERT_CATEGORY_7 = "INSERT INTO " + 
-			TABLE_CATEGORY + " (" + KEY_CATEGORYNAME + ") " + "VALUES ('Fuel')";
-		
-	private static final String INSERT_CATEGORY_8 = "INSERT INTO " + 
-			TABLE_CATEGORY + " (" + KEY_CATEGORYNAME + ") " + "VALUES ('Study')";
-		
-	private static final String INSERT_CATEGORY_9 = "INSERT INTO " + 
-			TABLE_CATEGORY + " (" + KEY_CATEGORYNAME + ") " + "VALUES ('Work')";
-	
-	private static final String INSERT_CATEGORY_10 = "INSERT INTO " + 
-			TABLE_CATEGORY + " (" + KEY_CATEGORYNAME + ") " + "VALUES ('Other')";*/
 	
 	public DatabaseHandler(Context context) {
 		super(context,DATABASE_NAME, null, 1);
@@ -115,7 +114,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		//Creating the DB Tables
 		//db.execSQL(CREATE_TABLE_PRIORITY);
 		db.execSQL(CREATE_TABLE_CATEGORY);
-		//db.execSQL(CREATE_TABLE_TODO);
+		//db.execSQL(CREATE_TABLE_STORES);
+		//db.execSQL(CREATE_TABLE_PREFLOC);
+		db.execSQL(CREATE_TABLE_TODO);
 		
 		/*//Populating Priority Table
 		db.execSQL(INSERT_PRIORITY_LOW);
@@ -128,16 +129,14 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 					KEY_CATEGORYNAME + ") " + "VALUES ('" + s + "')";
 			db.execSQL(insertCateg);
 		}
-		/*db.execSQL(INSERT_CATEGORY_1);
-		db.execSQL(INSERT_CATEGORY_2);
-		db.execSQL(INSERT_CATEGORY_3);
-		db.execSQL(INSERT_CATEGORY_4);
-		db.execSQL(INSERT_CATEGORY_5);
-		db.execSQL(INSERT_CATEGORY_6);
-		db.execSQL(INSERT_CATEGORY_7);
-		db.execSQL(INSERT_CATEGORY_8);
-		db.execSQL(INSERT_CATEGORY_9);
-		db.execSQL(INSERT_CATEGORY_10);*/
+		
+		//Populating Stores Table. MIGHT HAVE TO POPULATE THIS FIRST THEN POPULATE CATEG
+		/*for(String s:stores){
+			String insertStore = "INSERT INTO " + TABLE_STORES + " (" + 
+					KEY_STORENAME + ") " + "VALUES ('" + s + "')";
+			db.execSQL(insertStore);
+		}*/
+	
 	}
 	
 	// Open the database connection.
@@ -168,14 +167,16 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		//drop older tables
 		//db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRIORITY);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORY);
-		//db.execSQL("DROP TABLE IF EXISTS " + TABLE_TODO);
+		//db.execSQL("DROP TABLE IF EXISTS" + TABLE_STORES);
+		//db.execSQL("DROP TABLE IF EXISTS" + TABLE_PREFERREDLOCATION);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_TODO);
 		
 		//create new table
 		onCreate(db);
 	}
 	
 	//CRUD(Create, Read, Update, Delete) Operations
-	//-----------------------------------PRIORITY TABLE-------------------------//
+	/*//-----------------------------------PRIORITY TABLE-------------------------//
 	
 	//getting all priorities
 	public List<Priority> getPriorities(){
@@ -200,7 +201,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		c.close();
 		db.close();
 		return priorities;
-	}
+	}*/
 	
 	//-----------------------------------CATEGORY TABLE-------------------------//
 	//getting all categories
@@ -236,4 +237,38 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			db.close();
 		}
 	}
+	
+	//-----------------------------------TODO TABLE-------------------------//
+	
+	
+	//getting all todos
+		public List<Todo> getAllTodos(){
+			List<Todo> todoList = new ArrayList<Todo>();
+			String selectQuery = "SELECT * FROM " + TABLE_TODO;
+				
+			SQLiteDatabase db = this.getReadableDatabase();
+			Cursor c = db.rawQuery(selectQuery, null);
+				
+			//Looping through the rows
+			
+			if(c.moveToFirst()){
+				do{
+					Todo todo = new Todo();
+					todo.setNote(c.getString(c.getColumnIndex(KEY_NOTE)));
+					todo.setCategory(c.getString(c.getColumnIndex(KEY_CATEGORY)));
+					todo.setPrefLoc(c.getString(c.getColumnIndex(KEY_PREFLOC)));
+					todo.setStartDate(c.getString(c.getColumnIndex(KEY_STARTDATE)));
+					todo.setEndDate(c.getString(c.getColumnIndex(KEY_ENDDATE)));
+					todo.setStatus(c.getInt(c.getColumnIndex(KEY_STATUS)));
+						
+					//Adding to priority list
+					todoList.add(todo);
+				} while(c.moveToNext());
+			}
+			
+			Log.d("DBHANDLER", "Count: " + c.getCount());
+			c.close();
+			db.close();
+			return todoList;
+		}
 }

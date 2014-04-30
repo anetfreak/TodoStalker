@@ -1,14 +1,27 @@
 package com.stalker;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.stalker.places.*;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.stalker.util.SystemUiHider;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.os.Build;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
-import android.view.View;
+import android.widget.Toast;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -44,15 +57,79 @@ public class MapAllTODOs extends Activity {
 	 * The instance of the {@link SystemUiHider} for this activity.
 	 */
 	private SystemUiHider mSystemUiHider;
+	
+	private GoogleMap gMap;
+	private List<MarkerOptions> markers;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_map_all_todos);
+		
+		try{
+			markers = new ArrayList<MarkerOptions>();
+			initializeMap();
+			displayOnMap();
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
 
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.
 		
 	}
+	
+	private void displayOnMap() {
+		if(HomeScreenActivity.nearMe!=null)
+			(new DisplayOnMap()).execute();
+	}
+
+	private void initializeMap() {
+		if(gMap==null){
+			gMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.mapTodo)).getMap();
+			gMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(37.3357190,-121.8867080), 14, 0, 0)));
+			
+			if (gMap == null) {
+                Toast.makeText(getApplicationContext(),
+                        "Sorry! unable to create maps", Toast.LENGTH_SHORT)
+                        .show();
+            }
+		}
+		
+	}
+	
+public class DisplayOnMap extends AsyncTask<Void, Void, Void>{
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			for(MarkerOptions m : markers){
+				gMap.addMarker(m);
+			}
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			for (Place p : HomeScreenActivity.nearMe.results) {
+				MarkerOptions mo = new MarkerOptions().position(new LatLng(p.geometry.location.lat, p.geometry.location.lng)).title(p.name);
+				Bitmap bmp = null;
+				try {
+					URL u = new URL(p.icon);
+					bmp = BitmapFactory.decodeStream(u.openConnection().getInputStream());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				mo.icon(BitmapDescriptorFactory.fromBitmap(bmp));
+				markers.add(mo);
+				//gMap.addMarker(mo);
+			}
+			return null;
+		}
+		
+	}
+
+
 }
