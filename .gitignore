@@ -15,3 +15,19 @@ bin/classes.dex
 *.ap_
 
 *.apk
+
+bin/classes/com/stalker/AddToDoActivity.class
+
+*.class
+
+bin/classes/com/stalker/DBHelper/Category.class
+
+bin/classes/com/stalker/DBHelper/DatabaseHandler.class
+
+bin/classes/com/stalker/DBHelper/Priority.class
+
+bin/classes/com/stalker/LocationService.class
+
+bin/classes/com/stalker/MainActivity$GetAddressTask.class
+
+bin/classes/com/stalker/MainActivity.class

@@ -27,29 +27,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	public static final String TABLE_TODO = "TodoList";
 	public static final String KEY_ID = "id";
 	public static final String ROW_ID = "rowid _id";
-	//Priority Table
-	/*private static final String KEY_PRIORITYNAME = "priority_name";
-	private static final String KEY_PRIORITYNUM = "priority_num";*/
 	
 	//Category Table
 	public static final String KEY_CATEGORYNAME = "category_name";
 	private final String [] categories = new String[] 
 			{"Shopping","Food & Drink","Travel","Home","Health & Medicine",
 			"Bank/ATM","Fuel","Study","Work","Other"};
-	
-	//Stores Table
-	/*private static final String KEY_STORENAME = "store_name";
-	private final String [] stores = new String [] 
-			{"Safeway","Walmart","Target","CVS","Walgreens","Lucky","Smart & Final",
-			"Costco","99 Ranch","KOHL","Ross", "Lowes","Home Depot", "IKEA",
-			"Bank of America","Chase","Well''s Fargo","Citibank","US Bank",
-			"Bank of West","Bank of Fremont","Starbucks","Jamba Juice",
-			"Peet''s Coffee & Tea", "Applebee''s","iHop", "Denny''s","McDonald''s", 
-			"Jack in the Box", "KFC", "Sushi", "Papa John''s","Pizza Hut",
-			"Domino''s Pizza", "Shell", "Chevron", "Valero", "ARCO", "76"};*/
-	
-	//Preferred Location Table
-	//private static final String KEY_STORESID = "store_id";
 	
 	//ToDo List Table
 	public static final String KEY_NOTE = "note";
@@ -63,24 +46,11 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	public static final String KEY_DUE = "due_date";
 	public static final String KEY_STATUS = "status";
 	
-	/*//Priority table CREATE statements
-	private static final String CREATE_TABLE_PRIORITY = "CREATE TABLE " + 
-			TABLE_PRIORITY + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-			KEY_PRIORITYNAME + " TEXT, " + KEY_PRIORITYNUM + " INTEGER" + ")";*/
-	
 	// Category table CREATE statements
 	private static final String CREATE_TABLE_CATEGORY = "CREATE TABLE " + 
 			TABLE_CATEGORY + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			KEY_CATEGORYNAME + " TEXT" + ")";
-	// Stores table CREATE statements
-	/*private static final String CREATE_TABLE_STORES = "CREATE TABLE " + 
-			TABLE_STORES + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-			KEY_STORENAME + " TEXT" + ")";*/
 	
-	// Preferred Location table CREATE statements
-	/*private static final String CREATE_TABLE_PREFLOC = "CREATE TABLE " +
-			TABLE_PREFERREDLOCATION + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-			KEY_CATEGORYID + " INTEGER, " + KEY_STORESID + " INTEGER" + ")";*/
 	public static final String[] ALL_KEYS = new String[] {ROW_ID, KEY_NOTE, KEY_CATEGORYID, KEY_PRIORITYID, KEY_DUE, KEY_STATUS};
 
 		
@@ -90,20 +60,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			KEY_NOTE + " TEXT, " + KEY_CATEGORY + " TEXT, " + KEY_PREFLOC + 
 			" TEXT, " + KEY_STARTDATE + " DATETIME, " + KEY_ENDDATE + " DATETIME, " + 
 			KEY_STATUS + " INTEGER NOT NULL" +")";
-	
-	/*//Priority table INSERT statements
-	private static final String INSERT_PRIORITY_LOW = "INSERT INTO " + 
-			TABLE_PRIORITY + " (" + KEY_PRIORITYNAME + ", " + KEY_PRIORITYNUM + ") " +
-			"VALUES (Low, 1)";
-	
-	private static final String INSERT_PRIORITY_MEDIUM = "INSERT INTO " + 
-			TABLE_PRIORITY + " (" + KEY_PRIORITYNAME + ", " + KEY_PRIORITYNUM + ") " +
-			"VALUES (Medium, 2)";
-	
-	private static final String INSERT_PRIORITY_HIGH = "INSERT INTO " + 
-			TABLE_PRIORITY + " (" + KEY_PRIORITYNAME + ", " + KEY_PRIORITYNUM + ") " +
-			"VALUES (High, 3)";*/
-	
 	
 	public DatabaseHandler(Context context) {
 		super(context,DATABASE_NAME, null, 1);
@@ -118,11 +74,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		//db.execSQL(CREATE_TABLE_PREFLOC);
 		db.execSQL(CREATE_TABLE_TODO);
 		
-		/*//Populating Priority Table
-		db.execSQL(INSERT_PRIORITY_LOW);
-		db.execSQL(INSERT_PRIORITY_MEDIUM);
-		db.execSQL(INSERT_PRIORITY_HIGH);*/
-		
 		//Populating Category Table
 		for(String s:categories){
 			String insertCateg = "INSERT INTO " + TABLE_CATEGORY + " (" + 
@@ -130,13 +81,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			db.execSQL(insertCateg);
 		}
 		
-		//Populating Stores Table. MIGHT HAVE TO POPULATE THIS FIRST THEN POPULATE CATEG
-		/*for(String s:stores){
-			String insertStore = "INSERT INTO " + TABLE_STORES + " (" + 
-					KEY_STORENAME + ") " + "VALUES ('" + s + "')";
-			db.execSQL(insertStore);
-		}*/
-	
 	}
 	
 	// Open the database connection.
@@ -176,32 +120,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	}
 	
 	//CRUD(Create, Read, Update, Delete) Operations
-	/*//-----------------------------------PRIORITY TABLE-------------------------//
-	
-	//getting all priorities
-	public List<Priority> getPriorities(){
-		List<Priority> priorities = new ArrayList<Priority>();
-		String selectQuery = "SELECT * FROM " + TABLE_PRIORITY;
-		
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor c = db.rawQuery(selectQuery, null);
-		
-		//Looping through the rows
-		if(c.moveToFirst()){
-			do{
-				Priority p = new Priority();
-				p.setID(c.getInt(c.getColumnIndex(KEY_ID)));
-				p.setPriorityName(c.getString(c.getColumnIndex(KEY_PRIORITYNAME)));
-				p.setPriorityNum(c.getInt(c.getColumnIndex(KEY_PRIORITYNUM)));
-				
-				//Adding to priority list
-				priorities.add(p);
-			} while(c.moveToNext());
-		}
-		c.close();
-		db.close();
-		return priorities;
-	}*/
 	
 	//-----------------------------------CATEGORY TABLE-------------------------//
 	//getting all categories
