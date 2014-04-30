@@ -240,4 +240,35 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	
 	//-----------------------------------TODO TABLE-------------------------//
 	
+	
+	//getting all todos
+		public List<Todo> getAllTodos(){
+			List<Todo> todoList = new ArrayList<Todo>();
+			String selectQuery = "SELECT * FROM " + TABLE_TODO;
+				
+			SQLiteDatabase db = this.getReadableDatabase();
+			Cursor c = db.rawQuery(selectQuery, null);
+				
+			//Looping through the rows
+			
+			if(c.moveToFirst()){
+				do{
+					Todo todo = new Todo();
+					todo.setNote(c.getString(c.getColumnIndex(KEY_NOTE)));
+					todo.setCategory(c.getString(c.getColumnIndex(KEY_CATEGORY)));
+					todo.setPrefLoc(c.getString(c.getColumnIndex(KEY_PREFLOC)));
+					todo.setStartDate(c.getString(c.getColumnIndex(KEY_STARTDATE)));
+					todo.setEndDate(c.getString(c.getColumnIndex(KEY_ENDDATE)));
+					todo.setStatus(c.getInt(c.getColumnIndex(KEY_STATUS)));
+						
+					//Adding to priority list
+					todoList.add(todo);
+				} while(c.moveToNext());
+			}
+			
+			Log.d("DBHANDLER", "Count: " + c.getCount());
+			c.close();
+			db.close();
+			return todoList;
+		}
 }
