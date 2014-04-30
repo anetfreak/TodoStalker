@@ -8,10 +8,12 @@ import java.util.List;
 import com.stalker.places.*;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.stalker.util.SystemUiHider;
 
@@ -19,6 +21,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -29,7 +32,7 @@ import android.widget.Toast;
  * 
  * @see SystemUiHider
  */
-public class MapAllTODOs extends Activity {
+public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -57,7 +60,7 @@ public class MapAllTODOs extends Activity {
 	 * The instance of the {@link SystemUiHider} for this activity.
 	 */
 	private SystemUiHider mSystemUiHider;
-	
+
 	private GoogleMap gMap;
 	private List<MarkerOptions> markers;
 
@@ -66,46 +69,49 @@ public class MapAllTODOs extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_map_all_todos);
-		
-		try{
+
+		try {
 			markers = new ArrayList<MarkerOptions>();
 			initializeMap();
 			displayOnMap();
-		}
-		catch(Exception ex){
+			gMap.setOnMarkerClickListener((OnMarkerClickListener) this);
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.
-		
+
 	}
-	
+
 	private void displayOnMap() {
-		if(HomeScreenActivity.nearMe!=null)
+		if (HomeScreenActivity.nearMe != null)
 			(new DisplayOnMap()).execute();
 	}
 
 	private void initializeMap() {
-		if(gMap==null){
-			gMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.mapTodo)).getMap();
-			gMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(37.3357190,-121.8867080), 14, 0, 0)));
-			
+		if (gMap == null) {
+			gMap = ((MapFragment) getFragmentManager().findFragmentById(
+					R.id.mapTodo)).getMap();
+			gMap.moveCamera(CameraUpdateFactory
+					.newCameraPosition(new CameraPosition(new LatLng(
+							37.3357190, -121.8867080), 14, 0, 0)));
+
 			if (gMap == null) {
-                Toast.makeText(getApplicationContext(),
-                        "Sorry! unable to create maps", Toast.LENGTH_SHORT)
-                        .show();
-            }
+				Toast.makeText(getApplicationContext(),
+						"Sorry! unable to create maps", Toast.LENGTH_SHORT)
+						.show();
+			}
 		}
-		
+
 	}
-	
-public class DisplayOnMap extends AsyncTask<Void, Void, Void>{
-		
+
+	public class DisplayOnMap extends AsyncTask<Void, Void, Void> {
+
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			for(MarkerOptions m : markers){
+			for (MarkerOptions m : markers) {
 				gMap.addMarker(m);
 			}
 		}
@@ -113,23 +119,40 @@ public class DisplayOnMap extends AsyncTask<Void, Void, Void>{
 		@Override
 		protected Void doInBackground(Void... params) {
 			for (Place p : HomeScreenActivity.nearMe.results) {
-				MarkerOptions mo = new MarkerOptions().position(new LatLng(p.geometry.location.lat, p.geometry.location.lng)).title(p.name);
+				MarkerOptions mo = new MarkerOptions().position(
+						new LatLng(p.geometry.location.lat,
+								p.geometry.location.lng)).title(p.name);
 				Bitmap bmp = null;
 				try {
 					URL u = new URL(p.icon);
-					bmp = BitmapFactory.decodeStream(u.openConnection().getInputStream());
+					bmp = BitmapFactory.decodeStream(u.openConnection()
+							.getInputStream());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				mo.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+				mo.icon(BitmapDescriptorFactory
+						.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
 				markers.add(mo);
-				//gMap.addMarker(mo);
+				// gMap.addMarker(mo);
 			}
 			return null;
 		}
-		
+
 	}
 
+	@Override
+	public boolean onMarkerClick(Marker marker) {
+		Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+				Uri.parse("http://maps.google.com/maps?saddr="
+						+ String.valueOf(HomeScreenActivity.currentLatitude)
+						+ ","
+						+ String.valueOf(HomeScreenActivity.currentLongitude)
+						+ "&daddr="
+						+ String.valueOf(marker.getPosition().latitude) + ","
+						+ String.valueOf(marker.getPosition().longitude)));
+		startActivity(intent);
+		return true;
+	}
 
 }

@@ -15,6 +15,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import com.stalker.HomeScreenActivity;
 import com.stalker.places.PlacesList;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -46,7 +47,7 @@ public class PlacesUtil {
 				    HttpClient httpclient = new DefaultHttpClient();
 				    List<NameValuePair> params = new ArrayList<NameValuePair>();
 				    params.add(new BasicNameValuePair("key", API_KEY));
-				    params.add(new BasicNameValuePair("location", _latitude + "," + _longitude));
+				    params.add(new BasicNameValuePair("location", String.valueOf(HomeScreenActivity.currentLatitude) + "," + String.valueOf(HomeScreenActivity.currentLongitude)));
 				    params.add(new BasicNameValuePair("radius", _radius));
 				    params.add(new BasicNameValuePair("types", types));
 				    params.add(new BasicNameValuePair("sensor", "false"));
