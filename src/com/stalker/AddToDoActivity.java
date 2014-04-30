@@ -10,6 +10,8 @@ import com.stalker.DBHelper.TodoData;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -17,7 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class AddToDoActivity extends Activity {
+public class AddToDoActivity extends FragmentActivity {
 
 	Spinner catSpinner;
 	Spinner prefLocSpinner;
@@ -87,6 +89,11 @@ public class AddToDoActivity extends Activity {
 		
 		
 		todoDat.createTodo(notes, cat, prefPlace, "April 25", "April 26", 0);
+	}
+	
+	public void showDatePickerDialog(View v) {
+	    DialogFragment newFragment = new DatePickerFragment();
+	    newFragment.show(getFragmentManager(), "datePicker");
 	}
 
 	@Override
