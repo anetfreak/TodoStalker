@@ -122,7 +122,7 @@ public class DisplayOnMap extends AsyncTask<Void, Void, Void>{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				mo.icon(BitmapDescriptorFactory.fromBitmap(bmp));
+				mo.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
 				markers.add(mo);
 				//gMap.addMarker(mo);
 			}
