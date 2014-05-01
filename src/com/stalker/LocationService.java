@@ -29,15 +29,12 @@ public class LocationService extends IntentService {
 	public void onCreate() {
 		super.onCreate();
 		notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-		System.out.println("Inside onCreate of IntentService..");
 	}
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		System.out.println("Inside handleIntent..");
 		Location location = intent.getParcelableExtra(LocationClient.KEY_LOCATION_CHANGED);
 		if(location != null) {
-			System.out.println("Location is not null..");
 			//TODO Do the stuff you want to do when the location changes..
 		
 			System.out.println("Latitude now is " + location.getLatitude());
@@ -48,12 +45,11 @@ public class LocationService extends IntentService {
 			Intent intentNotify = new Intent(this, HomeScreenActivity.class);
 			PendingIntent notifyPendingIntent = PendingIntent.getActivity(this, 1, intentNotify, 0);
 			
-			System.out.println("Generating Notification..");
-			String notificationText = String.valueOf((int)(100)) + " %";
+			String notificationText = "One or more of your todo's can be completed from a nearby location.";
 			myNotification = new NotificationCompat.Builder(getApplicationContext())
-			.setContentTitle("Progress")
+			.setContentTitle("TodoStalker")
 			.setContentText(notificationText)
-			.setTicker("Notification!")
+			.setTicker("TodoStalker")
 			.setWhen(System.currentTimeMillis())
 			.setDefaults(Notification.DEFAULT_SOUND)
 			.setAutoCancel(true)
