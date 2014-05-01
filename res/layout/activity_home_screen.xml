@@ -62,6 +62,7 @@
 		            android:layout_margin="0dp"
 		            android:layout_weight="1"
 		            android:background="#FDFCFC"
+		            android:drawableLeft="@drawable/boxupload32"
 		            android:text="@string/actn2"
 		            android:textColor="#000000" />
 		        
@@ -73,6 +74,7 @@
 		            android:layout_margin="0dp"
 		            android:layout_weight="1"
 		            android:background="#FDFCFC"
+		            android:drawableLeft="@drawable/linedpaper32"
 		            android:text="@string/actn4"
 		            android:textColor="#000000" />
 
@@ -94,20 +96,22 @@
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:background="#FDFCFC"
+            android:drawableLeft="@drawable/map1"
             android:text="@string/actn3"
             android:textColor="#000000" />
 
         <Button
-           android:id="@+id/button2"
-           style="@style/ButtonBarButton"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:layout_margin="0dp"
-           android:layout_weight="1"
-           android:background="#FDFDFD"
-           android:minWidth="48dp"
-           android:text="@string/actn1"
-           android:textColor="#000000" />
+            android:id="@+id/button2"
+            style="@style/ButtonBarButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="0dp"
+            android:layout_weight="1"
+            android:background="#FDFDFD"
+            android:drawableLeft="@drawable/recycle32"
+            android:minWidth="48dp"
+            android:text="@string/actn1"
+            android:textColor="#000000" />
 
     </TableRow>
         </TableLayout>
