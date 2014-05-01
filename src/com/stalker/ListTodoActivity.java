@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.stalker.DBHelper.DatabaseHandler;
 import com.stalker.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -136,6 +138,9 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 	
 	public void viewMap(View view){
 		// display todo location on map
+		Intent i = new Intent(getApplicationContext(),MapAllTODOs.class);
+		i.putExtra("identifier", 2);
+		startActivity(i);
 	}
 
 	@Override

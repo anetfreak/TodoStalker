@@ -132,7 +132,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 
 	}
 
-	public class DisplayOnMap extends AsyncTask<Void, Void, Void> {
+	public class DisplayOnMap extends AsyncTask<Integer, Void, Void> {
 
 		@Override
 		protected void onPostExecute(Void result) {
@@ -143,28 +143,56 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 		}
 
 		@Override
-		protected Void doInBackground(Void... params) {
+		protected Void doInBackground(Integer... params) {
+			Integer identifier = params[0];
 
-			for (Map.Entry<Todo, PlacesList> todoTask : HomeScreenActivity.TODOtoPlaces
-					.entrySet()) {
-				if(todoTask.getValue().results!=null){
-					for (Place p : todoTask.getValue().results) {
-						MarkerOptions mo = new MarkerOptions().position(
-								new LatLng(p.geometry.location.lat,
-										p.geometry.location.lng)).title(p.name);
-						Bitmap bmp = null;
-						try {
-							URL u = new URL(p.icon);
-							bmp = BitmapFactory.decodeStream(u.openConnection()
-									.getInputStream());
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+			if (identifier != null || identifier==0) {
+				for (Map.Entry<Todo, PlacesList> todoTask : HomeScreenActivity.TODOtoPlaces
+						.entrySet()) {
+					if(todoTask.getKey().getId()==identifier){
+						for (Place p : todoTask.getValue().results) {
+							MarkerOptions mo = new MarkerOptions().position(
+									new LatLng(p.geometry.location.lat,
+											p.geometry.location.lng)).title(p.name);
+							Bitmap bmp = null;
+							try {
+								URL u = new URL(p.icon);
+								bmp = BitmapFactory.decodeStream(u.openConnection()
+										.getInputStream());
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							mo.icon(BitmapDescriptorFactory.defaultMarker(catColor
+									.get(todoTask.getKey().getCategory())));
+							markers.add(mo);
+							// gMap.addMarker(mo);
 						}
-						mo.icon(BitmapDescriptorFactory.defaultMarker(catColor
-								.get(todoTask.getKey().getCategory())));
-						markers.add(mo);
-						// gMap.addMarker(mo);
+					}
+				}
+			}
+			else{
+				for (Map.Entry<Todo, PlacesList> todoTask : HomeScreenActivity.TODOtoPlaces
+						.entrySet()) {
+					if(todoTask.getValue().results!=null){
+						for (Place p : todoTask.getValue().results) {
+							MarkerOptions mo = new MarkerOptions().position(
+									new LatLng(p.geometry.location.lat,
+											p.geometry.location.lng)).title(p.name);
+							Bitmap bmp = null;
+							try {
+								URL u = new URL(p.icon);
+								bmp = BitmapFactory.decodeStream(u.openConnection()
+										.getInputStream());
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							mo.icon(BitmapDescriptorFactory.defaultMarker(catColor
+									.get(todoTask.getKey().getCategory())));
+							markers.add(mo);
+							// gMap.addMarker(mo);
+						}
 					}
 				}
 			}
