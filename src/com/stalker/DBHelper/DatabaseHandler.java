@@ -40,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	public static final String KEY_PREFLOC = "pref_location";
 	//private static final String KEY_PRIORITYID = "category_id";
 	public static final String KEY_STARTDATE = "start_date";
-	public static final String KEY_ENDDATE = "end_date";
+	//public static final String KEY_ENDDATE = "end_date";
 	public static final String KEY_CATEGORYID = "category_id";
 	public static final String KEY_PRIORITYID = "category_id";
 	public static final String KEY_DUE = "due_date";
@@ -58,8 +58,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	private static final String CREATE_TABLE_TODO = "CREATE TABLE " + 
 			TABLE_TODO + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			KEY_NOTE + " TEXT, " + KEY_CATEGORY + " TEXT, " + KEY_PREFLOC + 
-			" TEXT, " + KEY_STARTDATE + " DATETIME, " + KEY_ENDDATE + " DATETIME, " + 
-			KEY_STATUS + " INTEGER NOT NULL" +")";
+			" TEXT, " + KEY_STARTDATE + " DATETIME, "+ KEY_STATUS + 
+			" INTEGER NOT NULL" +")";
 	
 	public DatabaseHandler(Context context) {
 		super(context,DATABASE_NAME, null, 1);
@@ -176,7 +176,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 					todo.setCategory(c.getString(c.getColumnIndex(KEY_CATEGORY)));
 					todo.setPrefLoc(c.getString(c.getColumnIndex(KEY_PREFLOC)));
 					todo.setStartDate(c.getString(c.getColumnIndex(KEY_STARTDATE)));
-					todo.setEndDate(c.getString(c.getColumnIndex(KEY_ENDDATE)));
+					//todo.setEndDate(c.getString(c.getColumnIndex(KEY_ENDDATE)));
 					todo.setStatus(c.getInt(c.getColumnIndex(KEY_STATUS)));
 						
 					//Adding to priority list
