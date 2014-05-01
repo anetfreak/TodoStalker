@@ -51,7 +51,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			TABLE_CATEGORY + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			KEY_CATEGORYNAME + " TEXT" + ")";
 	
-	public static final String[] ALL_KEYS = new String[] {ROW_ID, KEY_NOTE, KEY_CATEGORYID, KEY_PRIORITYID, KEY_DUE, KEY_STATUS};
+	public static final String[] ALL_KEYS = new String[] {ROW_ID, KEY_NOTE, KEY_CATEGORY, KEY_PREFLOC, KEY_STARTDATE, KEY_STATUS};
 
 		
 	//ToDo table CREATE statements
@@ -92,6 +92,11 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			
 			// Return all data in the database.
 			public Cursor getAllRows() {
+//				String selectQuery = "SELECT * FROM " + TABLE_TODO;
+//				
+//				SQLiteDatabase db = this.getReadableDatabase();
+//				Cursor c = db.rawQuery(selectQuery, null);
+//					
 				String where = null;
 				Cursor c = 	db.query(true, TABLE_TODO, ALL_KEYS, 
 									where, null, null, null, null, null);
