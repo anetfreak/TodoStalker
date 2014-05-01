@@ -36,7 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	
 	//ToDo List Table
 	public static final String KEY_NOTE = "note";
-	public static final String KEY_CATEGORY = "category";
+	public static  String KEY_CATEGORY = "category";
 	public static final String KEY_PREFLOC = "pref_location";
 	public static final String KEY_STARTDATE = "start_date";
 	public static final String KEY_PRIORITYID = "category_id";
@@ -124,10 +124,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			// Return all data in the database.
 			public Cursor getAllRows() {
 				String selectQuery = "SELECT * FROM " + TABLE_TODO+ " ORDER BY "+ KEY_STARTDATE;
-//				
-//				SQLiteDatabase db = this.getReadableDatabase();
-//				Cursor c = db.query(selectQuery, null);
-//					
+									
 				String where = null;
 				Cursor c = 	db.query(true, TABLE_TODO, ALL_KEYS, 
 									where, null, null, null,KEY_STARTDATE+" DESC ", null);
@@ -249,5 +246,24 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			c.close();
 			db.close();
 			return todoList;
+		}
+
+		public Cursor getAllRowsCat(String category) {
+
+			String selectQuery = "SELECT * FROM " + TABLE_TODO+ " ORDER BY "+ KEY_STARTDATE;
+			
+		//	String where = "KEY_CATEGORY = "+category;
+			Cursor c = 	db.query(true, TABLE_TODO, ALL_KEYS, 
+								KEY_CATEGORY + " = ?", new String[] {category}, null, null,KEY_STARTDATE+" DESC ", null);
+		
+			if (c != null) {
+				Log.i("getrows", new Integer(c.getCount()).toString());
+				c.moveToFirst();
+			} else {
+				Log.i("getrows", "cursor null");
+			}
+			
+			return c;
+			
 		}
 }
