@@ -13,7 +13,7 @@
     <string name="pick_date">Pick a Date</string>
     <string name="cancelBtnText">Cancel</string>
     <string name="categSpinnerPromptTxt">Select a category</string>
-    <string name="actn1">Start Service</string>
+    <string name="actn1">Settings</string>
     <string name="actn2">Add TODO</string>
     <string name="actn3">View Map</string>
     <string name="actn4">List TODOs</string>

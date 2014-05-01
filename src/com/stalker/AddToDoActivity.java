@@ -24,6 +24,9 @@ public class AddToDoActivity extends FragmentActivity {
 	Spinner catSpinner;
 	Spinner prefLocSpinner;
 	EditText notesTextField;
+	public static int startYear;
+	public static int startMonth;
+	public static int startDay;
 	
 	private TodoData todoDat;
 	//DatabaseHandler db = new DatabaseHandler(this);

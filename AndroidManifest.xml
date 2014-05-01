@@ -12,19 +12,19 @@
 	<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 
     <uses-sdk
-        android:minSdkVersion="12"
+        android:minSdkVersion="14"
         android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/stalker"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.stalker.HomeScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:theme="@style/FullscreenTheme" >
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,7 +34,7 @@
         </activity>
         <activity
             android:name="com.stalker.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
         </activity>
 
         <meta-data
@@ -50,20 +50,15 @@
 
         <activity
             android:name="com.stalker.AddToDoActivity"
-            android:label="@string/title_activity_add_to_do" >
+            android:label="@string/title_activity_add_to_do"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen" >
         </activity>
         <activity
-
-
             android:name="com.stalker.ListTodoActivity"
-            android:label="@string/title_activity_list_todo" >
-
-
-            android:name="com.stalker.ListTodoActivity"
-            android:label="@string/title_activity_list_todo" >
+            android:label="@string/title_activity_list_todo"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen" >
             </activity>
-            <activity
-
+        <activity
             android:name="com.stalker.MapAllTODOs"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_map_all_todos"

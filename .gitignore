@@ -31,3 +31,9 @@ bin/classes/com/stalker/LocationService.class
 bin/classes/com/stalker/MainActivity$GetAddressTask.class
 
 bin/classes/com/stalker/MainActivity.class
+
+bin/TodoStalker.apk
+
+*.ap_
+
+bin/TodoStalker.apk

@@ -40,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	public static final String KEY_PREFLOC = "pref_location";
 	//private static final String KEY_PRIORITYID = "category_id";
 	public static final String KEY_STARTDATE = "start_date";
-	public static final String KEY_ENDDATE = "end_date";
+	//public static final String KEY_ENDDATE = "end_date";
 	public static final String KEY_CATEGORYID = "category_id";
 	public static final String KEY_PRIORITYID = "category_id";
 	public static final String KEY_DUE = "due_date";
@@ -51,15 +51,15 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			TABLE_CATEGORY + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			KEY_CATEGORYNAME + " TEXT" + ")";
 	
-	public static final String[] ALL_KEYS = new String[] {ROW_ID, KEY_NOTE, KEY_CATEGORYID, KEY_PRIORITYID, KEY_DUE, KEY_STATUS};
+	public static final String[] ALL_KEYS = new String[] {ROW_ID, KEY_NOTE, KEY_CATEGORY, KEY_PREFLOC, KEY_STARTDATE, KEY_STATUS};
 
 		
 	//ToDo table CREATE statements
 	private static final String CREATE_TABLE_TODO = "CREATE TABLE " + 
 			TABLE_TODO + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			KEY_NOTE + " TEXT, " + KEY_CATEGORY + " TEXT, " + KEY_PREFLOC + 
-			" TEXT, " + KEY_STARTDATE + " DATETIME, " + KEY_ENDDATE + " DATETIME, " + 
-			KEY_STATUS + " INTEGER NOT NULL" +")";
+			" TEXT, " + KEY_STARTDATE + " DATETIME, "+ KEY_STATUS + 
+			" INTEGER NOT NULL" +")";
 	
 	public DatabaseHandler(Context context) {
 		super(context,DATABASE_NAME, null, 1);
@@ -92,6 +92,11 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			
 			// Return all data in the database.
 			public Cursor getAllRows() {
+//				String selectQuery = "SELECT * FROM " + TABLE_TODO;
+//				
+//				SQLiteDatabase db = this.getReadableDatabase();
+//				Cursor c = db.rawQuery(selectQuery, null);
+//					
 				String where = null;
 				Cursor c = 	db.query(true, TABLE_TODO, ALL_KEYS, 
 									where, null, null, null, null, null);
@@ -176,7 +181,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 					todo.setCategory(c.getString(c.getColumnIndex(KEY_CATEGORY)));
 					todo.setPrefLoc(c.getString(c.getColumnIndex(KEY_PREFLOC)));
 					todo.setStartDate(c.getString(c.getColumnIndex(KEY_STARTDATE)));
-					todo.setEndDate(c.getString(c.getColumnIndex(KEY_ENDDATE)));
+					//todo.setEndDate(c.getString(c.getColumnIndex(KEY_ENDDATE)));
 					todo.setStatus(c.getInt(c.getColumnIndex(KEY_STATUS)));
 						
 					//Adding to priority list
