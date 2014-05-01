@@ -3,8 +3,11 @@ package com.stalker;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.stalker.DBHelper.Todo;
 import com.stalker.places.*;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -61,6 +64,28 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 	 */
 	private SystemUiHider mSystemUiHider;
 
+	public static final String[] categories = new String[] { "Shopping",
+			"Food & Drink", "Travel", "Home", "Health & Medicine", "Bank/ATM",
+			"Fuel", "Study", "Work", "Other" };
+	public static final float[] colors = new float[] {
+			BitmapDescriptorFactory.HUE_AZURE,
+			BitmapDescriptorFactory.HUE_BLUE, BitmapDescriptorFactory.HUE_CYAN,
+			BitmapDescriptorFactory.HUE_GREEN,
+			BitmapDescriptorFactory.HUE_MAGENTA,
+			BitmapDescriptorFactory.HUE_ORANGE,
+			BitmapDescriptorFactory.HUE_RED, BitmapDescriptorFactory.HUE_ROSE,
+			BitmapDescriptorFactory.HUE_VIOLET,
+			BitmapDescriptorFactory.HUE_YELLOW };
+	public static Map<String, Float> catColor = new HashMap<String, Float>();
+
+	private void populateMarkerMap() {
+		int i = 0;
+		for (String cat : categories) {
+			catColor.put(cat, colors[i]);
+			i++;
+		}
+	}
+
 	private GoogleMap gMap;
 	private List<MarkerOptions> markers;
 
@@ -72,6 +97,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 
 		try {
 			markers = new ArrayList<MarkerOptions>();
+			populateMarkerMap();
 			initializeMap();
 			displayOnMap();
 			gMap.setOnMarkerClickListener((OnMarkerClickListener) this);
@@ -85,7 +111,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 	}
 
 	private void displayOnMap() {
-		if (HomeScreenActivity.nearMe != null)
+		if (HomeScreenActivity.TODOtoPlaces != null)
 			(new DisplayOnMap()).execute();
 	}
 
@@ -118,23 +144,29 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			for (Place p : HomeScreenActivity.nearMe.results) {
-				MarkerOptions mo = new MarkerOptions().position(
-						new LatLng(p.geometry.location.lat,
-								p.geometry.location.lng)).title(p.name);
-				Bitmap bmp = null;
-				try {
-					URL u = new URL(p.icon);
-					bmp = BitmapFactory.decodeStream(u.openConnection()
-							.getInputStream());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+
+			for (Map.Entry<Todo, PlacesList> todoTask : HomeScreenActivity.TODOtoPlaces
+					.entrySet()) {
+				if(todoTask.getValue().results!=null){
+					for (Place p : todoTask.getValue().results) {
+						MarkerOptions mo = new MarkerOptions().position(
+								new LatLng(p.geometry.location.lat,
+										p.geometry.location.lng)).title(p.name);
+						Bitmap bmp = null;
+						try {
+							URL u = new URL(p.icon);
+							bmp = BitmapFactory.decodeStream(u.openConnection()
+									.getInputStream());
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						mo.icon(BitmapDescriptorFactory.defaultMarker(catColor
+								.get(todoTask.getKey().getCategory())));
+						markers.add(mo);
+						// gMap.addMarker(mo);
+					}
 				}
-				mo.icon(BitmapDescriptorFactory
-						.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-				markers.add(mo);
-				// gMap.addMarker(mo);
 			}
 			return null;
 		}

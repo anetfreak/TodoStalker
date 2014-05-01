@@ -1,9 +1,16 @@
 package com.stalker;
 
-import com.echo.holographlibrary.PieGraph;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import com.echo.holographlibrary.PieGraph;
 import com.echo.holographlibrary.PieSlice;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.stalker.MapAllTODOs.DisplayOnMap;
+import com.stalker.DBHelper.DatabaseHandler;
+import com.stalker.DBHelper.Todo;
 import com.stalker.places.PlacesList;
 import com.stalker.places.PlacesUtil;
 import com.stalker.util.SystemUiHider;
@@ -64,9 +71,9 @@ public class HomeScreenActivity extends Activity {
 
 
 	public static PlacesList nearMe;
+	public static Map<Todo,PlacesList> TODOtoPlaces;
 	public static double currentLatitude;
 	public static double currentLongitude;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -242,8 +249,20 @@ public class HomeScreenActivity extends Activity {
 
 		@Override
 		protected String doInBackground(Void... params) {
+			if(TODOtoPlaces!=null)
+				TODOtoPlaces.clear();
+			else
+				TODOtoPlaces = new HashMap<Todo, PlacesList>();
+			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+			List<Todo> todos = new ArrayList<Todo>();
+			todos = db.getAllTodos();
 			PlacesUtil p = new PlacesUtil();
-			nearMe = p.getNearPlaces();
+			PlacesList todoPlaces;
+			for (Todo todo : todos) {
+				todoPlaces = new PlacesList();
+				todoPlaces = p.getNearPlaces(todo);
+				TODOtoPlaces.put(todo, todoPlaces);
+			}
 			return null;
 		}
 
