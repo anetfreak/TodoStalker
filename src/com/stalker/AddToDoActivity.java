@@ -2,24 +2,30 @@ package com.stalker;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.stalker.DBHelper.Category;
 import com.stalker.DBHelper.DatabaseHandler;
+import com.stalker.DBHelper.PreferredLocation;
 import com.stalker.DBHelper.TodoData;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class AddToDoActivity extends FragmentActivity {
+public class AddToDoActivity extends FragmentActivity implements OnItemSelectedListener{
 
 	Spinner catSpinner;
 	Spinner prefLocSpinner;
@@ -40,7 +46,9 @@ public class AddToDoActivity extends FragmentActivity {
 		prefLocSpinner = (Spinner) findViewById(R.id.preferredLocationSpinner);
 		notesTextField = (EditText) findViewById(R.id.notesTxtBox);
 		
-		loadCategoryAndPrefLocData();
+		catSpinner.setOnItemSelectedListener(this);
+		
+		loadCategoryData();
 		
 		todoDat = new TodoData(this);
 		todoDat.openDB();
@@ -53,28 +61,15 @@ public class AddToDoActivity extends FragmentActivity {
 		return true;
 	}
 	
-	public void loadCategoryAndPrefLocData(){
-		DatabaseHandler db = new DatabaseHandler(this);
+	public void loadCategoryData(){
+		final DatabaseHandler db = new DatabaseHandler(this);
 		
 		List<Category> categories = db.getCategories();
 		ArrayAdapter<Category> dataAdapter = new ArrayAdapter<Category>(this, 
 				android.R.layout.simple_spinner_dropdown_item, categories);
 		
-		String [] stores = new String [] 
-				{"Safeway","Walmart","Target","CVS","Walgreens","Lucky","Smart & Final",
-				"Costco","99 Ranch","KOHL","Ross", "Lowes","Home Depot", "IKEA",
-				"Bank of America","Chase","Well's Fargo","Citibank","US Bank",
-				"Bank of West","Bank of Fremont","Starbucks","Jamba Juice",
-				"Peet's Coffee & Tea", "Applebee's","iHop", "Denny's","McDonald's", 
-				"Jack in the Box", "KFC", "Sushi", "Papa John's","Pizza Hut",
-				"Domino's Pizza", "Shell", "Chevron", "Valero", "ARCO", "76"};
-		ArrayAdapter<String> storeAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_dropdown_item, stores);
-		
-		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		catSpinner.setAdapter(dataAdapter);
 		
-		prefLocSpinner.setAdapter(storeAdapter);
 		db.close();
 	}
 	
@@ -88,10 +83,11 @@ public class AddToDoActivity extends FragmentActivity {
 		String notes = notesTextField.getText().toString();
 		Log.d("ADDTODO","Notes: " + notes);
 		
-		//Calendar c = Calendar.getInstance();
+		StringBuilder s = new StringBuilder().append(startYear).append("/").
+				append(startMonth+1).append("/").append(startDay);
 		
-		
-		todoDat.createTodo(notes, cat, prefPlace, "April 25", "April 26", 0);
+		//Save todo in database
+		todoDat.createTodo(notes, cat, prefPlace, new String(s), 0);
 	}
 	
 	public void showDatePickerDialog(View v) {
@@ -109,5 +105,23 @@ public class AddToDoActivity extends FragmentActivity {
 	protected void onResume() {
 		todoDat.openDB();
 		super.onResume();
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long itemPos){
+		DatabaseHandler db = new DatabaseHandler(this);
+		int pos = (int) itemPos + 1;
+		
+		List<String> pLocs = db.getPreferredLocations(pos);
+		ArrayAdapter<String> locationAdapter = new 
+					ArrayAdapter<String>(this,
+					android.R.layout.simple_spinner_dropdown_item, pLocs);
+				
+		prefLocSpinner.setAdapter(locationAdapter);
+		db.close();
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
 	}
 }

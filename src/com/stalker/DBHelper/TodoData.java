@@ -27,13 +27,12 @@ public class TodoData {
 	}
 	
 	public void createTodo(String note, String category, String prefLoc, String startDate,
-			String endDate, int status){
+			 int status){
 		ContentValues val = new ContentValues();
 		val.put(DatabaseHandler.KEY_NOTE, note);
 		val.put(DatabaseHandler.KEY_CATEGORY, category);
 		val.put(DatabaseHandler.KEY_PREFLOC, prefLoc);
 		val.put(DatabaseHandler.KEY_STARTDATE, startDate);
-		//val.put(DatabaseHandler.KEY_ENDDATE,endDate);
 		val.put(DatabaseHandler.KEY_STATUS, status);
 		
 		db.insert(DatabaseHandler.TABLE_TODO, null, val); 
@@ -57,7 +56,6 @@ public class TodoData {
 				todo.setCategory(c.getString(c.getColumnIndex(DatabaseHandler.KEY_CATEGORY)));
 				todo.setPrefLoc(c.getString(c.getColumnIndex(DatabaseHandler.KEY_PREFLOC)));
 				todo.setStartDate(c.getString(c.getColumnIndex(DatabaseHandler.KEY_STARTDATE)));
-				//todo.setEndDate(c.getString(c.getColumnIndex(DatabaseHandler.KEY_ENDDATE)));
 				todo.setStatus(c.getInt(c.getColumnIndex(DatabaseHandler.KEY_STATUS)));
 				todos.add(todo);
 			}while(c.moveToNext());
