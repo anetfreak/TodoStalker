@@ -104,10 +104,10 @@ public class ListTodoActivity extends Activity {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 
-
+				
 				final View row = super.getView(position, convertView, parent);
 
-
+				
 				cursor.moveToPosition(position);
 				String category = cursor.getString(2);
 				Log.i("ct", category);
@@ -122,5 +122,9 @@ public class ListTodoActivity extends Activity {
 		ListView list = (ListView) findViewById(R.id.listView1);
 		list.setAdapter(cursorAdapter);
 	}	
+	
+	public void viewMap(View view){
+		// display todo location on map
+	}
 
 }

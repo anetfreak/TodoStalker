@@ -92,14 +92,14 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			
 			// Return all data in the database.
 			public Cursor getAllRows() {
-//				String selectQuery = "SELECT * FROM " + TABLE_TODO;
+				String selectQuery = "SELECT * FROM " + TABLE_TODO+ " ORDER BY "+ KEY_STARTDATE;
 //				
 //				SQLiteDatabase db = this.getReadableDatabase();
-//				Cursor c = db.rawQuery(selectQuery, null);
+//				Cursor c = db.query(selectQuery, null);
 //					
 				String where = null;
 				Cursor c = 	db.query(true, TABLE_TODO, ALL_KEYS, 
-									where, null, null, null, null, null);
+									where, null, null, null,KEY_STARTDATE+" DESC ", null);
 			
 				if (c != null) {
 					Log.i("getrows", new Integer(c.getCount()).toString());
