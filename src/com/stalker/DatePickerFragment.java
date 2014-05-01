@@ -23,9 +23,10 @@ implements DatePickerDialog.OnDateSetListener{
     }
 	
 	@Override
-	public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-		// TODO Auto-generated method stub
-		
+	public void onDateSet(DatePicker arg0, int year, int month, int date) {
+		AddToDoActivity.startYear = year;
+		AddToDoActivity.startMonth = month;
+		AddToDoActivity.startDay = date;
 	}
 
 }
