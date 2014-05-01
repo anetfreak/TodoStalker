@@ -8,21 +8,11 @@
         android:id="@+id/item_todo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/checkBox1"
+        android:layout_alignBottom="@+id/map_button"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="17dp"
         android:text="Todo Item"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <CheckBox
-        android:id="@+id/checkBox1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/map_button"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="14dp"
-        android:layout_marginRight="18dp"
-        android:text="Done" />
 
     <ImageButton
         android:id="@+id/map_button"
@@ -34,6 +24,15 @@
         android:adjustViewBounds="true"
         android:maxHeight="70dp"
         android:maxWidth="70dp"
-        android:src="@drawable/map1" />
+        android:src="@drawable/marker" />
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/map_button"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="14dp"
+        android:text="Done" />
 
 </RelativeLayout>
