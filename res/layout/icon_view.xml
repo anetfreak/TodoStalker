@@ -34,6 +34,7 @@
         android:adjustViewBounds="true"
         android:maxHeight="70dp"
         android:maxWidth="70dp"
-        android:src="@drawable/map1" />
+        android:src="@drawable/map1"
+        android:onClick="viewMap" />
 
 </RelativeLayout>
