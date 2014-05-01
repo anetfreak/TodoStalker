@@ -53,7 +53,7 @@ public class LocationService extends IntentService {
 			.setWhen(System.currentTimeMillis())
 			.setDefaults(Notification.DEFAULT_SOUND)
 			.setAutoCancel(true)
-			.setSmallIcon(R.drawable.ic_launcher)
+			.setSmallIcon(R.drawable.stalker)
 			.setContentIntent(notifyPendingIntent)
 			.build();
 

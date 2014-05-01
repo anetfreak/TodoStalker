@@ -62,7 +62,7 @@
 		            android:layout_margin="0dp"
 		            android:layout_weight="1"
 		            android:background="#FDFCFC"
-		            android:drawableLeft="@drawable/boxupload32"
+		            android:drawableLeft="@drawable/pencil32"
 		            android:text="@string/actn2"
 		            android:textColor="#000000" />
 		        
@@ -74,7 +74,7 @@
 		            android:layout_margin="0dp"
 		            android:layout_weight="1"
 		            android:background="#FDFCFC"
-		            android:drawableLeft="@drawable/linedpaper32"
+		            android:drawableLeft="@drawable/linedpapercheck32"
 		            android:text="@string/actn4"
 		            android:textColor="#000000" />
 
@@ -108,7 +108,7 @@
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:background="#FDFDFD"
-            android:drawableLeft="@drawable/recycle32"
+            android:drawableLeft="@drawable/gear32"
             android:minWidth="48dp"
             android:text="@string/actn1"
             android:textColor="#000000" />
