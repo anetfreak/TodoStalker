@@ -1,25 +1,13 @@
-*.class
-bin
-bin/classes
-
-.classpath
-
-bin/classes.dex
-
-*.dex
-
+# built application files
+*.apk
+*.ap_
 *.cache
 
-*.txt
+# files for the dex VM
+*.dex
 
-*.ap_
-
-*.apk
-
-bin/classes/com/stalker/AddToDoActivity.class
-
+# Java class files
 *.class
-
 bin/classes/com/stalker/DBHelper/Category.class
 
 bin/classes/com/stalker/DBHelper/DatabaseHandler.class
@@ -32,8 +20,9 @@ bin/classes/com/stalker/MainActivity$GetAddressTask.class
 
 bin/classes/com/stalker/MainActivity.class
 
-bin/TodoStalker.apk
+# generated files
+bin/
+gen/
 
-*.ap_
-
-bin/TodoStalker.apk
+# Local configuration file (sdk path, etc)
+local.properties
