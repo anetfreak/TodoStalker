@@ -742,12 +742,12 @@ containing a value of this type.
         public static final int main=0x7f0a0002;
     }
     public static final class string {
-        public static final int action_settings=0x7f06001c;
-        public static final int actn1=0x7f060027;
-        public static final int actn2=0x7f060028;
-        public static final int actn3=0x7f060029;
-        public static final int actn4=0x7f06002a;
-        public static final int app_name=0x7f06001b;
+        public static final int action_settings=0x7f06001b;
+        public static final int actn1=0x7f060026;
+        public static final int actn2=0x7f060027;
+        public static final int actn3=0x7f060028;
+        public static final int actn4=0x7f060029;
+        public static final int app_name=0x7f06001a;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -771,8 +771,8 @@ containing a value of this type.
         [CHAR LIMIT=70] 
          */
         public static final int auth_client_using_bad_version_title=0x7f060014;
-        public static final int cancelBtnText=0x7f060025;
-        public static final int categSpinnerPromptTxt=0x7f060026;
+        public static final int cancelBtnText=0x7f060024;
+        public static final int categSpinnerPromptTxt=0x7f060025;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -844,19 +844,16 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060013;
-        public static final int dummy_button=0x7f060021;
-        public static final int dummy_content=0x7f060022;
-        public static final int hello_world=0x7f06001d;
-        /**  Location client code resources (prefix with location_client) 
-         */
-        public static final int location_client_powered_by_google=0x7f06001a;
-        public static final int noteText=0x7f06001f;
-        public static final int pick_date=0x7f060024;
-        public static final int saveBtn=0x7f060023;
-        public static final int title_activity_add_to_do=0x7f06001e;
-        public static final int title_activity_home_screen=0x7f060020;
-        public static final int title_activity_list_todo=0x7f06002b;
-        public static final int title_activity_map_all_todos=0x7f06002c;
+        public static final int dummy_button=0x7f060020;
+        public static final int dummy_content=0x7f060021;
+        public static final int hello_world=0x7f06001c;
+        public static final int noteText=0x7f06001e;
+        public static final int pick_date=0x7f060023;
+        public static final int saveBtn=0x7f060022;
+        public static final int title_activity_add_to_do=0x7f06001d;
+        public static final int title_activity_home_screen=0x7f06001f;
+        public static final int title_activity_list_todo=0x7f06002a;
+        public static final int title_activity_map_all_todos=0x7f06002b;
     }
     public static final class style {
         /** 
