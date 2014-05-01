@@ -54,40 +54,49 @@ public class LocationService extends IntentService {
 			todoLoc.setLongitude(location.getLongitude());
 			
 			ArrayList<Todo> nearbyTodos = new ArrayList<Todo>();
-			for(Entry<Todo, PlacesList> todoMap : HomeScreenActivity.TODOtoPlaces.entrySet()) {
-				for(int i = 0; i < todoMap.getValue().results.size(); i++) {
-					
-					Location placeLoc = new Location("Place Location");
-					todoLoc.setLatitude(todoMap.getValue().results.get(i).geometry.location.lat);
-					todoLoc.setLongitude(todoMap.getValue().results.get(i).geometry.location.lng);
-					float distance = todoLoc.distanceTo(placeLoc);
-					if(distance <= 500) {
-						nearbyTodos.add(todoMap.getKey());
+			if(HomeScreenActivity.TODOtoPlaces != null) {
+				for(Entry<Todo, PlacesList> todoMap : HomeScreenActivity.TODOtoPlaces.entrySet()) {
+					if(todoMap.getKey().getStatus() == 0) {
+						for(int i = 0; i < todoMap.getValue().results.size(); i++) {
+							System.out.println("Number of places for " + todoMap.getKey().getNote() + " todo are " + todoMap.getValue().results.size());
+							
+							Location placeLoc = new Location("Place Location");
+							placeLoc.setLatitude(todoMap.getValue().results.get(i).geometry.location.lat);
+							placeLoc.setLongitude(todoMap.getValue().results.get(i).geometry.location.lng);
+							float distance = todoLoc.distanceTo(placeLoc);
+							System.out.println("Distance between current location and todo place item - " + distance + "m");
+							
+							if(distance <= 500) {
+								nearbyTodos.add(todoMap.getKey());
+								break;
+							}
+						}
 					}
 				}
-			}
-			//Check if there are any nearby todos that the user can go and resolve.
-			if( nearbyTodos.size() > 0 ) {
-				//Send a notification to the user.
 				
-				Intent intentNotify = new Intent(this, HomeScreenActivity.class);
-				PendingIntent notifyPendingIntent = PendingIntent.getActivity(this, 1, intentNotify, 0);
-				
-				String notificationText = nearbyTodos.size() + " of your todo tasks are in your vicinity..";
-				myNotification = new NotificationCompat.Builder(getApplicationContext())
-				.setContentTitle("TodoStalker")
-				.setContentText(notificationText)
-				.setTicker("TodoStalker")
-				.setWhen(System.currentTimeMillis())
-				.setDefaults(Notification.DEFAULT_SOUND)
-				.setAutoCancel(true)
-				.setSmallIcon(R.drawable.stalker)
-				.setContentIntent(notifyPendingIntent)
-				.build();
+				//Check if there are any nearby todos that the user can go and resolve.
+				System.out.println("Nearby Todo items to be notified for " + nearbyTodos.size());
+				if( nearbyTodos.size() > 0 ) {
+					//Send a notification to the user.
+					
+					Intent intentNotify = new Intent(this, HomeScreenActivity.class);
+					PendingIntent notifyPendingIntent = PendingIntent.getActivity(this, 1, intentNotify, 0);
+					
+					String notificationText = nearbyTodos.size() + " of your todo tasks are in your vicinity..";
+					myNotification = new NotificationCompat.Builder(getApplicationContext())
+					.setContentTitle("TodoStalker")
+					.setContentText(notificationText)
+					.setTicker("TodoStalker")
+					.setWhen(System.currentTimeMillis())
+					.setDefaults(Notification.DEFAULT_SOUND)
+					.setAutoCancel(true)
+					.setSmallIcon(R.drawable.stalker)
+					.setContentIntent(notifyPendingIntent)
+					.build();
 
-				notificationManager.notify(NOTIFICATION_ID, myNotification);
+					notificationManager.notify(NOTIFICATION_ID, myNotification);
+				}
 			}
-			
 		}
 	}
 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import com.echo.holographlibrary.PieGraph;
 import com.echo.holographlibrary.PieSlice;
 import com.stalker.DBHelper.DatabaseHandler;
@@ -13,8 +14,8 @@ import com.stalker.places.PlacesList;
 import com.stalker.places.PlacesUtil;
 import com.stalker.util.SystemUiHider;
 
-import android.app.PendingIntent;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -30,6 +31,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -89,7 +91,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 			locationRequest.setSmallestDisplacement(500);
 			
 			//Testing
-//			locationRequest.setInterval(5000);
+//			locationRequest.setInterval(10000);
 			
 			locationClient.requestLocationUpdates(locationRequest, pendingIntent);
 			serviceCreated = true;
@@ -113,9 +115,14 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home_screen);
 		locationClient = new LocationClient(this, this, this);
-//		addressLabel = (TextView) findViewById(R.id.addressLabel);
 
 		findViewById(R.id.fullscreen_content_controls);
+		final View controlsView = findViewById(R.id.fullscreen_content_controls);
+
+		// Upon interacting with UI controls, delay any scheduled hide()
+		// operations to prevent the jarring behavior of controls going away
+		// while interacting with the UI.
+
 
 		final Intent mapIntent = new Intent(getApplicationContext(), MapAllTODOs.class);
 		final Intent addIntent = new Intent(getApplicationContext(), AddToDoActivity.class);
