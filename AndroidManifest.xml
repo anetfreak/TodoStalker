@@ -53,14 +53,22 @@
             android:label="@string/title_activity_add_to_do" >
         </activity>
         <activity
+
+
+            android:name="com.stalker.ListTodoActivity"
+            android:label="@string/title_activity_list_todo" >
+
+
             android:name="com.stalker.ListTodoActivity"
             android:label="@string/title_activity_list_todo" >
             </activity>
             <activity
+
             android:name="com.stalker.MapAllTODOs"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_map_all_todos"
             android:theme="@style/FullscreenTheme" >
+
         </activity>
     </application>
 
