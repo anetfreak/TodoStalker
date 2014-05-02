@@ -99,7 +99,17 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 			markers = new ArrayList<MarkerOptions>();
 			populateMarkerMap();
 			initializeMap();
-			displayOnMap();
+			Intent i = getIntent();
+			Integer todoID;
+			if(i.hasExtra("identifier")){
+				todoID = i.getIntExtra("identifier", -1);
+				displayOnMap(todoID);
+			}
+			else{
+				displayOnMap(-2);
+			}
+			 
+			
 			gMap.setOnMarkerClickListener((OnMarkerClickListener) this);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -110,9 +120,10 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 
 	}
 
-	private void displayOnMap() {
+	private void displayOnMap(Integer todoID) {
 		if (HomeScreenActivity.TODOtoPlaces != null)
-			(new DisplayOnMap()).execute();
+			
+			(new DisplayOnMap()).execute(todoID);
 	}
 
 	private void initializeMap() {
@@ -144,9 +155,11 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 
 		@Override
 		protected Void doInBackground(Integer... params) {
-			Integer identifier = params[0];
+			Integer identifier = -2;
+			if(params.length>0)
+				identifier = params[0];
 
-			if (identifier != null || identifier==0) {
+			if (identifier > -1) {
 				for (Map.Entry<Todo, PlacesList> todoTask : HomeScreenActivity.TODOtoPlaces
 						.entrySet()) {
 					if(todoTask.getKey().getId()==identifier){
@@ -171,7 +184,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 					}
 				}
 			}
-			else{
+			else if(identifier==-2){
 				for (Map.Entry<Todo, PlacesList> todoTask : HomeScreenActivity.TODOtoPlaces
 						.entrySet()) {
 					if(todoTask.getValue().results!=null){

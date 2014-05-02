@@ -139,7 +139,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 	public void viewMap(View view){
 		// display todo location on map
 		Intent i = new Intent(getApplicationContext(),MapAllTODOs.class);
-		i.putExtra("identifier", 2);
+		i.putExtra("identifier", 1);
 		startActivity(i);
 	}
 

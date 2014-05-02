@@ -231,6 +231,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			if(c.moveToFirst()){
 				do{
 					Todo todo = new Todo();
+					todo.setID(c.getInt(c.getColumnIndex(KEY_ID)));
 					todo.setNote(c.getString(c.getColumnIndex(KEY_NOTE)));
 					todo.setCategory(c.getString(c.getColumnIndex(KEY_CATEGORY)));
 					todo.setPrefLoc(c.getString(c.getColumnIndex(KEY_PREFLOC)));

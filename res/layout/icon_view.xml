@@ -22,9 +22,11 @@
         android:layout_marginRight="15dp"
         android:layout_toLeftOf="@+id/checkBox1"
         android:adjustViewBounds="true"
+        android:onClick="viewMap"
         android:maxHeight="70dp"
         android:maxWidth="70dp"
-        android:src="@drawable/marker" />
+        android:background="@android:color/transparent"
+        android:src="@drawable/mapiconbig" />
 
     <CheckBox
         android:id="@+id/checkBox1"
