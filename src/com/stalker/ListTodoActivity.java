@@ -40,7 +40,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 
 	private final String [] categories = new String[] 
 			{"Shopping","Food & Drink","Travel","Home","Health & Medicine",
-			"Bank/ATM","Fuel","Study","Work","Other"};
+			"Bank/ATM","Fuel","Study","Entertainment","Other"};
 
 	private final String[] colors = new String[] 
 			{"#78B7F6","#5E5EE7","#65EDED","#66ED66","#ED65ED","#EDA865","#E55B5B","#ED65A8","#A35DE8","#EDED65"};
