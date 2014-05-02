@@ -62,7 +62,7 @@
             android:name="com.stalker.MapAllTODOs"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_map_all_todos"
-            android:theme="@style/FullscreenTheme" >
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen" >
 
         </activity>
     </application>

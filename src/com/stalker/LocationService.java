@@ -81,12 +81,20 @@ public class LocationService extends IntentService {
 					
 					Intent intentNotify = new Intent(this, HomeScreenActivity.class);
 					PendingIntent notifyPendingIntent = PendingIntent.getActivity(this, 1, intentNotify, 0);
-					
-					String notificationText = nearbyTodos.size() + " of your todo tasks are in your vicinity..";
+					StringBuilder content = new StringBuilder();
+					NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+			        String[] todos = new String[3];
+			        for(int i=0; i<nearbyTodos.size() && i<3; i++) {
+			        	content.append(nearbyTodos.get(i).getNote().trim() + "\n");
+			        }
+			        
+					System.out.println("Number of todo events - " + todos.length);
+//					String notificationText = nearbyTodos.size() + " of your todo tasks are in your vicinity..";
+					String notificationText = content.toString();
 					myNotification = new NotificationCompat.Builder(getApplicationContext())
 					.setContentTitle("TodoStalker")
 					.setContentText(notificationText)
-					.setTicker("TodoStalker")
+					.setTicker("TodoStalker tasks are in your vicinity..")
 					.setWhen(System.currentTimeMillis())
 					.setDefaults(Notification.DEFAULT_SOUND)
 					.setAutoCancel(true)
