@@ -127,7 +127,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 									
 				String where = null;
 				Cursor c = 	db.query(true, TABLE_TODO, ALL_KEYS, 
-									where, null, null, null,KEY_STARTDATE+" DESC ", null);
+									where, null, null, null,KEY_STARTDATE+" ASC ", null);
 			
 				if (c != null) {
 					Log.i("getrows", new Integer(c.getCount()).toString());

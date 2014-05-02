@@ -19,9 +19,11 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -32,44 +34,60 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 	int icon = R.drawable.map1;
 	String categoryName;
 	Cursor cursor;
-	Spinner spinner;
+	Spinner spinner1;
+	Spinner spinner2;
+	private Button btnAdd;
+
 	private final String [] categories = new String[] 
 			{"Shopping","Food & Drink","Travel","Home","Health & Medicine",
 			"Bank/ATM","Fuel","Study","Work","Other"};
-	private final int[] colors = new int[] 
-			{android.R.color.holo_red_light,android.R.color.holo_blue_light,android.R.color.darker_gray,android.R.color.holo_orange_light,
-			android.R.color.holo_purple,android.R.color.holo_green_light,android.R.color.holo_blue_dark,android.R.color.holo_green_dark,
-			android.R.color.holo_orange_dark,android.R.color.holo_red_dark};
+
+	private final String[] colors = new String[] 
+			{"#78B7F6","#5E5EE7","#65EDED","#66ED66","#ED65ED","#EDA865","#E55B5B","#ED65A8","#A35DE8","#EDED65"};
 	Map<String, String> catColor = new HashMap<String, String>();
-	
+
 	private final String [] categoryArray = new String[] 
 			{"All","Shopping","Food & Drink","Travel","Home","Health & Medicine",
 			"Bank/ATM","Fuel","Study","Work","Other"};
-	
+
 
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_todo);
-		
-		spinner = (Spinner)findViewById(R.id.spinner1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(ListTodoActivity.this,
-                android.R.layout.simple_spinner_item,categoryArray);
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-        categoryName = "All";
+		spinner1 = (Spinner)findViewById(R.id.spinner1);
+		//spinner2 = 
+
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(ListTodoActivity.this,
+				android.R.layout.simple_spinner_item,categoryArray);
+
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner1.setAdapter(adapter);
+		spinner1.setOnItemSelectedListener(this);
+		categoryName = "All";
 		openDB();
-		
+
 		populateHashMap();
 
 		populateTodoListFromDB(categoryName);
+
+		final Intent addIntent = new Intent(getApplicationContext(), AddToDoActivity.class);
+
+		btnAdd = (Button) findViewById(R.id.button1);
+
+		btnAdd.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				startActivity(addIntent);
+			}
+		});
 	}
 
 	private void populateHashMap() {
 		int i=0;
 		for (String cat:categories){
-			catColor.put(cat,new Integer(colors[i]).toString());
+			catColor.put(cat,(colors[i]));
 			i++;
 
 		}
@@ -94,9 +112,9 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 
 
 	private void populateTodoListFromDB(String category) {
-		
+
 		if(category.equalsIgnoreCase("All")){
-			
+
 			cursor = myDB.getAllRows();
 		}else{
 			cursor = myDB.getAllRowsCat(category);
@@ -117,16 +135,15 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 
-				
+
 				final View row = super.getView(position, convertView, parent);
 
-				
+
 				cursor.moveToPosition(position);
 				String category = cursor.getString(2);
 				Log.i("ct", category);
 
-				int color = Integer.parseInt(catColor.get(category));
-				row.setBackgroundColor(getResources().getColor(color));
+				row.setBackgroundColor(Color.parseColor(catColor.get(category)));
 
 				return row;
 			}
@@ -135,7 +152,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 		ListView list = (ListView) findViewById(R.id.listView1);
 		list.setAdapter(cursorAdapter);
 	}	
-	
+
 	public void viewMap(View view){
 		// display todo location on map
 		Intent i = new Intent(getApplicationContext(),MapAllTODOs.class);
@@ -143,19 +160,20 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 		startActivity(i);
 	}
 
+
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {
-		spinner.setSelection(position);
-		  String selState = (String) spinner.getSelectedItem();
-		  populateTodoListFromDB(selState);
-		  
+		spinner1.setSelection(position);
+		String selState = (String) spinner1.getSelectedItem();
+		populateTodoListFromDB(selState);
+
 	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
