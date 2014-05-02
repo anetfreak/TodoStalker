@@ -13,6 +13,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.stalker.util.SystemUiHider;
 
+import android.R.drawable;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -76,12 +78,26 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 			BitmapDescriptorFactory.HUE_RED, BitmapDescriptorFactory.HUE_ROSE,
 			BitmapDescriptorFactory.HUE_VIOLET,
 			BitmapDescriptorFactory.HUE_YELLOW };
-	public static Map<String, Float> catColor = new HashMap<String, Float>();
+	
+	public static final int[] icons = new int[]{
+		R.drawable.shopping_bag,
+		R.drawable.food_and_drink,
+		R.drawable.travel,
+		R.drawable.home,
+		R.drawable.health_medicine,
+		R.drawable.bank,
+		R.drawable.fuel,
+		R.drawable.study,
+		R.drawable.work,
+		R.drawable.other
+	};
+	
+	public static Map<String, Integer> catColor = new HashMap<String, Integer>();
 
 	private void populateMarkerMap() {
 		int i = 0;
 		for (String cat : categories) {
-			catColor.put(cat, colors[i]);
+			catColor.put(cat, icons[i]);
 			i++;
 		}
 	}
@@ -97,7 +113,6 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 
 		try {
 			markers = new ArrayList<MarkerOptions>();
-			populateMarkerMap();
 			initializeMap();
 			Intent i = getIntent();
 			Integer todoID;
@@ -141,6 +156,8 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 			}
 		}
 
+		populateMarkerMap();
+
 	}
 
 	public class DisplayOnMap extends AsyncTask<Integer, Void, Void> {
@@ -176,8 +193,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							mo.icon(BitmapDescriptorFactory.defaultMarker(catColor
-									.get(todoTask.getKey().getCategory())));
+							mo.icon(BitmapDescriptorFactory.fromResource(catColor.get(todoTask.getKey().getCategory())));
 							markers.add(mo);
 							// gMap.addMarker(mo);
 						}
@@ -201,8 +217,9 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							mo.icon(BitmapDescriptorFactory.defaultMarker(catColor
-									.get(todoTask.getKey().getCategory())));
+							mo.icon(BitmapDescriptorFactory.fromResource(catColor.get(todoTask.getKey().getCategory())));
+							//mo.icon(BitmapDescriptorFactory.defaultMarker(catColor
+								//	.get(todoTask.getKey().getCategory())));
 							markers.add(mo);
 							// gMap.addMarker(mo);
 						}
