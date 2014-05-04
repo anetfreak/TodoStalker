@@ -3,6 +3,7 @@ package com.stalker.places;
 import java.io.Serializable;
 
 import com.google.api.client.util.Key;
+import com.stalker.DBHelper.Todo;
 
 public class Place {
 	@Key
@@ -28,6 +29,8 @@ public class Place {
      
     @Key
     public String formatted_phone_number;
+    
+    public Todo associatedTODO;
  
     @Override
     public String toString() {
