@@ -1,32 +1,26 @@
 package com.stalker;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.stalker.DBHelper.DatabaseHandler;
-import com.stalker.R;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+
+import com.stalker.DBHelper.DatabaseHandler;
 
 
 public class ListTodoActivity extends Activity implements OnItemSelectedListener{

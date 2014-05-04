@@ -83,16 +83,22 @@ public class LocationService extends IntentService {
 					PendingIntent notifyPendingIntent = PendingIntent.getActivity(this, 1, intentNotify, 0);
 					StringBuilder content = new StringBuilder();
 					NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-			        String[] todos = new String[3];
-			        for(int i=0; i<nearbyTodos.size() && i<3; i++) {
-			        	content.append(nearbyTodos.get(i).getNote().trim() + "\n");
+			        String[] todos = new String[5];
+			        for(int i=0; i<nearbyTodos.size() && i < 5; i++) {
+//			        	content.append(nearbyTodos.get(i).getNote().trim() + "\n");
+			        	todos[i] = (i+1) + ". " + nearbyTodos.get(i).getNote().trim();
 			        }
 			        
 					System.out.println("Number of todo events - " + todos.length);
-//					String notificationText = nearbyTodos.size() + " of your todo tasks are in your vicinity..";
-					String notificationText = content.toString();
+					for(int j=0; j < 3; j++) {
+//						inboxStyle.addLine(content.append(nearbyTodos.get(j).getNote().trim()));
+						inboxStyle.addLine(todos[j]);
+					}
+					
+					String notificationText = nearbyTodos.size() + " of your todo tasks are in your vicinity..";
+//					String notificationText = content.toString();
 					myNotification = new NotificationCompat.Builder(getApplicationContext())
-					.setContentTitle("TodoStalker")
+					.setContentTitle("TODO Alert..")
 					.setContentText(notificationText)
 					.setTicker("TodoStalker tasks are in your vicinity..")
 					.setWhen(System.currentTimeMillis())
@@ -100,6 +106,7 @@ public class LocationService extends IntentService {
 					.setAutoCancel(true)
 					.setSmallIcon(R.drawable.stalker)
 					.setContentIntent(notifyPendingIntent)
+					.setStyle(inboxStyle)
 					.build();
 
 					notificationManager.notify(NOTIFICATION_ID, myNotification);
