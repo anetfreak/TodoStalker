@@ -1,8 +1,18 @@
 package com.stalker;
 
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.stalker.DBHelper.DatabaseHandler;
+import com.stalker.DBHelper.Todo;
+import com.stalker.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,8 +29,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
-import com.stalker.DBHelper.DatabaseHandler;
 
 
 public class ListTodoActivity extends Activity implements OnItemSelectedListener{
@@ -31,6 +41,8 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 	Spinner spinner1;
 	Spinner spinner2;
 	private Button btnAdd;
+	String selcat="All";
+	String selDate="All";
 
 	private final String [] categories = new String[] 
 			{"Shopping","Food & Drink","Travel","Home","Health & Medicine",
@@ -42,7 +54,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 
 	private final String [] categoryArray = new String[] 
 			{"All","Shopping","Food & Drink","Travel","Home","Health & Medicine",
-			"Bank/ATM","Fuel","Study","Work","Other"};
+			"Bank/ATM","Fuel","Study","Entertainment","Other"};
 
 
 	protected void onCreate(Bundle savedInstanceState){
@@ -50,20 +62,51 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 		setContentView(R.layout.activity_list_todo);
 
 		spinner1 = (Spinner)findViewById(R.id.spinner1);
-		//spinner2 = 
+		spinner2 = (Spinner)findViewById(R.id.spinner2);
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(ListTodoActivity.this,
 				android.R.layout.simple_spinner_item,categoryArray);
 
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner1.setAdapter(adapter);
-		spinner1.setOnItemSelectedListener(this);
-		categoryName = "All";
+		spinner1.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position,
+					long id) {
+				spinner1.setSelection(position);
+				selcat = (String) spinner1.getSelectedItem();
+				populateTodoListFromDB(selcat,selDate);
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		spinner2.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position,
+					long id) {
+				spinner2.setSelection(position);
+				selDate = (String) spinner2.getSelectedItem();
+				populateTodoListFromDB(selcat,selDate);
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		openDB();
+		loadSpinnerData();
 
 		populateHashMap();
 
-		populateTodoListFromDB(categoryName);
+		populateTodoListFromDB(selcat,selDate);
 
 		final Intent addIntent = new Intent(getApplicationContext(), AddToDoActivity.class);
 
@@ -76,6 +119,19 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 				startActivity(addIntent);
 			}
 		});
+	}
+
+	private void loadSpinnerData() {
+		List<Todo> dates = myDB.getAllTodos();
+		List<String> dateArray = new ArrayList<String>();
+		dateArray.add("All");
+		for(int i = 0; i < dates.size(); i++ ){
+			String stDate = dates.get(i).getStartDate();
+			dateArray.add(stDate);
+		}
+		ArrayAdapter<String> dateAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, dateArray);
+		dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner2.setAdapter(dateAdapter);
 	}
 
 	private void populateHashMap() {
@@ -105,22 +161,26 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 	}
 
 
-	private void populateTodoListFromDB(String category) {
+	private void populateTodoListFromDB(String category, String date) {
 
-		if(category.equalsIgnoreCase("All")){
+		if((category.equalsIgnoreCase("All")) && (date.equalsIgnoreCase("All"))){
 
 			cursor = myDB.getAllRows();
-		}else{
+		}else if ((category.equalsIgnoreCase("All"))) {
+			cursor = myDB.getAllRowsDat(date);
+		}else if (date.equalsIgnoreCase("All")) {
 			cursor = myDB.getAllRowsCat(category);
+		}else{
+			cursor = myDB.getAllRowsCatDate(category,date);
 		}
 
 		startManagingCursor(cursor);
 
 		//Setup mapping from cursor to view fields
 		String[] fieldNames = new String[]{
-				DatabaseHandler.KEY_NOTE};
+				DatabaseHandler.KEY_NOTE, DatabaseHandler.Id};
 
-		int[] viewIds = new int[] {R.id.item_todo};
+		int[] viewIds = new int[] {R.id.item_todo,R.id.rowId};
 
 
 		//Create Adapter to map columns of DB to the view
@@ -136,21 +196,25 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 				cursor.moveToPosition(position);
 				String category = cursor.getString(2);
 				Log.i("ct", category);
-
+				Log.i("rowId rr ", cursor.getString(0));
 				row.setBackgroundColor(Color.parseColor(catColor.get(category)));
 
 				return row;
 			}
 		};
 
-		ListView list = (ListView) findViewById(R.id.listView1);
+		ListView list = (ListView) findViewById(R.id.notificationsList);
 		list.setAdapter(cursorAdapter);
 	}	
 
 	public void viewMap(View view){
 		// display todo location on map
 		Intent i = new Intent(getApplicationContext(),MapAllTODOs.class);
-		i.putExtra("identifier", 1);
+
+		View parentView = (View) view.getParent();
+		String rowIdVal   = ((TextView) parentView.findViewById(R.id.rowId)).getText().toString();
+		Log.i("rowIdval", rowIdVal);
+		i.putExtra("identifier", rowIdVal);
 		startActivity(i);
 	}
 
@@ -158,9 +222,9 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {
-		spinner1.setSelection(position);
-		String selState = (String) spinner1.getSelectedItem();
-		populateTodoListFromDB(selState);
+		//		spinner1.setSelection(position);
+		//		String selState = (String) spinner1.getSelectedItem();
+		//		populateTodoListFromDB(selState);
 
 	}
 

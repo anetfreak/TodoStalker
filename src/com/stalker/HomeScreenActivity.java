@@ -5,6 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+import com.echo.holographlibrary.PieGraph;
+import com.echo.holographlibrary.PieSlice;
+import com.stalker.DBHelper.DatabaseHandler;
+import com.stalker.DBHelper.Todo;
+import com.stalker.places.PlacesList;
+import com.stalker.places.PlacesUtil;
+import com.stalker.util.SystemUiHider;
+
+
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,19 +24,13 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.echo.holographlibrary.PieGraph;
-import com.echo.holographlibrary.PieSlice;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
-import com.stalker.DBHelper.DatabaseHandler;
-import com.stalker.DBHelper.Todo;
-import com.stalker.places.PlacesList;
-import com.stalker.places.PlacesUtil;
-import com.stalker.util.SystemUiHider;
 
 
 /**
@@ -48,6 +52,8 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	public static Map<Todo,PlacesList> TODOtoPlaces;
 	public static double currentLatitude;
 	public static double currentLongitude;
+
+
 
 	LocationClient locationClient;
 	Intent intentService;
@@ -78,14 +84,14 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 			pendingIntent = PendingIntent.getService(this, 1, intentService, 0);
 			locationRequest = LocationRequest.create();
 			
-//			//Setting a fastest and normal interval to 5min and 30min
-//			locationRequest.setInterval(1800000);
-//			locationRequest.setFastestInterval(300000);
-//			//Setting the distance after which the service should check the location updates to 500meters.
-//			locationRequest.setSmallestDisplacement(500);
+			//Setting a fastest and normal interval to 5min and 30min
+			locationRequest.setInterval(1800000);
+			locationRequest.setFastestInterval(300000);
+			//Setting the distance after which the service should check the location updates to 500meters.
+			locationRequest.setSmallestDisplacement(500);
 			
 			//Testing
-			locationRequest.setInterval(5000);
+//			locationRequest.setInterval(10000);
 			
 			locationClient.requestLocationUpdates(locationRequest, pendingIntent);
 			serviceCreated = true;

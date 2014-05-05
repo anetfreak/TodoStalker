@@ -15,7 +15,6 @@ import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -23,7 +22,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.stalker.util.SystemUiHider;
 
-import android.R.drawable;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
@@ -42,15 +40,41 @@ import android.widget.Toast;
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
- * @param <dovesiamo>
  * 
  * @see SystemUiHider
  */
 public class MapAllTODOs extends Activity implements OnMarkerClickListener {
+	/**
+	 * Whether or not the system UI should be auto-hidden after
+	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
+	 */
+	private static final boolean AUTO_HIDE = true;
+
+	/**
+	 * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
+	 * user interaction before hiding the system UI.
+	 */
+	private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
+
+	/**
+	 * If set, will toggle the system UI visibility upon interaction. Otherwise,
+	 * will show the system UI visibility upon interaction.
+	 */
+	private static final boolean TOGGLE_ON_CLICK = true;
+
+	/**
+	 * The flags to pass to {@link SystemUiHider#getInstance}.
+	 */
+	private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
+
+	/**
+	 * The instance of the {@link SystemUiHider} for this activity.
+	 */
+	private SystemUiHider mSystemUiHider;
 
 	public static final String[] categories = new String[] { "Shopping",
 			"Food & Drink", "Travel", "Home", "Health & Medicine", "Bank/ATM",
-			"Fuel", "Study", "Entertainment", "Other" };
+			"Fuel", "Study", "Work", "Other" };
 	public static final float[] colors = new float[] {
 			BitmapDescriptorFactory.HUE_AZURE,
 			BitmapDescriptorFactory.HUE_BLUE, BitmapDescriptorFactory.HUE_CYAN,
@@ -60,6 +84,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 			BitmapDescriptorFactory.HUE_RED, BitmapDescriptorFactory.HUE_ROSE,
 			BitmapDescriptorFactory.HUE_VIOLET,
 			BitmapDescriptorFactory.HUE_YELLOW };
+
 	
 	public static final int[] icons = new int[]{
 		R.drawable.shopping_bag,
@@ -77,6 +102,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 	public static Map<String, Integer> catColor = new HashMap<String, Integer>();
 	
 	public static Map<String,Place> markerToPlace = new HashMap<String, Place>();
+
 
 	private void populateMarkerMap() {
 		int i = 0;
@@ -97,6 +123,8 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 
 		try {
 			markers = new HashMap<MarkerOptions,Place>();
+
+			populateMarkerMap();
 			initializeMap();
 			Intent i = getIntent();
 			Integer todoID;
@@ -130,7 +158,8 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 			gMap = ((MapFragment) getFragmentManager().findFragmentById(
 					R.id.mapTodo)).getMap();
 			gMap.moveCamera(CameraUpdateFactory
-					.newCameraPosition(new CameraPosition(new LatLng(HomeScreenActivity.currentLatitude,HomeScreenActivity.currentLongitude), 14, 0, 0)));
+					.newCameraPosition(new CameraPosition(new LatLng(
+							37.3357190, -121.8867080), 14, 0, 0)));
 
 			if (gMap == null) {
 				Toast.makeText(getApplicationContext(),
@@ -140,11 +169,8 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 			
 			 
 		}
-
 		populateMarkerMap();
 		
-		
-
 	}
 
 	public class DisplayOnMap extends AsyncTask<Integer, Void, Void> {
@@ -223,6 +249,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 				for (Map.Entry<Todo, PlacesList> todoTask : HomeScreenActivity.TODOtoPlaces
 						.entrySet()) {
 					if(todoTask.getKey().getId()==identifier){
+
 						createMarker(todoTask);
 					}
 				}
@@ -270,15 +297,6 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 	}
 	
 	public void onInfoWindowClick (Marker marker){
-		Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-				Uri.parse("http://maps.google.com/maps?saddr="
-						+ String.valueOf(HomeScreenActivity.currentLatitude)
-						+ ","
-						+ String.valueOf(HomeScreenActivity.currentLongitude)
-						+ "&daddr="
-						+ String.valueOf(marker.getPosition().latitude) + ","
-						+ String.valueOf(marker.getPosition().longitude)));
-		startActivity(intent);
 	}
 
 	@Override

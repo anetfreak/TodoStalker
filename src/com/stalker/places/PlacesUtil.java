@@ -87,11 +87,7 @@ public class PlacesUtil {
 					+ String.valueOf(HomeScreenActivity.currentLongitude)));
 			params.add(new BasicNameValuePair("radius", _radius));
 			System.out.println("Category : "+catType.get(todo.getCategory()));
-			if(todo.getPrefLoc()!=null || todo.getPrefLoc() != "")
-				params.add(new BasicNameValuePair("types", todo.getPrefLoc()));
-			else
-				params.add(new BasicNameValuePair("types", catType.get(todo.getCategory())));
-				
+			params.add(new BasicNameValuePair("types", catType.get(todo.getCategory())));
 			params.add(new BasicNameValuePair("sensor", "false"));
 
 			URI uri = new URI(PLACES_SEARCH_URL + "?"

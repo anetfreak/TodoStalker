@@ -11,7 +11,7 @@
         android:layout_height="match_parent" >
 
         <ListView
-            android:id="@+id/listView1"
+            android:id="@+id/notificationsList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -46,6 +46,17 @@
             android:layout_alignBottom="@+id/spinner1"
             android:layout_alignParentRight="true"
             android:text="Add" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/spinner1"
+            android:layout_below="@+id/item_todo"
+            android:layout_toLeftOf="@+id/button1"
+            android:layout_toRightOf="@+id/spinner1"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown" />
 
     </RelativeLayout>
 
