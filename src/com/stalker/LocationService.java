@@ -10,6 +10,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.location.LocationClient;
@@ -79,24 +80,25 @@ public class LocationService extends IntentService {
 				if( nearbyTodos.size() > 0 ) {
 					//Send a notification to the user.
 					
-					Intent intentNotify = new Intent(this, HomeScreenActivity.class);
-					PendingIntent notifyPendingIntent = PendingIntent.getActivity(this, 1, intentNotify, 0);
-					StringBuilder content = new StringBuilder();
+					Intent intentNotify = new Intent(this, NotificationActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("todos", nearbyTodos);
+					intentNotify.putExtras(bundle);
+					
+					PendingIntent notifyPendingIntent = PendingIntent.getActivity(this, 1, intentNotify, PendingIntent.FLAG_CANCEL_CURRENT);
+
 					NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 			        String[] todos = new String[5];
 			        for(int i=0; i<nearbyTodos.size() && i < 5; i++) {
-//			        	content.append(nearbyTodos.get(i).getNote().trim() + "\n");
 			        	todos[i] = (i+1) + ". " + nearbyTodos.get(i).getNote().trim();
 			        }
 			        
 					System.out.println("Number of todo events - " + todos.length);
 					for(int j=0; j < 3; j++) {
-//						inboxStyle.addLine(content.append(nearbyTodos.get(j).getNote().trim()));
 						inboxStyle.addLine(todos[j]);
 					}
 					
 					String notificationText = nearbyTodos.size() + " of your todo tasks are in your vicinity..";
-//					String notificationText = content.toString();
 					myNotification = new NotificationCompat.Builder(getApplicationContext())
 					.setContentTitle("TODO Alert..")
 					.setContentText(notificationText)

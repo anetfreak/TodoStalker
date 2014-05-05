@@ -1,7 +1,11 @@
 package com.stalker.DBHelper;
 
-public class Todo {
+import java.io.Serializable;
 
+public class Todo implements Serializable {
+
+	private static final long serialVersionUID = -5250921033443809685L;
+	
 	private int id;
 	private String note;
 	private String category;

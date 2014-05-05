@@ -143,7 +143,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 			}
 		};
 
-		ListView list = (ListView) findViewById(R.id.listView1);
+		ListView list = (ListView) findViewById(R.id.notificationsList);
 		list.setAdapter(cursorAdapter);
 	}	
 
