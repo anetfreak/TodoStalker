@@ -1,5 +1,6 @@
 package com.stalker;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -12,26 +13,24 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.stalker.DBHelper.DatabaseHandler;
 import com.stalker.DBHelper.Todo;
 import com.stalker.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 
 
 public class ListTodoActivity extends Activity implements OnItemSelectedListener{
@@ -204,7 +203,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 			}
 		};
 
-		ListView list = (ListView) findViewById(R.id.listView1);
+		ListView list = (ListView) findViewById(R.id.notificationsList);
 		list.setAdapter(cursorAdapter);
 	}	
 
