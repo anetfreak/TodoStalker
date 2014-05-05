@@ -5,7 +5,7 @@ import java.io.Serializable;
 import com.google.api.client.util.Key;
 import com.stalker.DBHelper.Todo;
 
-public class Place {
+public class Place{
 	@Key
     public String id;
      
@@ -51,4 +51,5 @@ public class Place {
         @Key
         public double lng;
     }
+ 
 }

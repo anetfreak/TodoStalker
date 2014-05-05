@@ -20,4 +20,5 @@
     <string name="title_activity_list_todo">ListTodoActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_map_all_todos">MapAllTODOs</string>
+    <string name="placeImage">Image for the Place</string>
 </resources>
