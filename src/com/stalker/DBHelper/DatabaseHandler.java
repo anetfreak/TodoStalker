@@ -1,7 +1,10 @@
 package com.stalker.DBHelper;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -37,6 +40,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	//ToDo List Table
 	public static final String KEY_NOTE = "note";
 	public static  String KEY_CATEGORY = "category";
+
+	public static String Id = "_id";
 	public static final String KEY_PREFLOC = "pref_location";
 	public static final String KEY_STARTDATE = "start_date";
 	public static final String KEY_PRIORITYID = "category_id";
@@ -245,7 +250,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			
 			Log.d("DBHANDLER", "Count: " + c.getCount());
 			c.close();
-			db.close();
+		//	db.close();
 			return todoList;
 		}
 
@@ -255,7 +260,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			
 		//	String where = "KEY_CATEGORY = "+category;
 			Cursor c = 	db.query(true, TABLE_TODO, ALL_KEYS, 
-								KEY_CATEGORY + " = ?", new String[] {category}, null, null,KEY_STARTDATE+" DESC ", null);
+								KEY_CATEGORY + " = ?", new String[] {category}, null, null,KEY_STARTDATE+" ASC ", null);
 		
 			if (c != null) {
 				Log.i("getrows", new Integer(c.getCount()).toString());
@@ -266,5 +271,41 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			
 			return c;
 			
+		}
+
+
+		public Cursor getAllRowsDat(String date) {
+			String selectQuery = "SELECT * FROM " + TABLE_TODO+ " ORDER BY "+ KEY_STARTDATE;
+			
+			//	String where = "KEY_CATEGORY = "+category;
+				Cursor c = 	db.query(true, TABLE_TODO, ALL_KEYS, 
+									KEY_STARTDATE + " = ?", new String[] {date}, null, null,KEY_STARTDATE+" ASC ", null);
+			
+				if (c != null) {
+					Log.i("getrows", new Integer(c.getCount()).toString());
+					c.moveToFirst();
+				} else {
+					Log.i("getrows", "cursor null");
+				}
+				
+				return c;
+		}
+
+		public Cursor getAllRowsCatDate(String category, String date) {
+			
+				String selectQuery = "SELECT * FROM " + TABLE_TODO+ " ORDER BY "+ KEY_STARTDATE;
+				
+				//	String where = "KEY_CATEGORY = "+category;
+					Cursor c = 	db.query(true, TABLE_TODO, ALL_KEYS, KEY_CATEGORY + " = ? " + " and "+
+										KEY_STARTDATE + " = ?", new String[] {category,date}, null, null,KEY_STARTDATE+" ASC ", null);
+				
+					if (c != null) {
+						Log.i("getrows", new Integer(c.getCount()).toString());
+						c.moveToFirst();
+					} else {
+						Log.i("getrows", "cursor null");
+					}
+					
+					return c;
 		}
 }
