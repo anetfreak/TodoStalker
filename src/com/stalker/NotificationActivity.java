@@ -133,24 +133,19 @@ public class NotificationActivity extends Activity {
 			for(int i=0; i< todos.size(); i++){
 				Map<String, String> datum = new HashMap<String, String>(2);
 			    datum.put("First Line", todos.get(i).getNote());
-			    datum.put("Second Line","@ " + todos.get(i).getPrefLoc());
+//			    datum.put("Second Line","@ " + todos.get(i).getPrefLoc());
 			    data.add(datum);
 			}
 			
 			
 			SimpleAdapter adapter = new SimpleAdapter(this, data,
 	                android.R.layout.simple_list_item_2, 
-	                new String[] {"First Line", "Second Line" }, 
-	                new int[] {android.R.id.text1, android.R.id.text2 });
+//	                new String[] {"First Line", "Second Line" },
+	                new String[] {"First Line"},
+	                new int[] {android.R.id.text1});
 			
 			ListView notifications = (ListView) findViewById(R.id.notificationsList);
-			
-//			ArrayAdapter<String> adapter = new ArrayAdapter<String>(NotificationActivity.this,
-//					android.R.layout.simple_list_item_2);
-
-//			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			notifications.setAdapter(adapter);
-//			spinner1.setOnItemSelectedListener(this);
 		}
 		
 	}
