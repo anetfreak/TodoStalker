@@ -95,12 +95,14 @@ public class AddToDoActivity extends FragmentActivity implements OnItemSelectedL
 		
 		//Go To ListToDo Activity
 		Intent i = new Intent(getApplicationContext(), ListTodoActivity.class);
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); 
 		startActivity(i);
 	}
 	
 	//Cancel button ClickEventListener
 	public void cancelOnClick(View v){
 		Intent i = new Intent(getApplicationContext(), HomeScreenActivity.class);
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		startActivity(i);
 	}
 	
