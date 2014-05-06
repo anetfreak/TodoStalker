@@ -14,6 +14,7 @@ import com.stalker.DBHelper.TodoData;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -28,7 +29,7 @@ import android.widget.Spinner;
 public class AddToDoActivity extends FragmentActivity implements OnItemSelectedListener{
 
 	Spinner catSpinner;
-	Spinner prefLocSpinner;
+	Spinner subCatSpinner;
 	EditText notesTextField;
 	public static int startYear;
 	public static int startMonth;
@@ -43,7 +44,7 @@ public class AddToDoActivity extends FragmentActivity implements OnItemSelectedL
 		setContentView(R.layout.activity_add_to_do);
 		
 		catSpinner = (Spinner) findViewById(R.id.categorySpinner);
-		prefLocSpinner = (Spinner) findViewById(R.id.preferredLocationSpinner);
+		subCatSpinner = (Spinner) findViewById(R.id.subCategorySpinner);
 		notesTextField = (EditText) findViewById(R.id.notesTxtBox);
 		
 		catSpinner.setOnItemSelectedListener(this);
@@ -78,8 +79,8 @@ public class AddToDoActivity extends FragmentActivity implements OnItemSelectedL
 	public void saveTodo(View v){
 		String cat = catSpinner.getSelectedItem().toString();
 		Log.d("ADDTODO","Selected category: " + cat);
-		String prefPlace = prefLocSpinner.getSelectedItem().toString();
-		Log.d("ADDTODO","Selected pref location: " + prefPlace);
+		String subCateg = subCatSpinner.getSelectedItem().toString();
+		Log.d("ADDTODO","Selected sub category: " + subCateg);
 		String notes = notesTextField.getText().toString();
 		Log.d("ADDTODO","Notes: " + notes);
 		
@@ -87,7 +88,17 @@ public class AddToDoActivity extends FragmentActivity implements OnItemSelectedL
 				append(startMonth+1).append("/").append(startDay);
 		
 		//Save todo in database
-		todoDat.createTodo(notes, cat, prefPlace, new String(s), 0);
+		todoDat.createTodo(notes, cat, subCateg, new String(s), 0);
+		
+		//Go To ListToDo Activity
+		Intent i = new Intent(getApplicationContext(), ListTodoActivity.class);
+		startActivity(i);
+	}
+	
+	//Cancel button ClickEventListener
+	public void cancelOnClick(View v){
+		Intent i = new Intent(getApplicationContext(), HomeScreenActivity.class);
+		startActivity(i);
 	}
 	
 	public void showDatePickerDialog(View v) {
@@ -108,16 +119,16 @@ public class AddToDoActivity extends FragmentActivity implements OnItemSelectedL
 	}
 
 	@Override
-	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long itemPos){
+	public void onItemSelected(AdapterView<?> parent, View arg1, int arg2, long itemPos){
 		DatabaseHandler db = new DatabaseHandler(this);
 		int pos = (int) itemPos + 1;
 		
-		List<String> pLocs = db.getPreferredLocations(pos);
+		List<String> pLocs = db.getSubCategory(pos);
 		ArrayAdapter<String> locationAdapter = new 
 					ArrayAdapter<String>(this,
 					android.R.layout.simple_spinner_dropdown_item, pLocs);
 				
-		prefLocSpinner.setAdapter(locationAdapter);
+		subCatSpinner.setAdapter(locationAdapter);
 		db.close();
 	}
 
