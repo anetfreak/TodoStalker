@@ -49,7 +49,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 
 
 	public static PlacesList nearMe;
-	public static Map<Todo,PlacesList> TODOtoPlaces;
+//	public static Map<Todo,PlacesList> TODOtoPlaces;
 	public static double currentLatitude;
 	public static double currentLongitude;
 
@@ -65,7 +65,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	protected void onStart() {
 		super.onStart();
 		locationClient.connect();
-		(new GetPlacesTask()).execute();
+		//(new GetPlacesTask()).execute();
 	}
 	
 	@Override
@@ -176,39 +176,39 @@ GooglePlayServicesClient.OnConnectionFailedListener {
         slice.setValue(8);
         pg.addSlice(slice);
         
-        if(nearMe==null){
-        	(new GetPlacesTask()).execute();
-        }
+//        if(nearMe==null){
+//        	(new GetPlacesTask()).execute();
+//        }
 
 	}
 
-	public class GetPlacesTask extends AsyncTask<Void, Void, String>{
-
-		@Override
-		protected void onPostExecute(String result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-			Toast.makeText(getApplicationContext(), "Check the Map", 100).show();;
-		}
-
-		@Override
-		protected String doInBackground(Void... params) {
-			if(TODOtoPlaces!=null)
-				TODOtoPlaces.clear();
-			else
-				TODOtoPlaces = new HashMap<Todo, PlacesList>();
-			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-			List<Todo> todos = new ArrayList<Todo>();
-			todos = db.getAllTodos();
-			PlacesUtil p = new PlacesUtil();
-			PlacesList todoPlaces;
-			for (Todo todo : todos) {
-				todoPlaces = new PlacesList();
-				todoPlaces = p.getNearPlaces(todo);
-				TODOtoPlaces.put(todo, todoPlaces);
-			}
-			return null;
-		}
-
-	}
+//	public class GetPlacesTask extends AsyncTask<Void, Void, String>{
+//
+//		@Override
+//		protected void onPostExecute(String result) {
+//			// TODO Auto-generated method stub
+//			super.onPostExecute(result);
+//			Toast.makeText(getApplicationContext(), "Check the Map", 100).show();;
+//		}
+//
+//		@Override
+//		protected String doInBackground(Void... params) {
+//			if(TODOtoPlaces!=null)
+//				TODOtoPlaces.clear();
+//			else
+//				TODOtoPlaces = new HashMap<Todo, PlacesList>();
+//			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+//			List<Todo> todos = new ArrayList<Todo>();
+//			todos = db.getAllTodos();
+//			PlacesUtil p = new PlacesUtil();
+//			PlacesList todoPlaces;
+//			for (Todo todo : todos) {
+//				todoPlaces = new PlacesList();
+//				todoPlaces = p.getNearPlaces(todo);
+//				TODOtoPlaces.put(todo, todoPlaces);
+//			}
+//			return null;
+//		}
+//
+//	}
 }

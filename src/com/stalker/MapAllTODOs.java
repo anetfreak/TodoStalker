@@ -148,7 +148,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 	}
 
 	private void displayOnMap(Integer todoID) {
-		if (HomeScreenActivity.TODOtoPlaces != null)
+		if (LocationService.TODOtoPlaces != null)
 			
 			(new DisplayOnMap()).execute(todoID);
 	}
@@ -237,7 +237,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 				identifier = params[0];
 
 			if (identifier > -1) {
-				for (Map.Entry<Todo, PlacesList> todoTask : HomeScreenActivity.TODOtoPlaces
+				for (Map.Entry<Todo, PlacesList> todoTask : LocationService.TODOtoPlaces
 						.entrySet()) {
 					if(todoTask.getKey().getId()==identifier){
 
@@ -246,7 +246,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 				}
 			}
 			else if(identifier==-2){
-				for (Map.Entry<Todo, PlacesList> todoTask : HomeScreenActivity.TODOtoPlaces
+				for (Map.Entry<Todo, PlacesList> todoTask : LocationService.TODOtoPlaces
 						.entrySet()) {
 					if(todoTask.getValue().results!=null){
 						createMarker(todoTask);

@@ -1,6 +1,9 @@
 package com.stalker;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import android.app.IntentService;
@@ -10,18 +13,25 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.widget.Toast;
 
 import com.google.android.gms.location.LocationClient;
+import com.stalker.DBHelper.DatabaseHandler;
 import com.stalker.DBHelper.Todo;
 import com.stalker.places.PlacesList;
+import com.stalker.places.PlacesUtil;
 
 public class LocationService extends IntentService {
 
 	private static final int NOTIFICATION_ID=1;
 	NotificationManager notificationManager;
 	Notification myNotification;
+	
+
+	public static Map<Todo,PlacesList> TODOtoPlaces;
 
 	public LocationService() {
 		super("Fused Location Service");
@@ -35,6 +45,7 @@ public class LocationService extends IntentService {
 	public void onCreate() {
 		super.onCreate();
 		notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+		(new GetPlacesTask()).execute();
 	}
 
 	@Override
@@ -55,8 +66,8 @@ public class LocationService extends IntentService {
 			todoLoc.setLongitude(location.getLongitude());
 
 			ArrayList<Todo> nearbyTodos = new ArrayList<Todo>();
-			if(HomeScreenActivity.TODOtoPlaces != null) {
-				for(Entry<Todo, PlacesList> todoMap : HomeScreenActivity.TODOtoPlaces.entrySet()) {
+			if(TODOtoPlaces != null) {
+				for(Entry<Todo, PlacesList> todoMap : TODOtoPlaces.entrySet()) {
 					if(todoMap.getKey().getStatus() == 0) {
 						for(int i = 0; i < todoMap.getValue().results.size(); i++) {
 							System.out.println("Number of places for " + todoMap.getKey().getNote() + " todo are " + todoMap.getValue().results.size());
@@ -113,7 +124,38 @@ public class LocationService extends IntentService {
 
 					notificationManager.notify(NOTIFICATION_ID, myNotification);
 				}
+				
+				(new GetPlacesTask()).execute();
 			}
 		}
+	}
+	
+	public class GetPlacesTask extends AsyncTask<Void, Void, String>{
+
+		@Override
+		protected void onPostExecute(String result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			if(TODOtoPlaces!=null)
+				TODOtoPlaces.clear();
+			else
+				TODOtoPlaces = new HashMap<Todo, PlacesList>();
+			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+			List<Todo> todos = new ArrayList<Todo>();
+			todos = db.getAllTodos();
+			PlacesUtil p = new PlacesUtil();
+			PlacesList todoPlaces;
+			for (Todo todo : todos) {
+				todoPlaces = new PlacesList();
+				todoPlaces = p.getNearPlaces(todo);
+				TODOtoPlaces.put(todo, todoPlaces);
+			}
+			return null;
+		}
+
 	}
 }
