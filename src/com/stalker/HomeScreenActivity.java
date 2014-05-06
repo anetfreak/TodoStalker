@@ -175,7 +175,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
         slice.setColor(Color.parseColor("#FFBB33"));
         slice.setValue(8);
         pg.addSlice(slice);
-        pg.animate();
+        
         if(nearMe==null){
         	(new GetPlacesTask()).execute();
         }
@@ -200,7 +200,6 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 			List<Todo> todos = new ArrayList<Todo>();
 			todos = db.getAllTodos();
-			db.closeDB();
 			PlacesUtil p = new PlacesUtil();
 			PlacesList todoPlaces;
 			for (Todo todo : todos) {
