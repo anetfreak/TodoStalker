@@ -5,19 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.stalker.DBHelper.Todo;
-import com.stalker.util.SystemUiHider;
 
 public class NotificationActivity extends Activity {
 
@@ -47,6 +44,18 @@ public class NotificationActivity extends Activity {
 
 			ListView notifications = (ListView) findViewById(R.id.notificationsList);
 			notifications.setAdapter(adapter);
+			
+			notifications.setOnItemClickListener(new OnItemClickListener(){
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					// TODO Auto-generated method stub
+					Intent itemMapTransition = new Intent(getApplicationContext(), MapAllTODOs.class);
+					itemMapTransition.putExtra("identifier", position);
+					startActivity(itemMapTransition);
+				}
+				
+			});
 		}
 
 	}
