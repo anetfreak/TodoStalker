@@ -41,8 +41,8 @@ public class PlacesUtil {
 
 	// Google Places serach url's
 	private static final String PLACES_SEARCH_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
-	private static final String PLACES_TEXT_SEARCH_URL = "https://maps.googleapis.com/maps/api/place/search/json?";
-	private static final String PLACES_DETAILS_URL = "https://maps.googleapis.com/maps/api/place/details/json?";
+	private static final String PLACES_TEXT_SEARCH_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json";
+	private static final String PLACES_DETAILS_URL = "https://maps.googleapis.com/maps/api/place/details/json";
 
 	private String _radius = "500";
 
@@ -87,8 +87,10 @@ public class PlacesUtil {
 					+ String.valueOf(HomeScreenActivity.currentLongitude)));
 			params.add(new BasicNameValuePair("radius", _radius));
 			System.out.println("Category : "+catType.get(todo.getCategory()));
-			params.add(new BasicNameValuePair("types", catType.get(todo.getCategory())));
+			params.add(new BasicNameValuePair("types", todo.getPrefLoc()));
 			params.add(new BasicNameValuePair("sensor", "false"));
+			params.add(new BasicNameValuePair("opennow", "true"));
+			params.add(new BasicNameValuePair("keyword", todo.getNote()));
 
 			URI uri = new URI(PLACES_SEARCH_URL + "?"
 					+ URLEncodedUtils.format(params, "utf-8"));

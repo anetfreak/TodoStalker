@@ -20,6 +20,12 @@ public class Place{
      
     @Key
     public String vicinity;
+    
+    @Key
+    public String price_level;
+    
+    @Key
+    public String rating;
      
     @Key
     public Geometry geometry;

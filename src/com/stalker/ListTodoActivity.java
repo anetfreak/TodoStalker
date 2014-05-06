@@ -214,7 +214,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 		View parentView = (View) view.getParent();
 		String rowIdVal   = ((TextView) parentView.findViewById(R.id.rowId)).getText().toString();
 		Log.i("rowIdval", rowIdVal);
-		i.putExtra("identifier", rowIdVal);
+		i.putExtra("identifier", Integer.valueOf(rowIdVal));
 		startActivity(i);
 	}
 
