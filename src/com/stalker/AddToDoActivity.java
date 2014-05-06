@@ -90,6 +90,9 @@ public class AddToDoActivity extends FragmentActivity implements OnItemSelectedL
 		//Save todo in database
 		todoDat.createTodo(notes, cat, subCateg, new String(s), 0);
 		
+		//Update the Map
+		(new GetPlacesTask(this)).execute();
+		
 		//Go To ListToDo Activity
 		Intent i = new Intent(getApplicationContext(), ListTodoActivity.class);
 		startActivity(i);
