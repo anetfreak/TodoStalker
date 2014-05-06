@@ -37,7 +37,7 @@ public class PlacesUtil {
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 
 	// Google API Key
-	private static final String API_KEY = "AIzaSyDZK2TYRjLqK-lOX-ALkUJd8276FUEPPxw";
+	private static final String API_KEY = "AIzaSyB7ylAhKS8C3j7EhvxkPERYz4AdwQbePDY";
 
 	// Google Places serach url's
 	private static final String PLACES_SEARCH_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
@@ -89,7 +89,7 @@ public class PlacesUtil {
 			System.out.println("Category : "+catType.get(todo.getCategory()));
 			params.add(new BasicNameValuePair("types", todo.getPrefLoc()));
 			params.add(new BasicNameValuePair("sensor", "false"));
-			params.add(new BasicNameValuePair("opennow", "true"));
+			//params.add(new BasicNameValuePair("opennow", "true"));
 			params.add(new BasicNameValuePair("keyword", todo.getNote()));
 
 			URI uri = new URI(PLACES_SEARCH_URL + "?"

@@ -10,8 +10,10 @@ import com.stalker.places.Place;
 
 import android.annotation.SuppressLint;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
@@ -19,7 +21,9 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,9 +34,11 @@ public class ShowPlaceDialog extends DialogFragment {
 	TextView priceLevel = null;
 	TextView rating = null;
 	TextView mTVVicinity = null;
+	TextView location = null;
 	Place mPlace = null;
 	DisplayMetrics mMetrics = null;
 	Bitmap bmp = null;
+	Button getDirect = null;
 
 	public ShowPlaceDialog() {
 		super();
@@ -62,6 +68,8 @@ public class ShowPlaceDialog extends DialogFragment {
 		mTVVicinity = (TextView) v.findViewById(R.id.tv_vicinity);
 		priceLevel = (TextView) v.findViewById(R.id.price_level);
 		rating = (TextView) v.findViewById(R.id.rating);
+		location = (TextView) v.findViewById(R.id.location);
+		getDirect = (Button) v.findViewById(R.id.get_direction);
 
 		if (mPlace != null) {
 
@@ -77,7 +85,16 @@ public class ShowPlaceDialog extends DialogFragment {
 				rating.setText("Rating : " + mPlace.rating);
 			if (mPlace.price_level != null)
 				priceLevel.setText("Price Range : " + mPlace.price_level);
-
+			
+			location.setText(String.valueOf(mPlace.geometry.location.lat) + "," + String.valueOf(mPlace.geometry.location.lng));
+			
+			getDirect.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					getDirections(v);
+				}
+			});
 		}
 		return v;
 	}
@@ -87,6 +104,17 @@ public class ShowPlaceDialog extends DialogFragment {
 		if (getDialog() != null && getRetainInstance())
 			getDialog().setDismissMessage(null);
 		super.onDestroyView();
+	}
+	
+	public void getDirections(View view){
+		// display todo location on map
+    	Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+				Uri.parse("http://maps.google.com/maps?saddr="
+						+ String.valueOf(HomeScreenActivity.currentLatitude)
+						+ ","
+						+ String.valueOf(HomeScreenActivity.currentLongitude)
+						+ "&daddr=" + location.getText() ));
+		startActivity(intent);
 	}
 
 	private Bitmap downloadImage(String strUrl) throws IOException {

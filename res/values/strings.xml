@@ -21,5 +21,6 @@
     <string name="title_activity_map_all_todos">MapAllTODOs</string>
     <string name="placeImage">Image for the Place</string>
     <string name="title_activity_notification">Todo Alerts</string>
+    <string name="get_direction">Get Directions</string>
 
 </resources>

@@ -198,15 +198,6 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 	                gMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {          
 	                    public void onInfoWindowClick(Marker marker) 
 	                    {
-//	                    	Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-//	                				Uri.parse("http://maps.google.com/maps?saddr="
-//	                						+ String.valueOf(HomeScreenActivity.currentLatitude)
-//	                						+ ","
-//	                						+ String.valueOf(HomeScreenActivity.currentLongitude)
-//	                						+ "&daddr="
-//	                						+ String.valueOf(marker.getPosition().latitude) + ","
-//	                						+ String.valueOf(marker.getPosition().longitude)));
-//	                		startActivity(intent);
 	                    	
 	                    	// Creating an instance of DisplayMetrics
 	                        DisplayMetrics dm = new DisplayMetrics();
