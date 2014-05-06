@@ -58,7 +58,7 @@ public class PlacesUtil {
 														"gas_station",
 														"university|school|library|book_store",
 														"amusement_park|aquarium|art_gallery|bowling_alley|casino|movie_rental|movie_theater|museum|night_club|park|stadium|zoo",
-														""};
+														"beauty_salon|car_dealer|car_rental|car_repair|car_wash|florist|laundry|place_of_worship|storage"};
 	public static Map<String, String> catType = new HashMap<String, String>();
 
 	private void populateMarkerMap() {
@@ -87,7 +87,13 @@ public class PlacesUtil {
 					+ String.valueOf(HomeScreenActivity.currentLongitude)));
 			params.add(new BasicNameValuePair("radius", _radius));
 			System.out.println("Category : "+catType.get(todo.getCategory()));
-			params.add(new BasicNameValuePair("types", todo.getPrefLoc()));
+			if(todo.getPrefLoc().equals("All")){
+				params.add(new BasicNameValuePair("types", catType.get(todo.getCategory())));
+			}
+			else {
+				params.add(new BasicNameValuePair("types", todo.getPrefLoc()));
+			}
+			
 			params.add(new BasicNameValuePair("sensor", "false"));
 			//params.add(new BasicNameValuePair("opennow", "true"));
 			params.add(new BasicNameValuePair("keyword", todo.getNote()));
