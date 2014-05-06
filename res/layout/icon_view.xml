@@ -9,10 +9,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:minHeight="50dp"
+        android:gravity="center"
+        android:minHeight="80dp"
         android:onClick="viewMap"
         android:text="Todo Item"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAlignment="gravity"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"
+        android:textSize="23dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/rowId"
@@ -23,26 +28,31 @@
         android:text="TextView"
         android:visibility="invisible" />
 
-    <ImageButton
-        android:id="@+id/map_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/checkBox1"
-        android:layout_marginRight="24dp"
-        android:layout_toLeftOf="@+id/checkBox1"
-        android:adjustViewBounds="true"
-        android:onClick="viewMap"
-        android:maxHeight="70dp"
-        android:maxWidth="70dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/mapiconbig" />
-
     <CheckBox
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/item_todo"
         android:layout_alignParentRight="true"
-        android:text="Done" />
+        android:layout_marginBottom="20dp"
+        android:text="Done"
+        android:textColor="@color/white"
+        android:textColorLink="@color/white"
+        android:textSize="23dp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/map_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/checkBox1"
+        android:layout_marginRight="23dp"
+        android:layout_toLeftOf="@+id/checkBox1"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="70dp"
+        android:maxWidth="70dp"
+        android:onClick="viewMap"
+        android:src="@drawable/mapiconbig" />
 
 </RelativeLayout>

@@ -2,4 +2,5 @@
 
     <color name="black_overlay">#66000000</color>
 	<color name="titletextcolor">#3232CD</color>
+	<color name="white">#FFFFFF</color>
 </resources>

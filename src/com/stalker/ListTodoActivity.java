@@ -49,7 +49,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 			"Bank/ATM","Fuel","Study","Entertainment","Other"};
 
 	private final String[] colors = new String[] 
-			{"#78B7F6","#5E5EE7","#65EDED","#66ED66","#ED65ED","#EDA865","#E55B5B","#ED65A8","#A35DE8","#EDED65"};
+			{"#33B5E5","#AA66CC","#99CC00","#FFBB33","#FF4444","#0099CC","#9933CC","#669900","#FF8800","#CC0000"};
 	Map<String, String> catColor = new HashMap<String, String>();
 
 	private final String [] categoryArray = new String[] 
@@ -198,6 +198,12 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 				Log.i("ct", category);
 				Log.i("rowId rr ", cursor.getString(0));
 				row.setBackgroundColor(Color.parseColor(catColor.get(category)));
+				
+//				if((position % 2) == 0){
+//					row.setBackgroundColor(Color.parseColor("#33B5E5"));
+//				}else{
+//					row.setBackgroundColor(Color.parseColor("#70CBED"));
+//				}
 
 				return row;
 			}
