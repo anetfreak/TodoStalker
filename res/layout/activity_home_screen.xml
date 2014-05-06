@@ -96,7 +96,7 @@
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:background="#FDFCFC"
-            android:drawableLeft="@drawable/map1"
+            android:drawableLeft="@drawable/mapiconbig"
             android:text="@string/actn3"
             android:textColor="#000000" />
 

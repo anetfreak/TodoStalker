@@ -11,6 +11,8 @@ import com.stalker.DBHelper.Todo;
 import com.stalker.places.*;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -21,12 +23,18 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.stalker.util.SystemUiHider;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Toast;
 
 /**
@@ -76,18 +84,36 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 			BitmapDescriptorFactory.HUE_RED, BitmapDescriptorFactory.HUE_ROSE,
 			BitmapDescriptorFactory.HUE_VIOLET,
 			BitmapDescriptorFactory.HUE_YELLOW };
-	public static Map<String, Float> catColor = new HashMap<String, Float>();
+
+	
+	public static final int[] icons = new int[]{
+		R.drawable.shopping_bag,
+		R.drawable.food_and_drink,
+		R.drawable.travel,
+		R.drawable.home,
+		R.drawable.health_medicine,
+		R.drawable.bank,
+		R.drawable.fuel,
+		R.drawable.study,
+		R.drawable.work,
+		R.drawable.other
+	};
+	
+	public static Map<String, Integer> catColor = new HashMap<String, Integer>();
+	
+	public static Map<String,Place> markerToPlace = new HashMap<String, Place>();
+
 
 	private void populateMarkerMap() {
 		int i = 0;
 		for (String cat : categories) {
-			catColor.put(cat, colors[i]);
+			catColor.put(cat, icons[i]);
 			i++;
 		}
 	}
 
 	private GoogleMap gMap;
-	private List<MarkerOptions> markers;
+	private Map<MarkerOptions,Place> markers;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +122,8 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 		setContentView(R.layout.activity_map_all_todos);
 
 		try {
-			markers = new ArrayList<MarkerOptions>();
+			markers = new HashMap<MarkerOptions,Place>();
+
 			populateMarkerMap();
 			initializeMap();
 			Intent i = getIntent();
@@ -139,8 +166,11 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 						"Sorry! unable to create maps", Toast.LENGTH_SHORT)
 						.show();
 			}
+			
+			 
 		}
-
+		populateMarkerMap();
+		
 	}
 
 	public class DisplayOnMap extends AsyncTask<Integer, Void, Void> {
@@ -148,14 +178,61 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			for (MarkerOptions m : markers) {
-				gMap.addMarker(m);
+			for (Map.Entry<MarkerOptions, Place> m : markers.entrySet()) {
+				Marker mr = gMap.addMarker(m.getKey());
+				System.out.println(mr.getId());
+				markerToPlace.put(mr.getId(), m.getValue());
 			}
+			gMap.setInfoWindowAdapter(new InfoWindowAdapter() {
+
+	            // Use default InfoWindow frame
+	            @Override
+	            public View getInfoWindow(Marker args) {
+	                return null;
+	            }
+
+	            // Defines the contents of the InfoWindow
+	            @Override
+	            public View getInfoContents(Marker args) {
+
+	                gMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {          
+	                    public void onInfoWindowClick(Marker marker) 
+	                    {
+	                    	
+	                    	// Creating an instance of DisplayMetrics
+	                        DisplayMetrics dm = new DisplayMetrics();
+	     
+	                        // Getting the screen display metrics
+	                        getWindowManager().getDefaultDisplay().getMetrics(dm);
+	     
+	                        // Creating a dialog fragment to display the photo
+	                        ShowPlaceDialog dialogFragment = new ShowPlaceDialog(markerToPlace.get(marker.getId()),dm);
+	     
+	                        // Getting a reference to Fragment Manager
+	                        FragmentManager fm = getFragmentManager();
+	     
+	                        // Starting Fragment Transaction
+	                        FragmentTransaction ft = fm.beginTransaction();
+	     
+	                        // Adding the dialog fragment to the transaction
+	                        ft.add(dialogFragment, "TAG");
+	     
+	                        // Committing the fragment transaction
+	                        ft.commit();
+	                    }
+	                });
+
+	                // Returning the view containing InfoWindow contents
+	                return null;
+
+	            }
+	        }); 
 		}
 
 		@Override
 		protected Void doInBackground(Integer... params) {
 			Integer identifier = -2;
+			try{
 			if(params.length>0)
 				identifier = params[0];
 
@@ -163,24 +240,8 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 				for (Map.Entry<Todo, PlacesList> todoTask : HomeScreenActivity.TODOtoPlaces
 						.entrySet()) {
 					if(todoTask.getKey().getId()==identifier){
-						for (Place p : todoTask.getValue().results) {
-							MarkerOptions mo = new MarkerOptions().position(
-									new LatLng(p.geometry.location.lat,
-											p.geometry.location.lng)).title(p.name);
-							Bitmap bmp = null;
-							try {
-								URL u = new URL(p.icon);
-								bmp = BitmapFactory.decodeStream(u.openConnection()
-										.getInputStream());
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							mo.icon(BitmapDescriptorFactory.defaultMarker(catColor
-									.get(todoTask.getKey().getCategory())));
-							markers.add(mo);
-							// gMap.addMarker(mo);
-						}
+
+						createMarker(todoTask);
 					}
 				}
 			}
@@ -188,44 +249,51 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 				for (Map.Entry<Todo, PlacesList> todoTask : HomeScreenActivity.TODOtoPlaces
 						.entrySet()) {
 					if(todoTask.getValue().results!=null){
-						for (Place p : todoTask.getValue().results) {
-							MarkerOptions mo = new MarkerOptions().position(
-									new LatLng(p.geometry.location.lat,
-											p.geometry.location.lng)).title(p.name);
-							Bitmap bmp = null;
-							try {
-								URL u = new URL(p.icon);
-								bmp = BitmapFactory.decodeStream(u.openConnection()
-										.getInputStream());
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							mo.icon(BitmapDescriptorFactory.defaultMarker(catColor
-									.get(todoTask.getKey().getCategory())));
-							markers.add(mo);
-							// gMap.addMarker(mo);
-						}
+						createMarker(todoTask);
 					}
 				}
+			}
+			}
+			catch(Exception ex){
+				System.out.println(ex.getMessage());
 			}
 			return null;
 		}
 
+		private void createMarker(Map.Entry<Todo, PlacesList> todoTask) {
+			for (Place p : todoTask.getValue().results) {
+				MarkerOptions mo = new MarkerOptions().position(
+						new LatLng(p.geometry.location.lat,
+								p.geometry.location.lng)).title(p.name);
+				Bitmap bmp = null;
+				try {
+					URL u = new URL(p.icon);
+					bmp = BitmapFactory.decodeStream(u.openConnection()
+							.getInputStream());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				mo.icon(BitmapDescriptorFactory.fromResource(catColor.get(todoTask.getKey().getCategory())));
+				//mo.icon(BitmapDescriptorFactory.defaultMarker(catColor
+					//	.get(todoTask.getKey().getCategory())));
+				p.associatedTODO = new Todo();
+				p.associatedTODO = todoTask.getKey();
+				markers.put(mo, p);
+				
+				// gMap.addMarker(mo);
+			}
+		}
+
+	}
+	
+	public void onInfoWindowClick (Marker marker){
 	}
 
 	@Override
 	public boolean onMarkerClick(Marker marker) {
-		Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-				Uri.parse("http://maps.google.com/maps?saddr="
-						+ String.valueOf(HomeScreenActivity.currentLatitude)
-						+ ","
-						+ String.valueOf(HomeScreenActivity.currentLongitude)
-						+ "&daddr="
-						+ String.valueOf(marker.getPosition().latitude) + ","
-						+ String.valueOf(marker.getPosition().longitude)));
-		startActivity(intent);
-		return true;
+		
+		return false;
 	}
 
 }

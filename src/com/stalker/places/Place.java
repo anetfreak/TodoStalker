@@ -3,8 +3,9 @@ package com.stalker.places;
 import java.io.Serializable;
 
 import com.google.api.client.util.Key;
+import com.stalker.DBHelper.Todo;
 
-public class Place {
+public class Place{
 	@Key
     public String id;
      
@@ -19,6 +20,12 @@ public class Place {
      
     @Key
     public String vicinity;
+    
+    @Key
+    public String price_level;
+    
+    @Key
+    public String rating;
      
     @Key
     public Geometry geometry;
@@ -28,6 +35,8 @@ public class Place {
      
     @Key
     public String formatted_phone_number;
+    
+    public Todo associatedTODO;
  
     @Override
     public String toString() {
@@ -48,4 +57,5 @@ public class Place {
         @Key
         public double lng;
     }
+ 
 }
