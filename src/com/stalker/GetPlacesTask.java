@@ -20,6 +20,9 @@ public class GetPlacesTask extends AsyncTask<Void, Void, String>{
 	private Context mContext;
 	public static boolean doNotModify = false;
 	
+	private long updateTime = 0;
+	private long toUpdtaeTime;
+	
 	public GetPlacesTask(Context context){
 		this.mContext = context;
 		//inProgress = false;
@@ -34,21 +37,24 @@ public class GetPlacesTask extends AsyncTask<Void, Void, String>{
 
 	@Override
 	protected String doInBackground(Void... params) {
-		//inProgress = true;
-		if(TODOtoPlaces!=null)
-			TODOtoPlaces.clear();
-		else
-			TODOtoPlaces = new Hashtable<Todo, PlacesList>();
-		DatabaseHandler db = new DatabaseHandler(mContext);
-		List<Todo> todos = new ArrayList<Todo>();
-		todos = db.getAllTodos();
-		db.closeDB();
-		PlacesUtil p = new PlacesUtil();
-		PlacesList todoPlaces;
-		for (Todo todo : todos) {
-			todoPlaces = new PlacesList();
-			todoPlaces = p.getNearPlaces(todo);
-			TODOtoPlaces.put(todo, todoPlaces);
+		if(updateTime==0 || toUpdtaeTime<=System.currentTimeMillis()){
+			if(TODOtoPlaces!=null)
+				TODOtoPlaces.clear();
+			else
+				TODOtoPlaces = new Hashtable<Todo, PlacesList>();
+			DatabaseHandler db = new DatabaseHandler(mContext);
+			List<Todo> todos = new ArrayList<Todo>();
+			todos = db.getAllTodos();
+			db.closeDB();
+			PlacesUtil p = new PlacesUtil();
+			PlacesList todoPlaces;
+			for (Todo todo : todos) {
+				todoPlaces = new PlacesList();
+				todoPlaces = p.getNearPlaces(todo);
+				TODOtoPlaces.put(todo, todoPlaces);
+			}
+			updateTime = System.currentTimeMillis();
+			toUpdtaeTime = updateTime + 300000;
 		}
 		return null;
 	}

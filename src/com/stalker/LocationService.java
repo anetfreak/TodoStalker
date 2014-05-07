@@ -128,9 +128,9 @@ public class LocationService extends IntentService {
 
 					notificationManager.notify(NOTIFICATION_ID, myNotification);
 				}
-				GetPlacesTask.doNotModify = false;
-				(new GetPlacesTask(this)).execute();
 			}
+			GetPlacesTask.doNotModify = false;
+			(new GetPlacesTask(this)).execute();
 		}
 	}
 }
