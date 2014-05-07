@@ -11,15 +11,15 @@
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc.
     -->
+
 <com.echo.holographlibrary.PieGraph
-        android:id="@+id/graph"
-        android:layout_width="wrap_content"
-        android:layout_height="275dp"
-        android:layout_gravity="top"
-        android:layout_marginTop="0dp"
-        android:paddingTop="0dp"
-        app:innerCircleRatio="200"
-        app:slicePadding="1dip" />
+    android:id="@+id/graph"
+    android:layout_width="wrap_content"
+    android:layout_height="275dp"
+    android:layout_marginTop="30dp"
+    android:paddingTop="0dp"
+    app:innerCircleRatio="200"
+    app:slicePadding="1dip" />
 
     <!--
          This FrameLayout insets its children based on system windows using
@@ -33,7 +33,6 @@
 
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"
-            style="?metaButtonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"

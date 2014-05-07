@@ -1,7 +1,6 @@
 package com.stalker;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import android.app.IntentService;
@@ -13,7 +12,6 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
-import android.widget.Toast;
 
 import com.google.android.gms.location.LocationClient;
 import com.stalker.DBHelper.Todo;
