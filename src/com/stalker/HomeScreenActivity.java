@@ -1,7 +1,5 @@
 package com.stalker;
 
-import java.text.DecimalFormat;
-
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,7 +16,6 @@ import com.echo.holographlibrary.PieGraph;
 import com.echo.holographlibrary.PieSlice;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.internal.db;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
 import com.stalker.DBHelper.DatabaseHandler;

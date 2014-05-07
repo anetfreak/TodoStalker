@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#669900"
+    android:background="#1DA9DA"
     tools:context="com.stalker.HomeScreenActivity" >
 
     <!--
@@ -63,7 +63,7 @@
 		            android:background="@android:color/transparent"
 		            android:drawableLeft="@drawable/pencil32"
 		            android:text="@string/actn2"
-		            android:textColor="#669900"
+		            android:textColor="#1DA9DA"
 		            android:fontFamily="sans-serif-light" />
 		        
 		        <Button
@@ -76,7 +76,7 @@
 		            android:background="#FDFCFC"
 		            android:drawableLeft="@drawable/linedpapercheck32"
 		            android:text="@string/actn4"
-		            android:textColor="#669900"
+		            android:textColor="#1DA9DA"
 		            android:fontFamily="sans-serif-light" />
 
     </TableRow>
@@ -99,7 +99,7 @@
             android:background="#FDFCFC"
             android:drawableLeft="@drawable/mapiconbig"
             android:text="@string/actn3"
-            android:textColor="#669900"
+            android:textColor="#1DA9DA"
             android:fontFamily="sans-serif-light" />
 
         <Button
@@ -113,7 +113,7 @@
             android:drawableLeft="@drawable/gear32"
             android:minWidth="48dp"
             android:text="@string/actn1"
-            android:textColor="#669900"
+            android:textColor="#1DA9DA"
             android:fontFamily="sans-serif-light" />
 
     </TableRow>

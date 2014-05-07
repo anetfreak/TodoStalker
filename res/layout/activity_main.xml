@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#669900"
+    android:background="#1DA9DA"
     tools:context=".MainActivity" >
 
 <!-- Navy Blueish - #323B47 -->
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/textRadius"
         android:layout_alignRight="@+id/textRadiusInput"
-        android:background="#669900"
+        android:background="#1DA9DA"
         android:fontFamily="sans-serif-light"
         android:switchTextAppearance="@color/white"
         android:textSize="30sp"
@@ -95,7 +95,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-light"
         android:text="Update"
-        android:textColor="#669900"
+        android:textColor="#1DA9DA"
         android:onClick="updatePref"
         android:shadowColor="#000000"/>
     
