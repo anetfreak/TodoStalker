@@ -197,8 +197,11 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 				String category = cursor.getString(2);
 				String status = cursor.getString(5);
 				Log.i("Status ", status);
-				if(status.equals("Done"))
+				if(status.equalsIgnoreCase("Done"))
 					statusBox.setChecked(true);
+				else
+					statusBox.setChecked(false);
+				
 				Log.i("ct", category);
 				Log.i("rowId rr ", cursor.getString(0));
 				row.setBackgroundColor(Color.parseColor(catColor.get(category)));
@@ -247,8 +250,16 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 			 Toast.makeText(ListTodoActivity.this,
 				 	   "unchecked :)", Toast.LENGTH_LONG).show();
 		 }
+		 populateTodoListFromDB(selcat, selDate);
 	}
 
+	public void deleteTodo(View view){
+		View parentView = (View) view.getParent();
+		String rowIdVal   = ((TextView) parentView.findViewById(R.id.percent)).getText().toString();
+		myDB.deleteTodo(rowIdVal);
+		populateTodoListFromDB(selcat, selDate);
+	}
+	
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {

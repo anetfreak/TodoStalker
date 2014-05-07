@@ -31,13 +31,27 @@
         android:text="TextView"
         android:visibility="invisible" />
 
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/item_todo"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-light"
+        android:src="@drawable/ic_action_delete" 
+        android:onClick="deleteTodo"/>
+
     <CheckBox
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/item_todo"
         android:layout_alignBottom="@+id/item_todo"
-        android:layout_alignParentRight="true"
         android:layout_margin="10dp"
+        android:layout_marginRight="41dp"
+        android:layout_toLeftOf="@+id/imageButton1"
         android:fontFamily="sans-serif-light"
         android:onClick="checkboxClicked"
         android:text="Done"
@@ -51,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/checkBox1"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="52dp"
         android:layout_toLeftOf="@+id/checkBox1"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"

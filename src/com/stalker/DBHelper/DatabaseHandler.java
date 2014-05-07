@@ -400,4 +400,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			Log.i("db result",Integer.toString(stat));
 			return false;
 		}
+
+		public void deleteTodo(String rowIdVal) {
+			db.delete(TABLE_TODO, KEY_ID + " = ? ", new String[]{rowIdVal});
+		}
 }
