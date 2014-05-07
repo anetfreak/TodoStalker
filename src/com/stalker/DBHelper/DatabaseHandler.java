@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import android.R.integer;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -359,5 +360,14 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 					}
 					
 					return c;
+		}
+
+		public boolean updateStatus(String rowVal, String status) {
+			
+			ContentValues args = new ContentValues();
+		    args.put(KEY_STATUS, status);
+		   int stat = db.update(TABLE_TODO, args, KEY_ID + "=" + rowVal, null);
+			Log.i("db result",Integer.toString(stat));
+			return false;
 		}
 }

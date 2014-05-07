@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.stalker.DBHelper.DatabaseHandler;
 import com.stalker.DBHelper.Todo;
 import com.stalker.R;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -27,9 +28,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 
@@ -43,6 +46,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 	private Button btnAdd;
 	String selcat="All";
 	String selDate="All";
+	CheckBox checkbox;
 
 	private final String [] categories = new String[] 
 			{"Shopping","Food & Drink","Travel","Home","Health & Medicine",
@@ -60,7 +64,8 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_todo);
-
+		
+		checkbox = (CheckBox) findViewById(R.id.checkBox1);
 		spinner1 = (Spinner)findViewById(R.id.spinner1);
 		spinner2 = (Spinner)findViewById(R.id.spinner2);
 
@@ -119,6 +124,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 				startActivity(addIntent);
 			}
 		});
+		
 	}
 
 	private void loadSpinnerData() {
@@ -204,7 +210,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 //				}else{
 //					row.setBackgroundColor(Color.parseColor("#70CBED"));
 //				}
-
+				
 				return row;
 			}
 		};
@@ -223,7 +229,26 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 		i.putExtra("identifier", Integer.valueOf(rowIdVal));
 		startActivity(i);
 	}
-
+	public void checkboxClicked(View view){
+		String status;
+		 boolean checked = ((CheckBox) view).isChecked();
+		 View parentView1 = (View) view.getParent();
+			String rowIdVal1   = ((TextView) parentView1.findViewById(R.id.rowId)).getText().toString();
+		 if(checked){
+			// checkbox.setChecked(true);
+			
+			status = "Done";
+			 myDB.updateStatus(rowIdVal1,status);
+			 
+			 Toast.makeText(ListTodoActivity.this,
+				 	   "checked :)", Toast.LENGTH_LONG).show();
+		 }else{
+			 status = "UnDone";
+			 myDB.updateStatus(rowIdVal1,status);
+			 Toast.makeText(ListTodoActivity.this,
+				 	   "unchecked :)", Toast.LENGTH_LONG).show();
+		 }
+	}
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
@@ -239,5 +264,6 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 		// TODO Auto-generated method stub
 
 	}
+	
 
 }
