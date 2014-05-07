@@ -5,17 +5,21 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.echo.holographlibrary.PieGraph;
 import com.echo.holographlibrary.PieSlice;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.internal.db;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
+import com.stalker.DBHelper.DatabaseHandler;
 import com.stalker.places.PlacesList;
 
 public class HomeScreenActivity extends FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, 
@@ -25,7 +29,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	private Button btnService;
 	private Button btnList;
 	private Button btnAdd;
-
+	private TextView percentTV;
 
 	public static PlacesList nearMe;
 //	public static Map<Todo,PlacesList> TODOtoPlaces;
@@ -39,12 +43,29 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	PendingIntent pendingIntent;
 	boolean serviceCreated = false;
 	LocationRequest locationRequest;
+	PieGraph pg;
 	
 	@Override
 	protected void onStart() {
 		super.onStart();
 		locationClient.connect();
-		//(new GetPlacesTask()).execute();
+		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+		//pg = (PieGraph) findViewById(R.id.graph);
+		pg.removeSlices();
+        PieSlice slice = new PieSlice();
+        slice.setColor(Color.parseColor("#669900"));
+        float all = db.getAllTodos().size();
+        float done = db.getAllTodos().size()-db.getAllUndoneTodos().size();
+        float undone = db.getAllUndoneTodos().size();
+        slice.setValue(done);
+        pg.addSlice(slice);
+        slice = new PieSlice();
+        slice.setColor(Color.parseColor("#FFBB33"));
+        slice.setValue(undone);
+        pg.addSlice(slice);
+        db.closeDB();
+        Log.i("percent ", Float.toString((done / all) * 100));
+        percentTV.setText(Float.toString((done / all) * 100) + "%");
 	}
 	
 	@Override
@@ -112,6 +133,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 		btnMap = (Button) findViewById(R.id.Button02);
 		btnService = (Button) findViewById(R.id.button2);
 		btnList = (Button) findViewById(R.id.button1);
+		percentTV = (TextView) findViewById(R.id.percent);
 
 		btnAdd.setOnClickListener(new OnClickListener() {
 
@@ -144,50 +166,27 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 				startActivity(listIntent);
 			}
 		});
-
-		PieGraph pg = (PieGraph)findViewById(R.id.graph);
+		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+		pg = (PieGraph) findViewById(R.id.graph);
+		pg.removeSlices();
         PieSlice slice = new PieSlice();
-        slice.setColor(Color.parseColor("#99CC00"));
-        slice.setValue(2);
+        slice.setColor(Color.parseColor("#669900"));
+        float all = db.getAllTodos().size();
+        float done = db.getAllTodos().size()-db.getAllUndoneTodos().size();
+        float undone = db.getAllUndoneTodos().size();
+        slice.setValue(done);
         pg.addSlice(slice);
         slice = new PieSlice();
         slice.setColor(Color.parseColor("#FFBB33"));
-        slice.setValue(8);
+        slice.setValue(undone);
         pg.addSlice(slice);
-        
+        db.closeDB();
+        Log.i("percent ", Float.toString((done / all) * 100));
+        percentTV.setText(Float.toString((done / all) * 100) + "%");
 //        if(nearMe==null){
 //        	(new GetPlacesTask()).execute();
 //        }
 
 	}
 
-//	public class GetPlacesTask extends AsyncTask<Void, Void, String>{
-//
-//		@Override
-//		protected void onPostExecute(String result) {
-//			// TODO Auto-generated method stub
-//			super.onPostExecute(result);
-//			Toast.makeText(getApplicationContext(), "Check the Map", 100).show();;
-//		}
-//
-//		@Override
-//		protected String doInBackground(Void... params) {
-//			if(TODOtoPlaces!=null)
-//				TODOtoPlaces.clear();
-//			else
-//				TODOtoPlaces = new HashMap<Todo, PlacesList>();
-//			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-//			List<Todo> todos = new ArrayList<Todo>();
-//			todos = db.getAllTodos();
-//			PlacesUtil p = new PlacesUtil();
-//			PlacesList todoPlaces;
-//			for (Todo todo : todos) {
-//				todoPlaces = new PlacesList();
-//				todoPlaces = p.getNearPlaces(todo);
-//				TODOtoPlaces.put(todo, todoPlaces);
-//			}
-//			return null;
-//		}
-//
-//	}
 }

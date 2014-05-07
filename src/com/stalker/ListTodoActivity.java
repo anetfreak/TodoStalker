@@ -180,7 +180,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 		String[] fieldNames = new String[]{
 				DatabaseHandler.KEY_NOTE, DatabaseHandler.Id};
 
-		int[] viewIds = new int[] {R.id.item_todo,R.id.rowId};
+		int[] viewIds = new int[] {R.id.item_todo,R.id.percent};
 
 
 		//Create Adapter to map columns of DB to the view
@@ -222,7 +222,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 		Intent i = new Intent(getApplicationContext(),MapAllTODOs.class);
 
 		View parentView = (View) view.getParent();
-		String rowIdVal   = ((TextView) parentView.findViewById(R.id.rowId)).getText().toString();
+		String rowIdVal   = ((TextView) parentView.findViewById(R.id.percent)).getText().toString();
 		Log.i("rowIdval", rowIdVal);
 		i.putExtra("identifier", Integer.valueOf(rowIdVal));
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -232,7 +232,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 		String status;
 		 boolean checked = ((CheckBox) view).isChecked();
 		 View parentView1 = (View) view.getParent();
-			String rowIdVal1   = ((TextView) parentView1.findViewById(R.id.rowId)).getText().toString();
+			String rowIdVal1   = ((TextView) parentView1.findViewById(R.id.percent)).getText().toString();
 		 if(checked){
 			// checkbox.setChecked(true);
 			

@@ -120,16 +120,16 @@
         </TableLayout>
 
         <TextView
-            android:id="@+id/rowId"
+            android:id="@+id/percent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="150dp"
+            android:fontFamily="sans-serif-light"
             android:gravity="center"
-            android:text="80%"
+            android:text=""
             android:textColor="#FFFFFF"
-            android:textSize="60sp"
-            android:fontFamily="sans-serif-light" />
+            android:textSize="60sp" />
 
         <TextView
             android:id="@+id/textView1"
