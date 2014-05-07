@@ -148,6 +148,14 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 	}
 
 	private void displayOnMap(Integer todoID) {
+//		while(GetPlacesTask.inProgress){
+//			try {
+//				Thread.sleep(200);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 		if (GetPlacesTask.TODOtoPlaces != null)
 			
 			(new DisplayOnMap()).execute(todoID);
@@ -178,6 +186,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
+			GetPlacesTask.doNotModify = false;
 			for (Map.Entry<MarkerOptions, Place> m : markers.entrySet()) {
 				Marker mr = gMap.addMarker(m.getKey());
 				System.out.println(mr.getId());
@@ -237,6 +246,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 				identifier = params[0];
 
 			if (identifier > -1) {
+				GetPlacesTask.doNotModify = true;
 				for (Map.Entry<Todo, PlacesList> todoTask : GetPlacesTask.TODOtoPlaces
 						.entrySet()) {
 					if(todoTask.getKey().getId()==identifier){

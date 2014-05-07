@@ -1,6 +1,8 @@
 package com.stalker;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import android.app.IntentService;
@@ -37,7 +39,8 @@ public class LocationService extends IntentService {
 	public void onCreate() {
 		super.onCreate();
 		notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-		(new GetPlacesTask(this)).execute();
+		if(!GetPlacesTask.doNotModify)
+			(new GetPlacesTask(this)).execute();
 	}
 
 	@Override
@@ -60,8 +63,11 @@ public class LocationService extends IntentService {
 			todoLoc.setLongitude(location.getLongitude());
 
 			ArrayList<Todo> nearbyTodos = new ArrayList<Todo>();
+			GetPlacesTask.doNotModify = true;
 			if(GetPlacesTask.TODOtoPlaces != null) {
-				for(Entry<Todo, PlacesList> todoMap : GetPlacesTask.TODOtoPlaces.entrySet()) {
+				Iterator it = GetPlacesTask.TODOtoPlaces.entrySet().iterator();
+				while(it.hasNext()){
+					Map.Entry<Todo, PlacesList> todoMap = (Map.Entry)it.next();
 					if(todoMap.getKey().getStatus() == 0) {
 						for(int i = 0; i < todoMap.getValue().results.size(); i++) {
 							System.out.println("Number of places for " + todoMap.getKey().getNote() + " todo are " + todoMap.getValue().results.size());
@@ -80,6 +86,9 @@ public class LocationService extends IntentService {
 						}
 					}
 				}
+//				for(Entry<Todo, PlacesList> todoMap : GetPlacesTask.TODOtoPlaces.entrySet()) {
+//					
+//				}
 
 				//Check if there are any nearby todos that the user can go and resolve.
 				System.out.println("Nearby Todo items to be notified for " + nearbyTodos.size());
@@ -119,7 +128,7 @@ public class LocationService extends IntentService {
 
 					notificationManager.notify(NOTIFICATION_ID, myNotification);
 				}
-				
+				GetPlacesTask.doNotModify = false;
 				(new GetPlacesTask(this)).execute();
 			}
 		}

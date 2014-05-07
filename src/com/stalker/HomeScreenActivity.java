@@ -70,7 +70,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 //			locationRequest.setSmallestDisplacement(500);
 			
 			//Testing
-			locationRequest.setInterval(10000);
+			locationRequest.setInterval(1800000);
 			
 			locationClient.requestLocationUpdates(locationRequest, pendingIntent);
 			serviceCreated = true;
