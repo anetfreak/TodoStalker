@@ -16,7 +16,8 @@
         android:layout_alignLeft="@+id/categorySpinner"
         android:layout_below="@+id/categorySpinner"
         android:layout_marginTop="29dp"
-        style="@color/white" />
+        style="@color/white"
+        android:fontFamily="sans-serif-light" />
     
     <Spinner
         android:id="@+id/categorySpinner"
@@ -26,7 +27,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
-        android:prompt="@string/categSpinnerPromptTxt" />
+        android:prompt="@string/categSpinnerPromptTxt"
+        android:fontFamily="sans-serif-light" />
 
     <EditText
         android:id="@+id/notesTxtBox"
@@ -40,7 +42,8 @@
         android:hint="@string/noteText"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textColorLink="@color/white" >
+        android:textColorLink="@color/white"
+        android:fontFamily="sans-serif-light" >
 
         <requestFocus />
     </EditText>
@@ -57,7 +60,8 @@
         android:paddingLeft="45dp"
         android:paddingRight="45dp"
         android:text="@string/cancelBtnText"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-light" />
 
     <Button
         android:id="@+id/saveButton"
@@ -70,7 +74,8 @@
         android:paddingLeft="45dp"
         android:paddingRight="45dp"
         android:text="@string/saveBtn"
-        android:textColor="@color/black" />
+        android:textColor="@color/black" 
+        android:fontFamily="sans-serif-light"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -82,7 +87,8 @@
         android:background="@color/white"
         android:onClick="showDatePickerDialog"
         android:text="@string/pick_date"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-light" />
 
     <TextView
         android:id="@+id/addTodoHeading"
@@ -95,6 +101,7 @@
         android:shadowDy="2.0"
         android:text="Add a new Todo"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-light" />
 
 </RelativeLayout>

@@ -16,7 +16,7 @@
     android:id="@+id/graph"
     android:layout_width="wrap_content"
     android:layout_height="275dp"
-    android:layout_marginTop="30dp"
+    android:layout_marginTop="55dp"
     android:paddingTop="0dp"
     app:innerCircleRatio="200"
     app:slicePadding="1dip" />
@@ -63,7 +63,8 @@
 		            android:background="#FDFCFC"
 		            android:drawableLeft="@drawable/pencil32"
 		            android:text="@string/actn2"
-		            android:textColor="#000000" />
+		            android:textColor="#000000"
+		            android:fontFamily="sans-serif-light" />
 		        
 		        <Button
 		            android:id="@+id/button1"
@@ -75,7 +76,8 @@
 		            android:background="#FDFCFC"
 		            android:drawableLeft="@drawable/linedpapercheck32"
 		            android:text="@string/actn4"
-		            android:textColor="#000000" />
+		            android:textColor="#000000"
+		            android:fontFamily="sans-serif-light" />
 
     </TableRow>
 
@@ -97,7 +99,8 @@
             android:background="#FDFCFC"
             android:drawableLeft="@drawable/mapiconbig"
             android:text="@string/actn3"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:fontFamily="sans-serif-light" />
 
         <Button
             android:id="@+id/button2"
@@ -110,7 +113,8 @@
             android:drawableLeft="@drawable/gear32"
             android:minWidth="48dp"
             android:text="@string/actn1"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:fontFamily="sans-serif-light" />
 
     </TableRow>
         </TableLayout>
@@ -120,11 +124,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="125dp"
+            android:layout_marginTop="150dp"
             android:gravity="center"
             android:text="80%"
             android:textColor="#FFFFFF"
-            android:textSize="60sp" />
+            android:textSize="60sp"
+            android:fontFamily="sans-serif-light" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Todo Stalker!"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/white"
+            android:textColorLink="@color/white" 
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="5dp"
+            android:textSize="30sp"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="bold"/>
 
     </FrameLayout>
 
