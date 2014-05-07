@@ -33,7 +33,7 @@ public class TodoData {
 		val.put(DatabaseHandler.KEY_CATEGORY, category);
 		val.put(DatabaseHandler.KEY_SUBCATEGORYTODO, subCategory);
 		val.put(DatabaseHandler.KEY_STARTDATE, startDate);
-		val.put(DatabaseHandler.KEY_STATUS, status);
+		val.put(DatabaseHandler.KEY_STATUS, "UnDone");
 		
 		db.insert(DatabaseHandler.TABLE_TODO, null, val); 
 	}
@@ -56,7 +56,7 @@ public class TodoData {
 				todo.setCategory(c.getString(c.getColumnIndex(DatabaseHandler.KEY_CATEGORY)));
 				todo.setPrefLoc(c.getString(c.getColumnIndex(DatabaseHandler.KEY_SUBCATEGORYTODO)));
 				todo.setStartDate(c.getString(c.getColumnIndex(DatabaseHandler.KEY_STARTDATE)));
-				todo.setStatus(c.getInt(c.getColumnIndex(DatabaseHandler.KEY_STATUS)));
+				todo.setStatus(c.getString(c.getColumnIndex(DatabaseHandler.KEY_STATUS)));
 				todos.add(todo);
 			}while(c.moveToNext());
 		}

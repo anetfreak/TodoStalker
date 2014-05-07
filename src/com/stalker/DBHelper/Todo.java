@@ -12,7 +12,7 @@ public class Todo implements Serializable {
 	private String prefLoc;
 	private String startDate;
 	private String endDate;
-	private int status;
+	private String status;
 	
 	public Todo(){
 	}
@@ -41,7 +41,7 @@ public class Todo implements Serializable {
 		this.endDate = endDate;
 	}
 	
-	public void setStatus(int status){
+	public void setStatus(String status){
 		this.status = status;
 	}
 
@@ -69,7 +69,7 @@ public class Todo implements Serializable {
 		return endDate;
 	}
 
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 	

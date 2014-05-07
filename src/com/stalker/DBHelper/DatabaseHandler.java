@@ -67,7 +67,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 			TABLE_TODO + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			KEY_NOTE + " TEXT, " + KEY_CATEGORY + " TEXT, " + KEY_SUBCATEGORYTODO + 
 			" TEXT, " + KEY_STARTDATE + " DATETIME, "+ KEY_STATUS + 
-			" INTEGER NOT NULL" +")";
+			" TEXT NOT NULL" +")";
 	
 	//SubCategory table CREATE statements
 	private static final String CREATE_TABLE_SUBCATEGORY = "CREATE TABLE " +
@@ -294,7 +294,37 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 					todo.setCategory(c.getString(c.getColumnIndex(KEY_CATEGORY)));
 					todo.setPrefLoc(c.getString(c.getColumnIndex(KEY_SUBCATEGORYTODO)));
 					todo.setStartDate(c.getString(c.getColumnIndex(KEY_STARTDATE)));
-					todo.setStatus(c.getInt(c.getColumnIndex(KEY_STATUS)));
+					todo.setStatus(c.getString(c.getColumnIndex(KEY_STATUS)));
+						
+					//Adding to ToDo list
+					todoList.add(todo);
+				} while(c.moveToNext());
+			}
+			
+			Log.d("DBHANDLER", "Count: " + c.getCount());
+			c.close();
+		//	db.close();
+			return todoList;
+		}
+		
+		public List<Todo> getAllUndoneTodos(){
+			List<Todo> todoList = new ArrayList<Todo>();
+			String selectQuery = "SELECT * FROM " + TABLE_TODO + " WHERE " + KEY_STATUS + " = 'UnDone'";
+				
+			SQLiteDatabase db = this.getReadableDatabase();
+			Cursor c = db.rawQuery(selectQuery, null);
+				
+			//Looping through the rows
+			
+			if(c.moveToFirst()){
+				do{
+					Todo todo = new Todo();
+					todo.setID(c.getInt(c.getColumnIndex(KEY_ID)));
+					todo.setNote(c.getString(c.getColumnIndex(KEY_NOTE)));
+					todo.setCategory(c.getString(c.getColumnIndex(KEY_CATEGORY)));
+					todo.setPrefLoc(c.getString(c.getColumnIndex(KEY_SUBCATEGORYTODO)));
+					todo.setStartDate(c.getString(c.getColumnIndex(KEY_STARTDATE)));
+					todo.setStatus(c.getString(c.getColumnIndex(KEY_STATUS)));
 						
 					//Adding to ToDo list
 					todoList.add(todo);

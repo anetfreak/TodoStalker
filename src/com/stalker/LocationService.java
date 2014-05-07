@@ -68,7 +68,7 @@ public class LocationService extends IntentService {
 				Iterator it = GetPlacesTask.TODOtoPlaces.entrySet().iterator();
 				while(it.hasNext()){
 					Map.Entry<Todo, PlacesList> todoMap = (Map.Entry)it.next();
-					if(todoMap.getKey().getStatus() == 0) {
+					if(todoMap.getKey().getStatus().equals("UnDone")) {
 						for(int i = 0; i < todoMap.getValue().results.size(); i++) {
 							System.out.println("Number of places for " + todoMap.getKey().getNote() + " todo are " + todoMap.getValue().results.size());
 

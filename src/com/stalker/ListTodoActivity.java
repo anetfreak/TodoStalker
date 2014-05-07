@@ -192,9 +192,13 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 
 				final View row = super.getView(position, convertView, parent);
 
-
+				CheckBox statusBox = (CheckBox) row.findViewById(R.id.checkBox1);
 				cursor.moveToPosition(position);
 				String category = cursor.getString(2);
+				String status = cursor.getString(5);
+				Log.i("Status ", status);
+				if(status.equals("Done"))
+					statusBox.setChecked(true);
 				Log.i("ct", category);
 				Log.i("rowId rr ", cursor.getString(0));
 				row.setBackgroundColor(Color.parseColor(catColor.get(category)));
