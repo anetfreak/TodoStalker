@@ -1,18 +1,9 @@
 package com.stalker;
-
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.stalker.DBHelper.DatabaseHandler;
-import com.stalker.DBHelper.Todo;
-import com.stalker.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -31,7 +22,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-
+import com.stalker.DBHelper.DatabaseHandler;
+import com.stalker.DBHelper.Todo;
 
 public class ListTodoActivity extends Activity implements OnItemSelectedListener{
 	DatabaseHandler myDB;

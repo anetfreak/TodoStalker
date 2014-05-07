@@ -1,44 +1,24 @@
 package com.stalker;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-
-import com.echo.holographlibrary.PieGraph;
-import com.echo.holographlibrary.PieSlice;
-import com.stalker.DBHelper.DatabaseHandler;
-import com.stalker.DBHelper.Todo;
-import com.stalker.places.PlacesList;
-import com.stalker.places.PlacesUtil;
-import com.stalker.util.SystemUiHider;
-
-
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.echo.holographlibrary.PieGraph;
+import com.echo.holographlibrary.PieSlice;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
+import com.stalker.places.PlacesList;
+import com.stalker.util.SystemUiHider;
 
-
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- * 
- * @see SystemUiHider
- */
 public class HomeScreenActivity extends FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, 
 GooglePlayServicesClient.OnConnectionFailedListener {
 
