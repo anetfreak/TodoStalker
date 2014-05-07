@@ -51,6 +51,27 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	protected void onStart() {
 		super.onStart();
 		locationClient.connect();
+		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+		pg = (PieGraph) findViewById(R.id.graph);
+		pg.removeSlices();
+        PieSlice slice1 = new PieSlice();
+        slice1.setColor(Color.parseColor("#FFFF33"));
+        float all = db.getAllTodos().size();
+        float done = db.getAllTodos().size()-db.getAllUndoneTodos().size();
+        float undone = db.getAllUndoneTodos().size();
+        slice1.setValue(done);
+        pg.addSlice(slice1);
+        PieSlice slice2 = new PieSlice();
+        slice2.setColor(Color.parseColor("#669900"));
+        slice2.setValue(undone);
+        pg.addSlice(slice2);
+        db.closeDB();
+        Float percent = (done / all) * 100;
+        percent = (float) (Math.round(percent*100.0) / 100.0);
+        if(percent.isNaN())
+        	percent = (float) 0;
+        Log.i("percent ", Float.toString(percent));
+        percentTV.setText(Float.toString(percent) + "%");
 	}
 	
 	@Override
@@ -151,28 +172,6 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 				startActivity(listIntent);
 			}
 		});
-		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-		pg = (PieGraph) findViewById(R.id.graph);
-		pg.removeSlices();
-        PieSlice slice1 = new PieSlice();
-        slice1.setColor(Color.parseColor("#669900"));
-        float all = db.getAllTodos().size();
-        float done = db.getAllTodos().size()-db.getAllUndoneTodos().size();
-        float undone = db.getAllUndoneTodos().size();
-        slice1.setValue(done);
-        pg.addSlice(slice1);
-        PieSlice slice2 = new PieSlice();
-        slice2.setColor(Color.parseColor("#AA66CC"));
-        slice2.setValue(undone);
-        pg.addSlice(slice2);
-        db.closeDB();
-        Float percent = (done / all) * 100;
-        DecimalFormat df = new DecimalFormat("##.##");
-        if(percent.isNaN())
-        	percent = (float) 0;
-        Log.i("percent ", Float.toString(percent));
-        //percentTV.setTextColor(Color.parseColor("#AA66CC"));
-        percentTV.setText(Float.toString(percent) + "%");
 //        if(nearMe==null){
 //        	(new GetPlacesTask()).execute();
 //        }
