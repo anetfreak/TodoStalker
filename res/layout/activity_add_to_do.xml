@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#669900"
+    android:background="#1DA9DA"
     tools:context=".AddToDoActivity" >
 
     <Spinner
@@ -60,7 +60,7 @@
         android:paddingLeft="45dp"
         android:paddingRight="45dp"
         android:text="@string/cancelBtnText"
-        android:textColor="#669900"
+        android:textColor="#1DA9DA"
         android:fontFamily="sans-serif-light" />
 
     <Button
@@ -74,7 +74,7 @@
         android:paddingLeft="45dp"
         android:paddingRight="45dp"
         android:text="@string/saveBtn"
-        android:textColor="#669900" 
+        android:textColor="#1DA9DA" 
         android:fontFamily="sans-serif-light"/>
 
     <Button
@@ -87,7 +87,7 @@
         android:background="@color/white"
         android:onClick="showDatePickerDialog"
         android:text="@string/pick_date"
-        android:textColor="#669900"
+        android:textColor="#1DA9DA"
         android:fontFamily="sans-serif-light" />
 
     <TextView
