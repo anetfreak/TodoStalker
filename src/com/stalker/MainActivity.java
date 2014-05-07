@@ -6,15 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
 	public static final String PREFS_NAME = "TodoStalkerPref";
+	EditText radius;
+	Switch notifySwitch;
 	
 	@Override
 	protected void onStart() {
 		super.onStart();
-		Switch notifySwitch = (Switch) findViewById(R.id.notifySwitch);
 		notifySwitch.setChecked(true);
 
 		SharedPreferences prefData = getSharedPreferences(PREFS_NAME, 0);
@@ -22,12 +24,13 @@ public class MainActivity extends Activity {
 		if(!notifyPref) {
 			notifySwitch.setChecked(false);
 		}
+		int savedRadius = prefData.getInt("Radius", 500);
+		radius.setText(String.valueOf(savedRadius));
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Switch notifySwitch = (Switch) findViewById(R.id.notifySwitch);
 		notifySwitch.setChecked(true);
 
 		SharedPreferences prefData = getSharedPreferences(PREFS_NAME, 0);
@@ -35,6 +38,9 @@ public class MainActivity extends Activity {
 		if(!notifyPref) {
 			notifySwitch.setChecked(false);
 		}
+		
+		int savedRadius = prefData.getInt("Radius", 500);
+		radius.setText(String.valueOf(savedRadius));
 	}
 	
 	@Override
@@ -46,6 +52,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		radius = (EditText) findViewById(R.id.textRadiusInput);
+		notifySwitch = (Switch) findViewById(R.id.notifySwitch);
 	}
 	// Function to update the preferences of the app
 	public void updatePref(View v) {
@@ -53,7 +61,6 @@ public class MainActivity extends Activity {
 		SharedPreferences prefData = getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor editor = prefData.edit();
 		
-		Switch notifySwitch = (Switch) findViewById(R.id.notifySwitch);
 		if(notifySwitch.isChecked()){
 			//Notifications to be enabled
 			
@@ -65,8 +72,11 @@ public class MainActivity extends Activity {
 			editor.commit();
 		}
 		
-		EditText radius = (EditText) findViewById(R.id.textRadiusInput);
 		editor.putInt("Radius", Integer.valueOf(radius.getText().toString()));
+		editor.commit();
+		
+		Toast.makeText(getApplicationContext(), "Preferences updated", Toast.LENGTH_SHORT).show();
+		finish();
 	}
 	
 }
