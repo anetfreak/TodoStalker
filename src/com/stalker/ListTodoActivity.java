@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.stalker.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -201,7 +198,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 					statusBox.setChecked(true);
 				else
 					statusBox.setChecked(false);
-				
+
 				Log.i("ct", category);
 				Log.i("rowId rr ", cursor.getString(0));
 				row.setBackgroundColor(Color.parseColor(catColor.get(category)));
@@ -251,6 +248,13 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 				 	   "unchecked :)", Toast.LENGTH_LONG).show();
 		 }
 		 populateTodoListFromDB(selcat, selDate);
+	}
+	
+	@Override
+	public void onStart(){
+		super.onStart();
+		//populateTodoListFromDB(category, date);
+		populateTodoListFromDB(selcat,selDate);
 	}
 
 	public void deleteTodo(View view){
