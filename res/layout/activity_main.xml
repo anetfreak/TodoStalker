@@ -24,7 +24,7 @@
         android:fontFamily="sans-serif-light" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textNotify"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -33,15 +33,63 @@
         android:text="Notifications"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/white"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-light" />
+
+    <TextView
+        android:id="@+id/textRadius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textNotify"
+        android:layout_below="@+id/textNotify"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Scanning Radius (m)"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"
         android:textSize="20sp" />
 
     <Switch
         android:id="@+id/notifySwitch"
+        style="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/textRadius"
+        android:layout_alignRight="@+id/textRadiusInput"
+        android:background="@color/blue"
+        android:fontFamily="sans-serif-light"
+        android:switchTextAppearance="@color/white"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorLink="@color/white" />
+
+    <EditText
+        android:id="@+id/textRadiusInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textRadius"
+        android:layout_alignBottom="@+id/textRadius"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textView1"
-        android:layout_marginLeft="15dp"
-        android:textColor="@color/white" />
+        android:ems="5"
+        android:fontFamily="sans-serif-light"
+        android:maxWidth="30dp"
+        android:text="500"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:inputType="number"/>
+
+    <Button
+        android:id="@+id/updatePref"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="54dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-light"
+        android:text="Update"
+        android:textColor="@color/black"
+        android:onClick="updatePref"/>
     
 </RelativeLayout>

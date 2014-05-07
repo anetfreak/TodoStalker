@@ -9,6 +9,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -22,6 +23,7 @@ public class LocationService extends IntentService {
 	private static final int NOTIFICATION_ID=1;
 	NotificationManager notificationManager;
 	Notification myNotification;
+	public static final String PREFS_NAME = "TodoStalkerPref";
 
 	public LocationService() {
 		super("Fused Location Service");
@@ -41,7 +43,9 @@ public class LocationService extends IntentService {
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		Location location = intent.getParcelableExtra(LocationClient.KEY_LOCATION_CHANGED);
-		if(location != null) {
+		SharedPreferences prefData = getSharedPreferences(PREFS_NAME, 0);
+		
+		if(location != null && prefData.getBoolean("Notify", true)) {
 			//TODO Do the stuff you want to do when the location changes..
 
 			System.out.println("Latitude now is " + location.getLatitude());
