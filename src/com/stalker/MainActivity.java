@@ -52,9 +52,10 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		//radius = (EditText) findViewById(R.id.textRadiusInput);
-		//notifySwitch = (Switch) findViewById(R.id.notifySwitch);
+		radius = (EditText) findViewById(R.id.textRadiusInput);
+		notifySwitch = (Switch) findViewById(R.id.notifySwitch);
 	}
+	
 	// Function to update the preferences of the app
 	public void updatePref(View v) {
 		

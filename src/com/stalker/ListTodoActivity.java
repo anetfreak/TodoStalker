@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.stalker.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
