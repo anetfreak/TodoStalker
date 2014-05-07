@@ -199,6 +199,8 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 				Log.i("Status ", status);
 				if(status.equals("Done"))
 					statusBox.setChecked(true);
+				else
+					statusBox.setChecked(false);
 				Log.i("ct", category);
 				Log.i("rowId rr ", cursor.getString(0));
 				row.setBackgroundColor(Color.parseColor(catColor.get(category)));
@@ -247,6 +249,13 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 			 Toast.makeText(ListTodoActivity.this,
 				 	   "unchecked :)", Toast.LENGTH_LONG).show();
 		 }
+	}
+	
+	@Override
+	public void onStart(){
+		super.onStart();
+		//populateTodoListFromDB(category, date);
+		populateTodoListFromDB(selcat,selDate);
 	}
 
 	@Override

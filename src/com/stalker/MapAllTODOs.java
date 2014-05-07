@@ -166,8 +166,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 			gMap = ((MapFragment) getFragmentManager().findFragmentById(
 					R.id.mapTodo)).getMap();
 			gMap.moveCamera(CameraUpdateFactory
-					.newCameraPosition(new CameraPosition(new LatLng(
-							37.3357190, -121.8867080), 14, 0, 0)));
+					.newCameraPosition(new CameraPosition(new LatLng(HomeScreenActivity.currentLatitude,HomeScreenActivity.currentLongitude), 14, 0, 0)));
 
 			if (gMap == null) {
 				Toast.makeText(getApplicationContext(),
