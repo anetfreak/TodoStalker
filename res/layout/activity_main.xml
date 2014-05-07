@@ -1,42 +1,47 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
-	xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#0099cc"
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/currentLocationLabel"
+        android:id="@+id/prefHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:text="Your Current Location :"
+        android:layout_marginBottom="20dp"
+        android:shadowDx="2.0"
+        android:shadowDy="2.0"
+        android:text="Todo Stalker Preferences"
+        android:textColor="@color/white"
         android:textSize="20sp"
-        android:textStyle="bold" />
-    
+        android:fontFamily="sans-serif-light" />
+
     <TextView
-        android:id="@+id/addressLabel"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="93dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/prefHeading"
+        android:layout_marginTop="18dp"
+        android:text="Notifications"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/saveButton"
+    <Switch
+        android:id="@+id/notifySwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/currentLocationLabel"
-        android:layout_below="@+id/addressLabel"
-        android:layout_marginTop="92dp"
-        android:onClick="addClick"
-        android:text="Button" />
-
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textView1"
+        android:layout_marginLeft="15dp"
+        android:textColor="@color/white" />
+    
 </RelativeLayout>

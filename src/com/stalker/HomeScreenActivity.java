@@ -107,7 +107,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 		final Intent mapIntent = new Intent(getApplicationContext(), MapAllTODOs.class);
 		final Intent addIntent = new Intent(getApplicationContext(), AddToDoActivity.class);
 		final Intent listIntent = new Intent(getApplicationContext(), ListTodoActivity.class);
-		final Intent servIntent = new Intent(getApplicationContext(), MainActivity.class);
+		final Intent settingsIntent = new Intent(getApplicationContext(), MainActivity.class);
 
 		btnAdd = (Button) findViewById(R.id.Button01);
 		btnMap = (Button) findViewById(R.id.Button02);
@@ -134,7 +134,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 
 			@Override
 			public void onClick(View arg0) {
-				startActivity(servIntent);
+				startActivity(settingsIntent);
 			}
 		});
 		
