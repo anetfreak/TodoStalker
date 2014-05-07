@@ -4,7 +4,7 @@
     <string name="app_name">Todo Stalker</string>
     <string name="title_activity_add_to_do">AddToDo</string>
     <string name="action_settings">Settings</string>
-    <string name="noteText">Notes</string>
+    <string name="noteText">Todo Note</string>
     <string name="title_activity_home_screen">HomeScreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>

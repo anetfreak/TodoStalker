@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/categorySpinner"
         android:layout_below="@+id/categorySpinner"
-        android:layout_marginTop="29dp" />
+        android:layout_marginTop="29dp"
+        style="@color/white" />
     
     <Spinner
         android:id="@+id/categorySpinner"
