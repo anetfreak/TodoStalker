@@ -1,19 +1,12 @@
 package com.stalker;
-
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.stalker.DBHelper.DatabaseHandler;
-import com.stalker.DBHelper.Todo;
-import com.stalker.R;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.stalker.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -34,7 +27,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import com.stalker.DBHelper.DatabaseHandler;
+import com.stalker.DBHelper.Todo;
 
 public class ListTodoActivity extends Activity implements OnItemSelectedListener{
 	DatabaseHandler myDB;
@@ -53,7 +47,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 			"Bank/ATM","Fuel","Study","Entertainment","Other"};
 
 	private final String[] colors = new String[] 
-			{"#33B5E5","#AA66CC","#99CC00","#FFBB33","#FF4444","#0099CC","#9933CC","#669900","#FF8800","#CC0000"};
+			{"#33B5E5","#AA66CC","#99CC00","#FFBB33","#FF4444","#0099CC","#9933CC","#FFD700","#FF8800","#CC0000"};
 	Map<String, String> catColor = new HashMap<String, String>();
 
 	private final String [] categoryArray = new String[] 
@@ -227,6 +221,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 		String rowIdVal   = ((TextView) parentView.findViewById(R.id.rowId)).getText().toString();
 		Log.i("rowIdval", rowIdVal);
 		i.putExtra("identifier", Integer.valueOf(rowIdVal));
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(i);
 	}
 	public void checkboxClicked(View view){

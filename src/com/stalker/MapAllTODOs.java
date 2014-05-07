@@ -74,7 +74,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 
 	public static final String[] categories = new String[] { "Shopping",
 			"Food & Drink", "Travel", "Home", "Health & Medicine", "Bank/ATM",
-			"Fuel", "Study", "Work", "Other" };
+			"Fuel", "Study", "Entertainment", "Other" };
 	public static final float[] colors = new float[] {
 			BitmapDescriptorFactory.HUE_AZURE,
 			BitmapDescriptorFactory.HUE_BLUE, BitmapDescriptorFactory.HUE_CYAN,
@@ -148,7 +148,15 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 	}
 
 	private void displayOnMap(Integer todoID) {
-		if (HomeScreenActivity.TODOtoPlaces != null)
+//		while(GetPlacesTask.inProgress){
+//			try {
+//				Thread.sleep(200);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+		if (GetPlacesTask.TODOtoPlaces != null)
 			
 			(new DisplayOnMap()).execute(todoID);
 	}
@@ -178,6 +186,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
+			GetPlacesTask.doNotModify = false;
 			for (Map.Entry<MarkerOptions, Place> m : markers.entrySet()) {
 				Marker mr = gMap.addMarker(m.getKey());
 				System.out.println(mr.getId());
@@ -237,7 +246,8 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 				identifier = params[0];
 
 			if (identifier > -1) {
-				for (Map.Entry<Todo, PlacesList> todoTask : HomeScreenActivity.TODOtoPlaces
+				GetPlacesTask.doNotModify = true;
+				for (Map.Entry<Todo, PlacesList> todoTask : GetPlacesTask.TODOtoPlaces
 						.entrySet()) {
 					if(todoTask.getKey().getId()==identifier){
 
@@ -246,7 +256,7 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 				}
 			}
 			else if(identifier==-2){
-				for (Map.Entry<Todo, PlacesList> todoTask : HomeScreenActivity.TODOtoPlaces
+				for (Map.Entry<Todo, PlacesList> todoTask : GetPlacesTask.TODOtoPlaces
 						.entrySet()) {
 					if(todoTask.getValue().results!=null){
 						createMarker(todoTask);
@@ -265,15 +275,6 @@ public class MapAllTODOs extends Activity implements OnMarkerClickListener {
 				MarkerOptions mo = new MarkerOptions().position(
 						new LatLng(p.geometry.location.lat,
 								p.geometry.location.lng)).title(p.name);
-				Bitmap bmp = null;
-				try {
-					URL u = new URL(p.icon);
-					bmp = BitmapFactory.decodeStream(u.openConnection()
-							.getInputStream());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				mo.icon(BitmapDescriptorFactory.fromResource(catColor.get(todoTask.getKey().getCategory())));
 				//mo.icon(BitmapDescriptorFactory.defaultMarker(catColor
 					//	.get(todoTask.getKey().getCategory())));

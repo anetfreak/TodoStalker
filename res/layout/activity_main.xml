@@ -1,42 +1,102 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
-	xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#669900"
     tools:context=".MainActivity" >
 
+<!-- Navy Blueish - #323B47 -->
+<!-- Purplish - #5D5163 -->
+<!-- Sky Blue - #CEEAFF -->
+<!-- Better Blue - #7CC9DE -->
+<!-- Black Transparent - #3F3230 -->
+
     <TextView
-        android:id="@+id/currentLocationLabel"
+        android:id="@+id/prefHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:text="Your Current Location :"
+        android:layout_marginBottom="20dp"
+        android:shadowDx="2.0"
+        android:shadowDy="2.0"
+        android:text="Todo Stalker Preferences"
+        android:textColor="@color/white"
         android:textSize="20sp"
-        android:textStyle="bold" />
-    
+        android:fontFamily="sans-serif-light" />
+
     <TextView
-        android:id="@+id/addressLabel"
+        android:id="@+id/textNotify"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="93dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/prefHeading"
+        android:layout_marginTop="18dp"
+        android:text="Notifications"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-light"  />
+
+    <TextView
+        android:id="@+id/textRadius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textNotify"
+        android:layout_below="@+id/textNotify"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Scanning Radius (m)"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Switch
+        android:id="@+id/notifySwitch"
+        style="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textRadius"
+        android:layout_alignRight="@+id/textRadiusInput"
+        android:background="#669900"
+        android:fontFamily="sans-serif-light"
+        android:switchTextAppearance="@color/white"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorLink="@color/white" />
+
+    <EditText
+        android:id="@+id/textRadiusInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textRadius"
+        android:layout_alignBottom="@+id/textRadius"
+        android:layout_alignParentRight="true"
+        android:ems="5"
+        android:fontFamily="sans-serif-light"
+        android:maxWidth="30dp"
+        android:hint="500"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:inputType="number" />
 
     <Button
-        android:id="@+id/saveButton"
+        android:id="@+id/updatePref"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/currentLocationLabel"
-        android:layout_below="@+id/addressLabel"
-        android:layout_marginTop="92dp"
-        android:onClick="addClick"
-        android:text="Button" />
-
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="54dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-light"
+        android:text="Update"
+        android:textColor="#669900"
+        android:onClick="updatePref"
+        android:shadowColor="#000000"/>
+    
 </RelativeLayout>

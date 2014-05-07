@@ -37,7 +37,7 @@ public class PlacesUtil {
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 
 	// Google API Key
-	private static final String API_KEY = "AIzaSyB7ylAhKS8C3j7EhvxkPERYz4AdwQbePDY";
+	private static final String API_KEY = "AIzaSyAca3yTUP4TfqCipcv0RvcLLuSDhQK4W2Y";
 
 	// Google Places serach url's
 	private static final String PLACES_SEARCH_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";

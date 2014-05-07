@@ -1,153 +1,82 @@
 package com.stalker;
 
-import java.io.IOException;
-
-import java.util.List;
-import java.util.Locale;
-
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.os.AsyncTask;
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.location.LocationRequest;
+public class MainActivity extends Activity {
 
-public class MainActivity extends FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, 
-GooglePlayServicesClient.OnConnectionFailedListener {
-
-	LocationClient locationClient;
-	private TextView addressLabel;
-	Intent intentService;
-	PendingIntent pendingIntent;
-	boolean serviceCreated = false;
-	LocationRequest locationRequest;
+	public static final String PREFS_NAME = "TodoStalkerPref";
+	EditText radius;
+	Switch notifySwitch;
 	
 	@Override
 	protected void onStart() {
 		super.onStart();
-		locationClient.connect();
+		notifySwitch.setChecked(true);
+
+		SharedPreferences prefData = getSharedPreferences(PREFS_NAME, 0);
+		boolean notifyPref = prefData.getBoolean("Notify", true);
+		if(!notifyPref) {
+			notifySwitch.setChecked(false);
+		}
+		int savedRadius = prefData.getInt("Radius", 500);
+		radius.setText(String.valueOf(savedRadius));
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		notifySwitch.setChecked(true);
+
+		SharedPreferences prefData = getSharedPreferences(PREFS_NAME, 0);
+		boolean notifyPref = prefData.getBoolean("Notify", true);
+		if(!notifyPref) {
+			notifySwitch.setChecked(false);
+		}
+		
+		int savedRadius = prefData.getInt("Radius", 500);
+		radius.setText(String.valueOf(savedRadius));
 	}
 	
 	@Override
 	protected void onStop() {
-		locationClient.disconnect();
 		super.onStop();
 	}
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		locationClient = new LocationClient(this, this, this);
-		addressLabel = (TextView) findViewById(R.id.addressLabel);
+		//radius = (EditText) findViewById(R.id.textRadiusInput);
+		//notifySwitch = (Switch) findViewById(R.id.notifySwitch);
 	}
-	
-	@Override
-	public void onConnected(Bundle dataBundle) {
-		displayCurrentLocation();
+	// Function to update the preferences of the app
+	public void updatePref(View v) {
 		
-		if(!serviceCreated) {
-			intentService = new Intent(this, LocationService.class);
-			pendingIntent = PendingIntent.getService(this, 1, intentService, 0);
-			locationRequest = LocationRequest.create();
+		SharedPreferences prefData = getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences.Editor editor = prefData.edit();
+		
+		if(notifySwitch.isChecked()){
+			//Notifications to be enabled
 			
-//			//Setting a fastest and normal interval to 5min and 30min
-//			locationRequest.setInterval(1800000);
-//			locationRequest.setFastestInterval(300000);
-//			//Setting the distance after which the service should check the location updates to 500meters.
-//			locationRequest.setSmallestDisplacement(500);
-			
-			//Testing
-			locationRequest.setInterval(5000);
-			
-			locationClient.requestLocationUpdates(locationRequest, pendingIntent);
-			serviceCreated = true;
-			startService(intentService);
+			editor.putBoolean("Notify", true);
+			editor.commit();
+		} else {
+			//Notifications to be disabled
+			editor.putBoolean("Notify", false);
+			editor.commit();
 		}
+		
+		editor.putInt("Radius", Integer.valueOf(radius.getText().toString()));
+		editor.commit();
+		
+		Toast.makeText(getApplicationContext(), "Preferences updated", Toast.LENGTH_SHORT).show();
+		finish();
 	}
 	
-	@Override
-	public void onDisconnected() {
-		Toast.makeText(this, "Disconnected. Please re-connect.", Toast.LENGTH_SHORT).show();
-	}
-
-	@Override
-	public void onConnectionFailed(ConnectionResult connectionResult) {
-		Toast.makeText(this, "Connection Failure : " + connectionResult.getErrorCode(), Toast.LENGTH_SHORT).show();
-	}
-	
-	public void displayCurrentLocation() {
-		// Get the current location's latitude & longitude
-		if(locationClient != null && locationClient.isConnected()) {
-			Location currentLocation = locationClient.getLastLocation();
-			if(currentLocation != null) {
-				//Displays the address in the UI..
-				(new GetAddressTask(this)).execute(currentLocation);
-			} else {
-				Toast.makeText(this, "Error retreiving current location.. Trying again..", Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	
-	//Does the task of fetching the location based on the current position..
-	private class GetAddressTask extends AsyncTask<Location, Void, String>{
-		Context mContext;
-		public GetAddressTask(Context context) {
-			super();
-			mContext = context;
-		}
-
-		@Override
-		protected void onPostExecute(String address) {
-			addressLabel.setText(address);
-		}
-		@Override
-		protected String doInBackground(Location... params) {
-			Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
-			Location loc = params[0];
-
-			// Create a list to contain the result address
-			List<Address> addresses = null;
-			try {
-				addresses = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
-			} catch (IOException e1) {
-				Log.e("MainActivity", "IO Exception in getFromLocation()");
-				e1.printStackTrace();
-				return ("IO Exception trying to get address");
-			} catch (IllegalArgumentException e2) {
-				String errorString = "Illegal arguments " + Double.toString(loc.getLatitude()) + " , " + Double.toString(loc.getLongitude()) + " passed to address service";
-				Log.e("MainActivity", errorString);
-				e2.printStackTrace();
-				return errorString;
-			}
-
-			if (addresses != null && addresses.size() > 0) {
-				Address address = addresses.get(0);
-				String addressText = String.format("%s, %s, %s", address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
-						address.getLocality(), address.getCountryName());
-				return addressText;
-			} else {
-				return "Address not found";
-			}
-		}
-	}
-	
-	public void addClick(View v){
-		Intent i = new Intent(MainActivity.this, AddToDoActivity.class);
-		startActivity(i);
-	}
 }

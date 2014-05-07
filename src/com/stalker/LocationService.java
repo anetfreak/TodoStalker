@@ -1,6 +1,8 @@
 package com.stalker;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import android.app.IntentService;
@@ -9,6 +11,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -22,6 +25,7 @@ public class LocationService extends IntentService {
 	private static final int NOTIFICATION_ID=1;
 	NotificationManager notificationManager;
 	Notification myNotification;
+	public static final String PREFS_NAME = "TodoStalkerPref";
 
 	public LocationService() {
 		super("Fused Location Service");
@@ -35,12 +39,16 @@ public class LocationService extends IntentService {
 	public void onCreate() {
 		super.onCreate();
 		notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+		if(!GetPlacesTask.doNotModify)
+			(new GetPlacesTask(this)).execute();
 	}
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		Location location = intent.getParcelableExtra(LocationClient.KEY_LOCATION_CHANGED);
-		if(location != null) {
+		SharedPreferences prefData = getSharedPreferences(PREFS_NAME, 0);
+		
+		if(location != null && prefData.getBoolean("Notify", true)) {
 			//TODO Do the stuff you want to do when the location changes..
 
 			System.out.println("Latitude now is " + location.getLatitude());
@@ -55,8 +63,11 @@ public class LocationService extends IntentService {
 			todoLoc.setLongitude(location.getLongitude());
 
 			ArrayList<Todo> nearbyTodos = new ArrayList<Todo>();
-			if(HomeScreenActivity.TODOtoPlaces != null) {
-				for(Entry<Todo, PlacesList> todoMap : HomeScreenActivity.TODOtoPlaces.entrySet()) {
+			GetPlacesTask.doNotModify = true;
+			if(GetPlacesTask.TODOtoPlaces != null) {
+				Iterator it = GetPlacesTask.TODOtoPlaces.entrySet().iterator();
+				while(it.hasNext()){
+					Map.Entry<Todo, PlacesList> todoMap = (Map.Entry)it.next();
 					if(todoMap.getKey().getStatus() == 0) {
 						for(int i = 0; i < todoMap.getValue().results.size(); i++) {
 							System.out.println("Number of places for " + todoMap.getKey().getNote() + " todo are " + todoMap.getValue().results.size());
@@ -67,13 +78,17 @@ public class LocationService extends IntentService {
 							float distance = todoLoc.distanceTo(placeLoc);
 							System.out.println("Distance between current location and todo place item - " + distance + "m");
 
-							if(distance <= 500) {
+							//Compare with the minimum distance radius set by the user or a default of 500m
+							if(distance <= prefData.getInt("Radius", 500)) {
 								nearbyTodos.add(todoMap.getKey());
 								break;
 							}
 						}
 					}
 				}
+//				for(Entry<Todo, PlacesList> todoMap : GetPlacesTask.TODOtoPlaces.entrySet()) {
+//					
+//				}
 
 				//Check if there are any nearby todos that the user can go and resolve.
 				System.out.println("Nearby Todo items to be notified for " + nearbyTodos.size());
@@ -114,6 +129,8 @@ public class LocationService extends IntentService {
 					notificationManager.notify(NOTIFICATION_ID, myNotification);
 				}
 			}
+			GetPlacesTask.doNotModify = false;
+			(new GetPlacesTask(this)).execute();
 		}
 	}
 }

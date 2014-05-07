@@ -4,7 +4,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:context="com.example.listtodo.ListToDoActivity"
-    tools:ignore="MergeRootFrame" >
+    tools:ignore="MergeRootFrame"
+    android:background="#669900" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/spinner1" >
+            android:layout_below="@+id/spinner1"
+            android:fontFamily="sans-serif-light" >
         </ListView>
 
         <Spinner
@@ -25,18 +27,22 @@
             android:layout_alignParentLeft="true"
             android:layout_alignRight="@+id/item_todo"
             android:layout_below="@+id/item_todo"
-            android:background="@android:drawable/btn_dropdown"
-            android:spinnerMode="dropdown" />
+            android:fontFamily="sans-serif-light" />
 
         <TextView
-            android:id="@+id/item_todo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="List Todo items"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/titletextcolor" />
+	        android:id="@+id/item_todo"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginBottom="20dp"
+	        android:layout_marginTop="20dp"
+	        android:shadowDx="2.0"
+	        android:shadowDy="2.0"
+	        android:text="Your Todo list"
+	        android:textColor="@color/white"
+	        android:textSize="20sp" 
+	        android:fontFamily="sans-serif-light"/>
 
         <Button
             android:id="@+id/button1"
@@ -45,7 +51,11 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/spinner1"
             android:layout_alignParentRight="true"
-            android:text="Add" />
+            android:textSize="25sp"
+            android:text="+" 
+            android:textColor="#669900"
+            android:background="@color/white"
+            android:fontFamily="sans-serif-light"/>
 
         <Spinner
             android:id="@+id/spinner2"
@@ -54,9 +64,8 @@
             android:layout_alignBottom="@+id/spinner1"
             android:layout_below="@+id/item_todo"
             android:layout_toLeftOf="@+id/button1"
-            android:layout_toRightOf="@+id/spinner1"
-            android:background="@android:drawable/btn_dropdown"
-            android:spinnerMode="dropdown" />
+            android:layout_toRightOf="@+id/spinner1" 
+            android:fontFamily="sans-serif-light"/>
 
     </RelativeLayout>
 

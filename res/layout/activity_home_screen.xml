@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#669900"
     tools:context="com.stalker.HomeScreenActivity" >
 
     <!--
@@ -11,15 +11,15 @@
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc.
     -->
+
 <com.echo.holographlibrary.PieGraph
-        android:id="@+id/graph"
-        android:layout_width="wrap_content"
-        android:layout_height="275dp"
-        android:layout_gravity="top"
-        android:layout_marginTop="0dp"
-        android:paddingTop="0dp"
-        app:innerCircleRatio="200"
-        app:slicePadding="1dip" />
+    android:id="@+id/graph"
+    android:layout_width="wrap_content"
+    android:layout_height="275dp"
+    android:layout_marginTop="55dp"
+    android:paddingTop="0dp"
+    app:innerCircleRatio="200"
+    app:slicePadding="1dip" />
 
     <!--
          This FrameLayout insets its children based on system windows using
@@ -33,7 +33,6 @@
 
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"
-            style="?metaButtonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
@@ -61,10 +60,11 @@
 		            android:layout_height="match_parent"
 		            android:layout_margin="0dp"
 		            android:layout_weight="1"
-		            android:background="#FDFCFC"
+		            android:background="@android:color/transparent"
 		            android:drawableLeft="@drawable/pencil32"
 		            android:text="@string/actn2"
-		            android:textColor="#000000" />
+		            android:textColor="#669900"
+		            android:fontFamily="sans-serif-light" />
 		        
 		        <Button
 		            android:id="@+id/button1"
@@ -76,7 +76,8 @@
 		            android:background="#FDFCFC"
 		            android:drawableLeft="@drawable/linedpapercheck32"
 		            android:text="@string/actn4"
-		            android:textColor="#000000" />
+		            android:textColor="#669900"
+		            android:fontFamily="sans-serif-light" />
 
     </TableRow>
 
@@ -98,7 +99,8 @@
             android:background="#FDFCFC"
             android:drawableLeft="@drawable/mapiconbig"
             android:text="@string/actn3"
-            android:textColor="#000000" />
+            android:textColor="#669900"
+            android:fontFamily="sans-serif-light" />
 
         <Button
             android:id="@+id/button2"
@@ -111,7 +113,8 @@
             android:drawableLeft="@drawable/gear32"
             android:minWidth="48dp"
             android:text="@string/actn1"
-            android:textColor="#000000" />
+            android:textColor="#669900"
+            android:fontFamily="sans-serif-light" />
 
     </TableRow>
         </TableLayout>
@@ -121,11 +124,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="125dp"
+            android:layout_marginTop="150dp"
             android:gravity="center"
             android:text="80%"
             android:textColor="#FFFFFF"
-            android:textSize="60sp" />
+            android:textSize="60sp"
+            android:fontFamily="sans-serif-light" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Todo Stalker!"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/white"
+            android:textColorLink="@color/white" 
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="5dp"
+            android:textSize="30sp"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="bold"/>
 
     </FrameLayout>
 

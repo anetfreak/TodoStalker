@@ -3,7 +3,7 @@
     style="@style/FullscreenTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#5D5163"
     tools:context=".NotificationActivity" >
 
     <!--

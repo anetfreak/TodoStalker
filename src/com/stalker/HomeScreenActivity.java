@@ -1,44 +1,23 @@
 package com.stalker;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-
-import com.echo.holographlibrary.PieGraph;
-import com.echo.holographlibrary.PieSlice;
-import com.stalker.DBHelper.DatabaseHandler;
-import com.stalker.DBHelper.Todo;
-import com.stalker.places.PlacesList;
-import com.stalker.places.PlacesUtil;
-import com.stalker.util.SystemUiHider;
-
-
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.echo.holographlibrary.PieGraph;
+import com.echo.holographlibrary.PieSlice;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
+import com.stalker.places.PlacesList;
 
-
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- * 
- * @see SystemUiHider
- */
 public class HomeScreenActivity extends FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, 
 GooglePlayServicesClient.OnConnectionFailedListener {
 
@@ -49,7 +28,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 
 
 	public static PlacesList nearMe;
-	public static Map<Todo,PlacesList> TODOtoPlaces;
+//	public static Map<Todo,PlacesList> TODOtoPlaces;
 	public static double currentLatitude;
 	public static double currentLongitude;
 
@@ -65,7 +44,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	protected void onStart() {
 		super.onStart();
 		locationClient.connect();
-		(new GetPlacesTask()).execute();
+		//(new GetPlacesTask()).execute();
 	}
 	
 	@Override
@@ -91,7 +70,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 //			locationRequest.setSmallestDisplacement(500);
 			
 			//Testing
-			locationRequest.setInterval(10000);
+			locationRequest.setInterval(1800000);
 			
 			locationClient.requestLocationUpdates(locationRequest, pendingIntent);
 			serviceCreated = true;
@@ -127,7 +106,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 		final Intent mapIntent = new Intent(getApplicationContext(), MapAllTODOs.class);
 		final Intent addIntent = new Intent(getApplicationContext(), AddToDoActivity.class);
 		final Intent listIntent = new Intent(getApplicationContext(), ListTodoActivity.class);
-		final Intent servIntent = new Intent(getApplicationContext(), MainActivity.class);
+		final Intent settingsIntent = new Intent(getApplicationContext(), MainActivity.class);
 
 		btnAdd = (Button) findViewById(R.id.Button01);
 		btnMap = (Button) findViewById(R.id.Button02);
@@ -154,7 +133,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 
 			@Override
 			public void onClick(View arg0) {
-				startActivity(servIntent);
+				startActivity(settingsIntent);
 			}
 		});
 		
@@ -176,39 +155,39 @@ GooglePlayServicesClient.OnConnectionFailedListener {
         slice.setValue(8);
         pg.addSlice(slice);
         
-        if(nearMe==null){
-        	(new GetPlacesTask()).execute();
-        }
+//        if(nearMe==null){
+//        	(new GetPlacesTask()).execute();
+//        }
 
 	}
 
-	public class GetPlacesTask extends AsyncTask<Void, Void, String>{
-
-		@Override
-		protected void onPostExecute(String result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-			Toast.makeText(getApplicationContext(), "Check the Map", 100).show();;
-		}
-
-		@Override
-		protected String doInBackground(Void... params) {
-			if(TODOtoPlaces!=null)
-				TODOtoPlaces.clear();
-			else
-				TODOtoPlaces = new HashMap<Todo, PlacesList>();
-			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-			List<Todo> todos = new ArrayList<Todo>();
-			todos = db.getAllTodos();
-			PlacesUtil p = new PlacesUtil();
-			PlacesList todoPlaces;
-			for (Todo todo : todos) {
-				todoPlaces = new PlacesList();
-				todoPlaces = p.getNearPlaces(todo);
-				TODOtoPlaces.put(todo, todoPlaces);
-			}
-			return null;
-		}
-
-	}
+//	public class GetPlacesTask extends AsyncTask<Void, Void, String>{
+//
+//		@Override
+//		protected void onPostExecute(String result) {
+//			// TODO Auto-generated method stub
+//			super.onPostExecute(result);
+//			Toast.makeText(getApplicationContext(), "Check the Map", 100).show();;
+//		}
+//
+//		@Override
+//		protected String doInBackground(Void... params) {
+//			if(TODOtoPlaces!=null)
+//				TODOtoPlaces.clear();
+//			else
+//				TODOtoPlaces = new HashMap<Todo, PlacesList>();
+//			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+//			List<Todo> todos = new ArrayList<Todo>();
+//			todos = db.getAllTodos();
+//			PlacesUtil p = new PlacesUtil();
+//			PlacesList todoPlaces;
+//			for (Todo todo : todos) {
+//				todoPlaces = new PlacesList();
+//				todoPlaces = p.getNearPlaces(todo);
+//				TODOtoPlaces.put(todo, todoPlaces);
+//			}
+//			return null;
+//		}
+//
+//	}
 }

@@ -34,7 +34,8 @@
         </activity>
         <activity
             android:name="com.stalker.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen">
         </activity>
 
         <meta-data
@@ -63,7 +64,9 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_map_all_todos"
             android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen" >
-
+			<meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.stalker.HomeScreenActivity" />
         </activity>
     </application>
 

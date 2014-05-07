@@ -4,7 +4,7 @@
     <string name="app_name">Todo Stalker</string>
     <string name="title_activity_add_to_do">AddToDo</string>
     <string name="action_settings">Settings</string>
-    <string name="noteText">Notes</string>
+    <string name="noteText">Todo Note</string>
     <string name="title_activity_home_screen">HomeScreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -12,7 +12,7 @@
     <string name="pick_date">Pick a Date</string>
     <string name="cancelBtnText">Cancel</string>
     <string name="categSpinnerPromptTxt">Select a category</string>
-    <string name="actn1">Settings</string>
+    <string name="actn1">Preferences</string>
     <string name="actn2">Add TODO</string>
     <string name="actn3">View Map</string>
     <string name="actn4">List TODOs</string>
