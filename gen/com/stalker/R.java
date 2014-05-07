@@ -727,11 +727,11 @@ containing a value of this type.
         public static final int notesTxtBox=0x7f040009;
         public static final int notificationsList=0x7f040018;
         public static final int notifySwitch=0x7f04001f;
+        public static final int percent=0x7f040015;
         public static final int placeholder=0x7f040029;
         public static final int prefHeading=0x7f04001c;
         public static final int price_level=0x7f04002e;
         public static final int rating=0x7f04002d;
-        public static final int rowId=0x7f040015;
         public static final int satellite=0x7f040004;
         public static final int saveButton=0x7f04000b;
         public static final int spinner1=0x7f040019;
