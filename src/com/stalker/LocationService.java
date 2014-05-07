@@ -72,7 +72,8 @@ public class LocationService extends IntentService {
 							float distance = todoLoc.distanceTo(placeLoc);
 							System.out.println("Distance between current location and todo place item - " + distance + "m");
 
-							if(distance <= 500) {
+							//Compare with the minimum distance radius set by the user or a default of 500m
+							if(distance <= prefData.getInt("Radius", 500)) {
 								nearbyTodos.add(todoMap.getKey());
 								break;
 							}

@@ -59,7 +59,7 @@
         android:background="@color/blue"
         android:fontFamily="sans-serif-light"
         android:switchTextAppearance="@color/white"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textColorLink="@color/white" />
@@ -74,7 +74,7 @@
         android:ems="5"
         android:fontFamily="sans-serif-light"
         android:maxWidth="30dp"
-        android:text="500"
+        android:hint="500"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:inputType="number"/>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Switch;
 
 public class MainActivity extends Activity {
@@ -50,19 +51,22 @@ public class MainActivity extends Activity {
 	public void updatePref(View v) {
 		
 		SharedPreferences prefData = getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences.Editor editor = prefData.edit();
 		
 		Switch notifySwitch = (Switch) findViewById(R.id.notifySwitch);
 		if(notifySwitch.isChecked()){
 			//Notifications to be enabled
-			SharedPreferences.Editor editor = prefData.edit();
+			
 			editor.putBoolean("Notify", true);
 			editor.commit();
 		} else {
 			//Notifications to be disabled
-			SharedPreferences.Editor editor = prefData.edit();
 			editor.putBoolean("Notify", false);
 			editor.commit();
 		}
+		
+		EditText radius = (EditText) findViewById(R.id.textRadiusInput);
+		editor.putInt("Radius", Integer.valueOf(radius.getText().toString()));
 	}
 	
 }
