@@ -41,7 +41,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 			"Bank/ATM","Fuel","Study","Entertainment","Other"};
 
 	private final String[] colors = new String[] 
-			{"#33B5E5","#AA66CC","#99CC00","#FFBB33","#FF4444","#0099CC","#9933CC","#669900","#FF8800","#CC0000"};
+			{"#33B5E5","#AA66CC","#99CC00","#FFBB33","#FF4444","#0099CC","#9933CC","#FFD700","#FF8800","#CC0000"};
 	Map<String, String> catColor = new HashMap<String, String>();
 
 	private final String [] categoryArray = new String[] 
