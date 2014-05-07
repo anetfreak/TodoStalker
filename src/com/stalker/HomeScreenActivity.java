@@ -53,14 +53,14 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 		//pg = (PieGraph) findViewById(R.id.graph);
 		pg.removeSlices();
         PieSlice slice = new PieSlice();
-        slice.setColor(Color.parseColor("#669900"));
+        slice.setColor(Color.parseColor("#FFBB33"));
         float all = db.getAllTodos().size();
         float done = db.getAllTodos().size()-db.getAllUndoneTodos().size();
         float undone = db.getAllUndoneTodos().size();
         slice.setValue(done);
         pg.addSlice(slice);
         slice = new PieSlice();
-        slice.setColor(Color.parseColor("#FFBB33"));
+        slice.setColor(Color.parseColor("#669900"));
         slice.setValue(undone);
         pg.addSlice(slice);
         db.closeDB();
