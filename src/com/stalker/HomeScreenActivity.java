@@ -53,16 +53,14 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 		pg.removeSlices();
         PieSlice slice1 = new PieSlice();
         slice1.setColor(Color.parseColor("#FFFF33"));
-        slice1.setTitle("Done");
         float all = db.getAllTodos().size();
         float done = db.getAllTodos().size()-db.getAllUndoneTodos().size();
         float undone = db.getAllUndoneTodos().size();
         slice1.setValue(done);
         pg.addSlice(slice1);
         PieSlice slice2 = new PieSlice();
-        slice2.setColor(Color.parseColor("#1DA9DA"));
+        slice2.setColor(Color.parseColor("#669900"));
         slice2.setValue(undone);
-        slice2.setTitle("UnDone");
         pg.addSlice(slice2);
         db.closeDB();
         Float percent = (done / all) * 100;
