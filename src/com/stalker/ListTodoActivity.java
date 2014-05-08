@@ -1,5 +1,7 @@
 package com.stalker;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -187,6 +189,10 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 			public View getView(int position, View convertView, ViewGroup parent) {
 
 				prevDate = null;
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/M/d");
+				String currentDate = sdf.format(new Date());
+				Log.i("currentdate",currentDate);
+				
 				final View row = super.getView(position, convertView, parent);
 
 				CheckBox statusBox = (CheckBox) row.findViewById(R.id.checkBox1);
@@ -213,6 +219,9 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 
 				TextView textview = (TextView) row.findViewById(R.id.date1);
 				if (prevDate == null || !prevDate.equals(thisDate)) {
+					if(thisDate.equals(currentDate)){
+						textview.setText("Today");
+					}
 					textview.setVisibility(TextView.VISIBLE);
 			//		prevDate = thisDate;
 				} else {
