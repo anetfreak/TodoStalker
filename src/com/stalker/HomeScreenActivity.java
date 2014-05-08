@@ -59,7 +59,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
         slice1.setValue(done);
         pg.addSlice(slice1);
         PieSlice slice2 = new PieSlice();
-        slice2.setColor(Color.parseColor("#669900"));
+        slice2.setColor(Color.parseColor("#1DA9DA"));
         slice2.setValue(undone);
         pg.addSlice(slice2);
         db.closeDB();
