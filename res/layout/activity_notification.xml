@@ -3,31 +3,10 @@
     style="@style/FullscreenTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
     android:background="#1DA9DA"
     tools:context=".NotificationActivity" >
-
-    <!--
-         The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc.
-    -->
-
-    <TextView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/title_activity_notification"
-        android:textColor="#33b5e5"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-
-    <!--
-         This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows.
-    -->
-
+    
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,8 +15,25 @@
         <ListView
             android:id="@+id/notificationsList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="406dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="sans-serif-light"
+            android:minHeight="10sp"
+            android:textSize="15sp" >
+
         </ListView>
+
+        <TextView
+            android:id="@+id/alertsHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/title_activity_notification"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
     </FrameLayout>
 

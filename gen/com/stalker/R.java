@@ -696,6 +696,7 @@ containing a value of this type.
         public static final int TableRow01=0x7f04000f;
         public static final int action_settings=0x7f040039;
         public static final int addTodoHeading=0x7f04000c;
+        public static final int alertsHeading=0x7f040023;
         public static final int button1=0x7f040011;
         public static final int button2=0x7f040014;
         public static final int cancelButton=0x7f04000a;
@@ -703,7 +704,6 @@ containing a value of this type.
         public static final int checkBox1=0x7f040034;
         public static final int container=0x7f040017;
         public static final int dimensionsLabel=0x7f04002a;
-        public static final int fullscreen_content=0x7f040023;
         public static final int fullscreen_content_controls=0x7f04000e;
         public static final int get_direction=0x7f04002f;
         public static final int graph=0x7f04000d;

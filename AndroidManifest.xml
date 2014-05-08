@@ -68,6 +68,12 @@
             android:name="android.support.PARENT_ACTIVITY"
             android:value="com.stalker.HomeScreenActivity" />
         </activity>
+        
+        <activity
+            android:name="com.stalker.NotificationActivity"
+            android:label="@string/title_activity_notification"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen" >
+        </activity>
     </application>
 
 </manifest>
