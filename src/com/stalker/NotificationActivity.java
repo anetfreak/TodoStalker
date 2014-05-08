@@ -26,7 +26,7 @@ public class NotificationActivity extends Activity {
 		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		Intent intent = getIntent();
 		if (intent != null) {
-			ArrayList<Todo> todos = (ArrayList<Todo>) intent.getExtras().getSerializable("todos");
+			final ArrayList<Todo> todos = (ArrayList<Todo>) intent.getExtras().getSerializable("todos");
 
 			for(int i=0; i< todos.size(); i++){
 				Map<String, String> datum = new HashMap<String, String>(2);
@@ -51,7 +51,7 @@ public class NotificationActivity extends Activity {
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					// TODO Auto-generated method stub
 					Intent itemMapTransition = new Intent(getApplicationContext(), MapAllTODOs.class);
-					itemMapTransition.putExtra("identifier", position);
+					itemMapTransition.putExtra("identifier", todos.get(position).getId());
 					startActivity(itemMapTransition);
 				}
 				
