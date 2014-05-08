@@ -3,7 +3,6 @@ package com.stalker;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import android.app.IntentService;
 import android.app.Notification;

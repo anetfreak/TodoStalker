@@ -25,6 +25,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class AddToDoActivity extends FragmentActivity implements OnItemSelectedListener{
 
@@ -36,6 +37,7 @@ public class AddToDoActivity extends FragmentActivity implements OnItemSelectedL
 	public static int startDay;
 	
 	private TodoData todoDat;
+	private boolean isDateSet;	//To make sure user click PickADate Button
 	//DatabaseHandler db = new DatabaseHandler(this);
 	
 	@Override
@@ -43,6 +45,7 @@ public class AddToDoActivity extends FragmentActivity implements OnItemSelectedL
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_to_do);
 		
+		isDateSet = false;
 		catSpinner = (Spinner) findViewById(R.id.categorySpinner);
 		subCatSpinner = (Spinner) findViewById(R.id.subCategorySpinner);
 		notesTextField = (EditText) findViewById(R.id.notesTxtBox);
@@ -87,16 +90,22 @@ public class AddToDoActivity extends FragmentActivity implements OnItemSelectedL
 		StringBuilder s = new StringBuilder().append(startYear).append("/").
 				append(startMonth+1).append("/").append(startDay);
 		
-		//Save todo in database
-		todoDat.createTodo(notes, cat, subCateg, new String(s), 0);
-		
-		//Update the Map
-		(new GetPlacesTask(this)).execute();
-		
-		//Go To ListToDo Activity
-		Intent i = new Intent(getApplicationContext(), ListTodoActivity.class);
-		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); 
-		startActivity(i);
+		if(!isDateSet){
+			Toast.makeText(getApplicationContext(), "Please Pick a Date", Toast.LENGTH_SHORT).show();
+		}
+		else{
+			
+			//Save todo in database
+			todoDat.createTodo(notes, cat, subCateg, new String(s), 0);
+			
+			//Update the Map
+			(new GetPlacesTask(this)).execute();
+			
+			//Go To ListToDo Activity
+			Intent i = new Intent(getApplicationContext(), ListTodoActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); 
+			startActivity(i);
+		}
 	}
 	
 	//Cancel button ClickEventListener
@@ -106,15 +115,19 @@ public class AddToDoActivity extends FragmentActivity implements OnItemSelectedL
 		startActivity(i);
 	}
 	
+	//PickADate Button Listener
 	public void showDatePickerDialog(View v) {
 	    DialogFragment newFragment = new DatePickerFragment();
 	    newFragment.show(getFragmentManager(), "datePicker");
+	    isDateSet = true;
 	}
 
 	@Override
 	protected void onPause() {
 		todoDat.closeDB();
+		isDateSet = false;
 		super.onPause();
+		
 	}
 
 	@Override
