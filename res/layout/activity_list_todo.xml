@@ -20,29 +20,20 @@
             android:fontFamily="sans-serif-light" >
         </ListView>
 
-        <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignRight="@+id/item_todo"
-            android:layout_below="@+id/item_todo"
-            android:fontFamily="sans-serif-light" />
-
         <TextView
-	        android:id="@+id/item_todo"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
-	        android:layout_centerHorizontal="true"
-	        android:layout_marginBottom="20dp"
-	        android:layout_marginTop="20dp"
-	        android:shadowDx="2.0"
-	        android:shadowDy="2.0"
-	        android:text="Your Todo list"
-	        android:textColor="@color/white"
-	        android:textSize="20sp" 
-	        android:fontFamily="sans-serif-light"/>
+            android:id="@+id/item_todo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-light"
+            android:shadowDx="2.0"
+            android:shadowDy="2.0"
+            android:text="Your Todo list"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/button1"
@@ -51,21 +42,33 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/spinner1"
             android:layout_alignParentRight="true"
-            android:textSize="25sp"
-            android:text="+" 
-            android:textColor="#1DA9DA"
             android:background="@color/white"
-            android:fontFamily="sans-serif-light"/>
+            android:fontFamily="sans-serif-light"
+            android:text="+"
+            android:textColor="#1DA9DA"
+            android:textSize="25sp" />
 
-        <Spinner
-            android:id="@+id/spinner2"
+        <TextView
+            android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/spinner1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/button1"
+            android:text="Select Category" 
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+             android:fontFamily="sans-serif-light"
+             android:textColor="@color/white"/>
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/item_todo"
+            android:layout_marginLeft="22dp"
             android:layout_toLeftOf="@+id/button1"
-            android:layout_toRightOf="@+id/spinner1" 
-            android:fontFamily="sans-serif-light"/>
+            android:layout_toRightOf="@+id/textView1"
+            android:fontFamily="sans-serif-light" />
 
     </RelativeLayout>
 
