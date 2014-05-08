@@ -38,7 +38,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 	String selcat="All";
 	String selDate="All";
 	CheckBox checkbox;
-	 String prevDate = null;
+	String prevDate=null;
 	private final String [] categories = new String[] 
 			{"Shopping","Food & Drink","Travel","Home","Health & Medicine",
 			"Bank/ATM","Fuel","Study","Entertainment","Other"};
@@ -55,10 +55,10 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_todo);
-		
+
 		checkbox = (CheckBox) findViewById(R.id.checkBox1);
 		spinner1 = (Spinner)findViewById(R.id.spinner1);
-	//	spinner2 = (Spinner)findViewById(R.id.spinner2);
+		//	spinner2 = (Spinner)findViewById(R.id.spinner2);
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(ListTodoActivity.this,
 				android.R.layout.simple_spinner_item,categoryArray);
@@ -81,24 +81,24 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 
 			}
 		});
-//		spinner2.setOnItemSelectedListener(new OnItemSelectedListener() {
-//			@Override
-//			public void onItemSelected(AdapterView<?> parent, View view, int position,
-//					long id) {
-//				spinner2.setSelection(position);
-//				selDate = (String) spinner2.getSelectedItem();
-//				populateTodoListFromDB(selcat,selDate);
-//
-//			}
-//
-//			@Override
-//			public void onNothingSelected(AdapterView<?> arg0) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//		});
+		//		spinner2.setOnItemSelectedListener(new OnItemSelectedListener() {
+		//			@Override
+		//			public void onItemSelected(AdapterView<?> parent, View view, int position,
+		//					long id) {
+		//				spinner2.setSelection(position);
+		//				selDate = (String) spinner2.getSelectedItem();
+		//				populateTodoListFromDB(selcat,selDate);
+		//
+		//			}
+		//
+		//			@Override
+		//			public void onNothingSelected(AdapterView<?> arg0) {
+		//				// TODO Auto-generated method stub
+		//
+		//			}
+		//		});
 		openDB();
-//		loadSpinnerData();
+		//		loadSpinnerData();
 
 		populateHashMap();
 
@@ -115,21 +115,21 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 				startActivity(addIntent);
 			}
 		});
-		
+
 	}
 
-//	private void loadSpinnerData() {
-//		List<Todo> dates = myDB.getAllTodos();
-//		List<String> dateArray = new ArrayList<String>();
-//		dateArray.add("All");
-//		for(int i = 0; i < dates.size(); i++ ){
-//			String stDate = dates.get(i).getStartDate();
-//			dateArray.add(stDate);
-//		}
-//		ArrayAdapter<String> dateAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, dateArray);
-//		dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//		spinner2.setAdapter(dateAdapter);
-//	}
+	//	private void loadSpinnerData() {
+	//		List<Todo> dates = myDB.getAllTodos();
+	//		List<String> dateArray = new ArrayList<String>();
+	//		dateArray.add("All");
+	//		for(int i = 0; i < dates.size(); i++ ){
+	//			String stDate = dates.get(i).getStartDate();
+	//			dateArray.add(stDate);
+	//		}
+	//		ArrayAdapter<String> dateAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, dateArray);
+	//		dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	//		spinner2.setAdapter(dateAdapter);
+	//	}
 
 	private void populateHashMap() {
 		int i=0;
@@ -159,8 +159,6 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 
 
 	private void populateTodoListFromDB(String category, String date) {
-		
-		
 
 		if((category.equalsIgnoreCase("All")) && (date.equalsIgnoreCase("All"))){
 
@@ -188,7 +186,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 
-			  
+				prevDate = null;
 				final View row = super.getView(position, convertView, parent);
 
 				CheckBox statusBox = (CheckBox) row.findViewById(R.id.checkBox1);
@@ -202,27 +200,31 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 				else
 					statusBox.setChecked(false);
 
-				Log.i("ct", category);
-				Log.i("rowId rr ", cursor.getString(0));
 				row.setBackgroundColor(Color.parseColor(catColor.get(category)));
 
-			    
-			    // different from the previous one
-				
-			    TextView textview = (TextView) row.findViewById(R.id.date1);
-			    if (prevDate == null || !prevDate.equals(thisDate)) {
-			        textview.setVisibility(TextView.VISIBLE);
-			        prevDate = thisDate;
-			    } else {
-			        textview.setVisibility(TextView.INVISIBLE);
-
+				Log.i("row position",""+cursor.getPosition());
+				// previous row, for comparison
+			    if (cursor.getPosition() > 0 && cursor.moveToPrevious()) {
+			        prevDate = cursor.getString(4);
+			        cursor.moveToNext();
 			    }
-//				if((position % 2) == 0){
-//					row.setBackgroundColor(Color.parseColor("#33B5E5"));
-//				}else{
-//					row.setBackgroundColor(Color.parseColor("#70CBED"));
-//				}
-				
+
+				// different from the previous one
+
+				TextView textview = (TextView) row.findViewById(R.id.date1);
+				if (prevDate == null || !prevDate.equals(thisDate)) {
+					textview.setVisibility(TextView.VISIBLE);
+			//		prevDate = thisDate;
+				} else {
+					textview.setVisibility(TextView.INVISIBLE);
+
+				}
+				//				if((position % 2) == 0){
+				//					row.setBackgroundColor(Color.parseColor("#33B5E5"));
+				//				}else{
+				//					row.setBackgroundColor(Color.parseColor("#70CBED"));
+				//				}
+
 				return row;
 			}
 		};
@@ -244,26 +246,26 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 	}
 	public void checkboxClicked(View view){
 		String status;
-		 boolean checked = ((CheckBox) view).isChecked();
-		 View parentView1 = (View) view.getParent();
-			String rowIdVal1   = ((TextView) parentView1.findViewById(R.id.percent)).getText().toString();
-		 if(checked){
+		boolean checked = ((CheckBox) view).isChecked();
+		View parentView1 = (View) view.getParent();
+		String rowIdVal1   = ((TextView) parentView1.findViewById(R.id.percent)).getText().toString();
+		if(checked){
 			// checkbox.setChecked(true);
-			
+
 			status = "Done";
-			 myDB.updateStatus(rowIdVal1,status);
-			 
-			 Toast.makeText(ListTodoActivity.this,
-				 	   "checked :)", Toast.LENGTH_LONG).show();
-		 }else{
-			 status = "UnDone";
-			 myDB.updateStatus(rowIdVal1,status);
-			 Toast.makeText(ListTodoActivity.this,
-				 	   "unchecked :)", Toast.LENGTH_LONG).show();
-		 }
-		 populateTodoListFromDB(selcat, selDate);
+			myDB.updateStatus(rowIdVal1,status);
+
+			Toast.makeText(ListTodoActivity.this,
+					"Task Completed", Toast.LENGTH_LONG).show();
+		}else{
+			status = "UnDone";
+			myDB.updateStatus(rowIdVal1,status);
+			Toast.makeText(ListTodoActivity.this,
+					"Task Pending", Toast.LENGTH_LONG).show();
+		}
+		populateTodoListFromDB(selcat, selDate);
 	}
-	
+
 	@Override
 	public void onStart(){
 		super.onStart();
@@ -277,7 +279,7 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 		myDB.deleteTodo(rowIdVal);
 		populateTodoListFromDB(selcat, selDate);
 	}
-	
+
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {
@@ -292,6 +294,6 @@ public class ListTodoActivity extends Activity implements OnItemSelectedListener
 		// TODO Auto-generated method stub
 
 	}
-	
+
 
 }
